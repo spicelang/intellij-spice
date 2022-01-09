@@ -7,11 +7,15 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Spice File"
-                  implementationClass="com.spicelang.intellij.spice.SpiceFileType"
-                  fieldName="INSTANCE"
-                  language="Spice"
-                  extensions="spice" />
+        <fileType
+                language="Spice"
+                name="Spice File"
+                implementationClass="com.spicelang.intellij.spice.SpiceFileType"
+                fieldName="INSTANCE"
+                extensions="spice" />
+        <lang.parserDefinition
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition"/>
     </extensions>
 
     <actions></actions>
