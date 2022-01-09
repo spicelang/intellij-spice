@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>com.spicelang.intellij-spice</id>
+    <name>Spice</name>
+    <vendor email="support@chillibits.com" url="https://www.chillibits.com">ChilliBits</vendor>
+    <description>IntelliJ Language Plugin for the Spice Programming Language</description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Spice File"
+                  implementationClass="com.spicelang.intellij.spice.SpiceFileType"
+                  fieldName="INSTANCE"
+                  language="Spice"
+                  extensions="spice" />
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
