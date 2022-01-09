@@ -273,6 +273,18 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // BLOCK_COMMENT
+  public static boolean blockCom(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockCom")) return false;
+    if (!nextTokenIs(b, BLOCK_COMMENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BLOCK_COMMENT);
+    exit_section_(b, m, BLOCK_COM, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // BREAK INTEGER?
   public static boolean breakStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "breakStmt")) return false;
@@ -975,6 +987,18 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // LINE_COMMENT
+  public static boolean lineCom(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lineCom")) return false;
+    if (!nextTokenIs(b, LINE_COMMENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_COMMENT);
+    exit_section_(b, m, LINE_COM, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // bitwiseOrExpr (LOGICAL_AND bitwiseOrExpr)*
   public static boolean logicalAndExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "logicalAndExpr")) return false;
@@ -1497,7 +1521,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl)*
+  // (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
   static boolean spiceFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile")) return false;
     while (true) {
@@ -1508,7 +1532,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl
+  // mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom
   private static boolean spiceFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile_0")) return false;
     boolean r;
@@ -1519,6 +1543,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = globalVarDef(b, l + 1);
     if (!r) r = importStmt(b, l + 1);
     if (!r) r = extDecl(b, l + 1);
+    if (!r) r = lineCom(b, l + 1);
+    if (!r) r = blockCom(b, l + 1);
     return r;
   }
 

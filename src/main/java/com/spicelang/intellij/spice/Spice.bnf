@@ -12,7 +12,9 @@
   tokenTypeClass="com.spicelang.intellij.spice.psi.SpiceTokenType"
 }
 
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+lineCom ::= LINE_COMMENT
+blockCom ::= BLOCK_COMMENT
 
 // Control structures
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE

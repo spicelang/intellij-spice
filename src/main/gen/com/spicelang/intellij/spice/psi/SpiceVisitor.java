@@ -31,6 +31,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBlockCom(@NotNull SpiceBlockCom o) {
+    visitPsiElement(o);
+  }
+
   public void visitBreakStmt(@NotNull SpiceBreakStmt o) {
     visitPsiElement(o);
   }
@@ -104,6 +108,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitImportStmt(@NotNull SpiceImportStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLineCom(@NotNull SpiceLineCom o) {
     visitPsiElement(o);
   }
 

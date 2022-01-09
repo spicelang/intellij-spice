@@ -14,6 +14,7 @@ public interface SpiceTypes {
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
   IElementType BITWISE_AND_EXPR = new SpiceElementType("BITWISE_AND_EXPR");
   IElementType BITWISE_OR_EXPR = new SpiceElementType("BITWISE_OR_EXPR");
+  IElementType BLOCK_COM = new SpiceElementType("BLOCK_COM");
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
@@ -33,6 +34,7 @@ public interface SpiceTypes {
   IElementType IDEN_VALUE = new SpiceElementType("IDEN_VALUE");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
+  IElementType LINE_COM = new SpiceElementType("LINE_COM");
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
@@ -60,6 +62,7 @@ public interface SpiceTypes {
   IElementType ASSIGN_OP = new SpiceTokenType("ASSIGN_OP");
   IElementType BITWISE_AND = new SpiceTokenType("BITWISE_AND");
   IElementType BITWISE_OR = new SpiceTokenType("BITWISE_OR");
+  IElementType BLOCK_COMMENT = new SpiceTokenType("BLOCK_COMMENT");
   IElementType BREAK = new SpiceTokenType("BREAK");
   IElementType CHAR = new SpiceTokenType("CHAR");
   IElementType COLON = new SpiceTokenType("COLON");
@@ -89,6 +92,7 @@ public interface SpiceTypes {
   IElementType LBRACKET = new SpiceTokenType("LBRACKET");
   IElementType LESS = new SpiceTokenType("LESS");
   IElementType LESS_EQUAL = new SpiceTokenType("LESS_EQUAL");
+  IElementType LINE_COMMENT = new SpiceTokenType("LINE_COMMENT");
   IElementType LOGICAL_AND = new SpiceTokenType("LOGICAL_AND");
   IElementType LOGICAL_OR = new SpiceTokenType("LOGICAL_OR");
   IElementType LPAREN = new SpiceTokenType("LPAREN");
@@ -155,6 +159,9 @@ public interface SpiceTypes {
       else if (type == BITWISE_OR_EXPR) {
         return new SpiceBitwiseOrExprImpl(node);
       }
+      else if (type == BLOCK_COM) {
+        return new SpiceBlockComImpl(node);
+      }
       else if (type == BREAK_STMT) {
         return new SpiceBreakStmtImpl(node);
       }
@@ -211,6 +218,9 @@ public interface SpiceTypes {
       }
       else if (type == IMPORT_STMT) {
         return new SpiceImportStmtImpl(node);
+      }
+      else if (type == LINE_COM) {
+        return new SpiceLineComImpl(node);
       }
       else if (type == LOGICAL_AND_EXPR) {
         return new SpiceLogicalAndExprImpl(node);

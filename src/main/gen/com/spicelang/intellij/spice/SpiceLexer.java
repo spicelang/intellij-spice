@@ -37,24 +37,29 @@ class SpiceLexer implements FlexLexer {
 
   /** 
    * Translates characters to character classes
-   * Chosen bits are [8, 6, 7]
-   * Total runtime size is 1040 bytes
+   * Chosen bits are [9, 6, 6]
+   * Total runtime size is 1568 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>13]|((ch>>7)&0x3f)]|(ch&0x7f)];
+    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>12]|((ch>>6)&0x3f)]<<6)|(ch&0x3f)];
   }
 
-  /* The ZZ_CMAP_Z table has 136 entries */
+  /* The ZZ_CMAP_Z table has 272 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\207\100");
+    "\1\0\1\100\1\200\u010d\100");
 
-  /* The ZZ_CMAP_Y table has 128 entries */
+  /* The ZZ_CMAP_Y table has 192 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\177\200");
+    "\1\0\1\1\1\2\175\3\1\4\77\3");
 
-  /* The ZZ_CMAP_A table has 256 entries */
+  /* The ZZ_CMAP_A table has 320 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\142\0\1\4\1\0\1\1\1\6\3\0\1\7\2\0\1\5\1\0\1\10\1\2\4\0\1\11\1\3\212\0");
+    "\11\0\1\71\1\32\2\34\1\32\22\0\1\71\1\55\1\40\2\0\1\64\1\54\1\31\1\47\1\50"+
+    "\1\60\1\56\1\70\1\41\1\30\1\61\1\43\11\42\1\67\1\66\1\62\1\57\1\63\1\65\1"+
+    "\0\4\44\1\35\1\37\10\44\1\36\13\44\1\51\1\33\1\52\1\0\1\44\1\0\1\20\1\4\1"+
+    "\17\1\1\1\6\1\21\1\15\1\13\1\7\1\44\1\25\1\5\1\24\1\10\1\2\1\22\1\44\1\14"+
+    "\1\12\1\11\1\3\1\44\1\23\1\27\1\16\1\26\1\45\1\53\1\46\7\0\1\34\242\0\2\34"+
+    "\26\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -62,10 +67,23 @@ class SpiceLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\3\1\3\0\1\2\2\0\1\3";
+    "\1\0\1\1\14\2\1\3\1\4\2\2\1\5\1\1"+
+    "\1\6\1\1\1\7\2\10\1\11\1\12\1\13\1\14"+
+    "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24"+
+    "\1\25\1\26\1\27\1\30\1\31\1\32\1\33\1\34"+
+    "\12\2\1\35\13\2\1\36\5\2\7\0\1\37\1\40"+
+    "\1\0\1\41\2\0\1\42\1\43\1\44\1\45\1\46"+
+    "\1\47\1\50\1\51\2\0\1\52\1\53\1\54\1\55"+
+    "\1\2\1\56\1\57\5\2\1\60\1\61\1\2\1\62"+
+    "\1\63\10\2\1\64\4\2\1\65\2\66\2\0\2\67"+
+    "\1\0\1\70\1\71\1\2\1\72\1\2\1\73\1\74"+
+    "\1\75\1\2\1\76\1\77\7\2\1\100\4\2\1\101"+
+    "\2\0\1\102\1\2\1\103\4\2\1\104\2\2\1\105"+
+    "\1\2\1\106\1\2\1\107\1\110\1\111\1\112\1\113"+
+    "\1\114\1\115\2\2\1\116\1\2\1\117\1\120";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[11];
+    int [] result = new int[187];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -90,11 +108,33 @@ class SpiceLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\12\0\24\0\36\0\50\0\62\0\74\0\12"+
-    "\0\106\0\120\0\12";
+    "\0\0\0\72\0\164\0\256\0\350\0\u0122\0\u015c\0\u0196"+
+    "\0\u01d0\0\u020a\0\u0244\0\u027e\0\u02b8\0\u02f2\0\u032c\0\u0366"+
+    "\0\u03a0\0\u03da\0\u0414\0\u044e\0\u0488\0\u04c2\0\u04fc\0\u0536"+
+    "\0\u0570\0\72\0\72\0\72\0\72\0\72\0\72\0\u05aa"+
+    "\0\u05e4\0\u061e\0\u0658\0\u0692\0\u06cc\0\u0706\0\u0740\0\u077a"+
+    "\0\72\0\72\0\72\0\72\0\72\0\u07b4\0\u07ee\0\u0828"+
+    "\0\u0862\0\u089c\0\u08d6\0\u0910\0\u094a\0\u0984\0\u09be\0\256"+
+    "\0\u09f8\0\u0a32\0\u0a6c\0\u0aa6\0\u0ae0\0\u0b1a\0\u0b54\0\u0b8e"+
+    "\0\u0bc8\0\u0c02\0\u0c3c\0\256\0\u0c76\0\u0cb0\0\u0cea\0\u0d24"+
+    "\0\u0d5e\0\u0d98\0\u0dd2\0\u0e0c\0\u0e46\0\u0e80\0\u04c2\0\u0eba"+
+    "\0\u04c2\0\72\0\u0570\0\72\0\u0ef4\0\u0f2e\0\72\0\72"+
+    "\0\72\0\72\0\72\0\72\0\72\0\72\0\u0f68\0\72"+
+    "\0\72\0\u0fa2\0\72\0\u0fdc\0\u1016\0\256\0\256\0\u1050"+
+    "\0\u108a\0\u10c4\0\u10fe\0\u1138\0\256\0\256\0\u1172\0\256"+
+    "\0\256\0\u11ac\0\u11e6\0\u1220\0\u125a\0\u1294\0\u12ce\0\u1308"+
+    "\0\u1342\0\u137c\0\u13b6\0\u13f0\0\u142a\0\u1464\0\72\0\72"+
+    "\0\u0e0c\0\u149e\0\u14d8\0\u0ef4\0\u0f2e\0\u1512\0\72\0\72"+
+    "\0\u154c\0\256\0\u1586\0\256\0\256\0\256\0\u15c0\0\256"+
+    "\0\256\0\u15fa\0\u1634\0\u166e\0\u16a8\0\u16e2\0\u171c\0\u1756"+
+    "\0\256\0\u1790\0\u17ca\0\u1804\0\u183e\0\256\0\u1878\0\u18b2"+
+    "\0\u0f68\0\u18ec\0\256\0\u1926\0\u1960\0\u199a\0\u19d4\0\256"+
+    "\0\u1a0e\0\u1a48\0\256\0\u1a82\0\256\0\u1abc\0\256\0\256"+
+    "\0\256\0\256\0\256\0\256\0\256\0\u1af6\0\u1b30\0\256"+
+    "\0\u1b6a\0\256\0\256";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[11];
+    int [] result = new int[187];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -117,12 +157,125 @@ class SpiceLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\5\2\1\4\2\2\14\0\1\5\17\0"+
-    "\1\6\4\0\1\7\17\0\1\10\4\0\1\11\12\0"+
-    "\1\12\12\0\1\13\3\0";
+    "\1\2\1\3\2\4\1\5\1\6\1\7\1\10\1\11"+
+    "\1\12\1\13\1\4\1\14\2\4\1\15\1\16\1\17"+
+    "\1\20\1\21\1\22\3\4\1\23\1\24\1\25\2\2"+
+    "\3\4\1\26\1\27\1\30\1\31\1\4\1\32\1\33"+
+    "\1\34\1\35\1\36\1\37\1\40\1\41\1\42\1\43"+
+    "\1\44\1\45\1\46\1\47\1\50\1\51\1\52\1\53"+
+    "\1\54\1\55\1\25\73\0\1\4\1\56\2\4\1\57"+
+    "\10\4\1\60\11\4\5\0\3\4\2\0\3\4\26\0"+
+    "\27\4\5\0\3\4\2\0\3\4\26\0\1\4\1\61"+
+    "\11\4\1\62\1\4\1\63\11\4\5\0\3\4\2\0"+
+    "\3\4\26\0\1\4\1\64\25\4\5\0\3\4\2\0"+
+    "\3\4\26\0\4\4\1\65\21\4\1\66\5\0\3\4"+
+    "\2\0\3\4\26\0\7\4\1\67\10\4\1\70\2\4"+
+    "\1\71\3\4\5\0\3\4\2\0\3\4\26\0\5\4"+
+    "\1\72\1\73\20\4\5\0\3\4\2\0\3\4\26\0"+
+    "\13\4\1\74\1\4\1\75\11\4\5\0\3\4\2\0"+
+    "\3\4\26\0\6\4\1\76\1\4\1\77\1\4\1\100"+
+    "\14\4\5\0\3\4\2\0\3\4\26\0\5\4\1\101"+
+    "\21\4\5\0\3\4\2\0\3\4\26\0\1\4\1\102"+
+    "\10\4\1\103\14\4\5\0\3\4\2\0\3\4\26\0"+
+    "\11\4\1\104\15\4\5\0\3\4\2\0\3\4\26\0"+
+    "\1\4\1\105\15\4\1\106\7\4\5\0\3\4\2\0"+
+    "\3\4\26\0\13\4\1\107\13\4\5\0\3\4\2\0"+
+    "\3\4\26\0\12\4\1\110\14\4\5\0\3\4\2\0"+
+    "\3\4\26\0\17\4\1\111\7\4\5\0\3\4\2\0"+
+    "\3\4\55\0\1\112\41\0\31\113\2\114\1\115\36\113"+
+    "\32\0\1\25\36\0\1\25\32\116\1\117\1\120\4\116"+
+    "\1\121\31\116\41\0\1\122\1\30\1\123\13\0\1\124"+
+    "\12\0\32\125\1\0\1\125\1\0\5\125\2\30\60\125"+
+    "\1\0\1\125\1\0\5\125\2\126\26\125\53\0\1\127"+
+    "\72\0\1\130\74\0\1\131\70\0\1\132\1\133\71\0"+
+    "\1\134\71\0\1\135\71\0\1\136\1\137\1\140\67\0"+
+    "\1\141\2\0\1\142\66\0\1\143\3\0\1\144\7\0"+
+    "\2\4\1\145\24\4\5\0\3\4\2\0\3\4\26\0"+
+    "\4\4\1\146\22\4\5\0\3\4\2\0\3\4\26\0"+
+    "\7\4\1\147\17\4\5\0\3\4\2\0\3\4\26\0"+
+    "\1\4\1\150\25\4\5\0\3\4\2\0\3\4\26\0"+
+    "\5\4\1\151\21\4\5\0\3\4\2\0\3\4\26\0"+
+    "\10\4\1\152\16\4\5\0\3\4\2\0\3\4\26\0"+
+    "\7\4\1\153\17\4\5\0\3\4\2\0\3\4\26\0"+
+    "\11\4\1\154\15\4\5\0\3\4\2\0\3\4\26\0"+
+    "\10\4\1\155\16\4\5\0\3\4\2\0\3\4\26\0"+
+    "\10\4\1\156\16\4\5\0\3\4\2\0\3\4\26\0"+
+    "\21\4\1\157\5\4\5\0\3\4\2\0\3\4\26\0"+
+    "\22\4\1\160\4\4\5\0\3\4\2\0\3\4\26\0"+
+    "\4\4\1\161\22\4\5\0\3\4\2\0\3\4\26\0"+
+    "\2\4\1\162\24\4\5\0\3\4\2\0\3\4\26\0"+
+    "\21\4\1\163\5\4\5\0\3\4\2\0\3\4\26\0"+
+    "\25\4\1\164\1\4\5\0\3\4\2\0\3\4\26\0"+
+    "\13\4\1\165\13\4\5\0\3\4\2\0\3\4\26\0"+
+    "\1\4\1\166\25\4\5\0\3\4\2\0\3\4\26\0"+
+    "\10\4\1\167\16\4\5\0\3\4\2\0\3\4\26\0"+
+    "\7\4\1\170\17\4\5\0\3\4\2\0\3\4\26\0"+
+    "\17\4\1\171\7\4\5\0\3\4\2\0\3\4\26\0"+
+    "\13\4\1\172\13\4\5\0\3\4\2\0\3\4\26\0"+
+    "\4\4\1\173\22\4\5\0\3\4\2\0\3\4\26\0"+
+    "\6\4\1\174\20\4\5\0\3\4\2\0\3\4\26\0"+
+    "\6\4\1\175\20\4\5\0\3\4\2\0\3\4\26\0"+
+    "\6\4\1\176\20\4\5\0\3\4\2\0\3\4\55\0"+
+    "\1\177\41\0\31\113\3\114\36\113\31\0\1\200\40\0"+
+    "\31\114\1\201\1\0\1\114\1\0\1\202\34\114\32\116"+
+    "\2\117\4\116\1\117\31\116\33\117\1\120\1\116\1\203"+
+    "\2\117\1\121\31\117\42\0\2\204\26\0\32\125\1\0"+
+    "\1\125\1\0\5\125\2\205\26\125\32\137\1\0\1\137"+
+    "\1\0\23\137\1\206\11\137\57\0\1\207\71\0\1\210"+
+    "\13\0\3\4\1\211\23\4\5\0\3\4\2\0\3\4"+
+    "\26\0\4\4\1\212\22\4\5\0\3\4\2\0\3\4"+
+    "\26\0\17\4\1\213\7\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\214\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\14\4\1\215\12\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\216\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\1\4\1\217\25\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\220\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\221\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\222\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\2\4\1\223\3\4\1\224\20\4\5\0\3\4"+
+    "\2\0\3\4\26\0\13\4\1\225\13\4\5\0\3\4"+
+    "\2\0\3\4\26\0\2\4\1\226\24\4\5\0\3\4"+
+    "\2\0\3\4\26\0\10\4\1\227\1\230\15\4\5\0"+
+    "\3\4\2\0\3\4\26\0\13\4\1\231\13\4\5\0"+
+    "\3\4\2\0\3\4\26\0\5\4\1\232\21\4\5\0"+
+    "\3\4\2\0\3\4\26\0\11\4\1\233\15\4\5\0"+
+    "\3\4\2\0\3\4\26\0\7\4\1\234\17\4\5\0"+
+    "\3\4\2\0\3\4\26\0\4\4\1\235\22\4\5\0"+
+    "\3\4\2\0\3\4\26\0\7\4\1\236\17\4\5\0"+
+    "\3\4\2\0\3\4\56\0\1\200\4\0\1\237\33\0"+
+    "\32\116\1\117\1\120\2\116\1\240\1\116\1\121\31\116"+
+    "\32\137\1\0\1\137\1\0\23\137\1\206\1\241\10\137"+
+    "\1\0\4\4\1\242\22\4\5\0\3\4\2\0\3\4"+
+    "\26\0\24\4\1\243\2\4\5\0\3\4\2\0\3\4"+
+    "\26\0\13\4\1\244\13\4\5\0\3\4\2\0\3\4"+
+    "\26\0\1\4\1\245\25\4\5\0\3\4\2\0\3\4"+
+    "\26\0\16\4\1\246\10\4\5\0\3\4\2\0\3\4"+
+    "\26\0\7\4\1\247\17\4\5\0\3\4\2\0\3\4"+
+    "\26\0\10\4\1\250\16\4\5\0\3\4\2\0\3\4"+
+    "\26\0\13\4\1\251\13\4\5\0\3\4\2\0\3\4"+
+    "\26\0\6\4\1\252\20\4\5\0\3\4\2\0\3\4"+
+    "\26\0\10\4\1\253\16\4\5\0\3\4\2\0\3\4"+
+    "\26\0\17\4\1\254\7\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\255\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\10\4\1\256\16\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\257\21\4\5\0\3\4\2\0\3\4"+
+    "\64\0\1\114\32\0\32\116\2\117\3\116\2\117\31\116"+
+    "\1\0\5\4\1\260\21\4\5\0\3\4\2\0\3\4"+
+    "\26\0\10\4\1\261\16\4\5\0\3\4\2\0\3\4"+
+    "\26\0\20\4\1\262\6\4\5\0\3\4\2\0\3\4"+
+    "\26\0\10\4\1\263\16\4\5\0\3\4\2\0\3\4"+
+    "\26\0\14\4\1\264\12\4\5\0\3\4\2\0\3\4"+
+    "\26\0\7\4\1\265\17\4\5\0\3\4\2\0\3\4"+
+    "\26\0\7\4\1\266\17\4\5\0\3\4\2\0\3\4"+
+    "\26\0\16\4\1\267\10\4\5\0\3\4\2\0\3\4"+
+    "\26\0\20\4\1\270\6\4\5\0\3\4\2\0\3\4"+
+    "\26\0\2\4\1\271\24\4\5\0\3\4\2\0\3\4"+
+    "\26\0\12\4\1\272\14\4\5\0\3\4\2\0\3\4"+
+    "\26\0\5\4\1\273\21\4\5\0\3\4\2\0\3\4"+
+    "\25\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[90];
+    int [] result = new int[7076];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -160,10 +313,13 @@ class SpiceLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\3\0\1\11\2\0\1\11";
+    "\1\0\1\11\27\1\6\11\11\1\5\11\34\1\7\0"+
+    "\1\1\1\11\1\0\1\11\2\0\10\11\1\0\1\10"+
+    "\1\11\1\1\1\11\33\1\2\11\1\1\2\0\2\1"+
+    "\1\0\2\11\26\1\2\0\33\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[11];
+    int [] result = new int[187];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -481,17 +637,402 @@ class SpiceLexer implements FlexLexer {
             { return TokenType.BAD_CHARACTER;
             } 
             // fall through
-          case 4: break;
+          case 81: break;
           case 2: 
+            { return SpiceTypes.IDENTIFIER;
+            } 
+            // fall through
+          case 82: break;
+          case 3: 
+            { return SpiceTypes.F;
+            } 
+            // fall through
+          case 83: break;
+          case 4: 
+            { return SpiceTypes.P;
+            } 
+            // fall through
+          case 84: break;
+          case 5: 
+            { return SpiceTypes.DOT;
+            } 
+            // fall through
+          case 85: break;
+          case 6: 
+            { return TokenType.WHITE_SPACE;
+            } 
+            // fall through
+          case 86: break;
+          case 7: 
+            { return SpiceTypes.MINUS;
+            } 
+            // fall through
+          case 87: break;
+          case 8: 
+            { return SpiceTypes.INTEGER;
+            } 
+            // fall through
+          case 88: break;
+          case 9: 
+            { return SpiceTypes.LBRACE;
+            } 
+            // fall through
+          case 89: break;
+          case 10: 
+            { return SpiceTypes.RBRACE;
+            } 
+            // fall through
+          case 90: break;
+          case 11: 
+            { return SpiceTypes.LPAREN;
+            } 
+            // fall through
+          case 91: break;
+          case 12: 
+            { return SpiceTypes.RPAREN;
+            } 
+            // fall through
+          case 92: break;
+          case 13: 
+            { return SpiceTypes.LBRACKET;
+            } 
+            // fall through
+          case 93: break;
+          case 14: 
+            { return SpiceTypes.RBRACKET;
+            } 
+            // fall through
+          case 94: break;
+          case 15: 
+            { return SpiceTypes.BITWISE_OR;
+            } 
+            // fall through
+          case 95: break;
+          case 16: 
+            { return SpiceTypes.BITWISE_AND;
+            } 
+            // fall through
+          case 96: break;
+          case 17: 
+            { return SpiceTypes.NOT;
+            } 
+            // fall through
+          case 97: break;
+          case 18: 
+            { return SpiceTypes.PLUS;
+            } 
+            // fall through
+          case 98: break;
+          case 19: 
+            { return SpiceTypes.ASSIGN_OP;
+            } 
+            // fall through
+          case 99: break;
+          case 20: 
+            { return SpiceTypes.MUL;
+            } 
+            // fall through
+          case 100: break;
+          case 21: 
+            { return SpiceTypes.DIV;
+            } 
+            // fall through
+          case 101: break;
+          case 22: 
+            { return SpiceTypes.LESS;
+            } 
+            // fall through
+          case 102: break;
+          case 23: 
+            { return SpiceTypes.GREATER;
+            } 
+            // fall through
+          case 103: break;
+          case 24: 
+            { return SpiceTypes.REM;
+            } 
+            // fall through
+          case 104: break;
+          case 25: 
+            { return SpiceTypes.QUESTION_MARK;
+            } 
+            // fall through
+          case 105: break;
+          case 26: 
+            { return SpiceTypes.SEMICOLON;
+            } 
+            // fall through
+          case 106: break;
+          case 27: 
+            { return SpiceTypes.COLON;
+            } 
+            // fall through
+          case 107: break;
+          case 28: 
+            { return SpiceTypes.COMMA;
+            } 
+            // fall through
+          case 108: break;
+          case 29: 
+            { return SpiceTypes.IF;
+            } 
+            // fall through
+          case 109: break;
+          case 30: 
+            { return SpiceTypes.AS;
+            } 
+            // fall through
+          case 110: break;
+          case 31: 
+            { return SpiceTypes.STRING;
+            } 
+            // fall through
+          case 111: break;
+          case 32: 
+            { return SpiceTypes.MINUS_MINUS;
+            } 
+            // fall through
+          case 112: break;
+          case 33: 
+            { return SpiceTypes.MINUS_EQUAL;
+            } 
+            // fall through
+          case 113: break;
+          case 34: 
+            { return SpiceTypes.LOGICAL_OR;
+            } 
+            // fall through
+          case 114: break;
+          case 35: 
+            { return SpiceTypes.LOGICAL_AND;
+            } 
+            // fall through
+          case 115: break;
+          case 36: 
+            { return SpiceTypes.NOT_EQUAL;
+            } 
+            // fall through
+          case 116: break;
+          case 37: 
+            { return SpiceTypes.PLUS_PLUS;
+            } 
+            // fall through
+          case 117: break;
+          case 38: 
+            { return SpiceTypes.PLUS_EQUAL;
+            } 
+            // fall through
+          case 118: break;
+          case 39: 
+            { return SpiceTypes.EQUAL;
+            } 
+            // fall through
+          case 119: break;
+          case 40: 
+            { return SpiceTypes.MUL_EQUAL;
+            } 
+            // fall through
+          case 120: break;
+          case 41: 
+            { return SpiceTypes.DIV_EQUAL;
+            } 
+            // fall through
+          case 121: break;
+          case 42: 
+            { return SpiceTypes.LESS_EQUAL;
+            } 
+            // fall through
+          case 122: break;
+          case 43: 
+            { return SpiceTypes.SHL;
+            } 
+            // fall through
+          case 123: break;
+          case 44: 
+            { return SpiceTypes.GREATER_EQUAL;
+            } 
+            // fall through
+          case 124: break;
+          case 45: 
+            { return SpiceTypes.SHR;
+            } 
+            // fall through
+          case 125: break;
+          case 46: 
+            { return SpiceTypes.DLL;
+            } 
+            // fall through
+          case 126: break;
+          case 47: 
+            { return SpiceTypes.TYPE_DYN;
+            } 
+            // fall through
+          case 127: break;
+          case 48: 
+            { return SpiceTypes.EXT;
+            } 
+            // fall through
+          case 128: break;
+          case 49: 
             { return SpiceTypes.TYPE_INT;
             } 
             // fall through
-          case 5: break;
-          case 3: 
+          case 129: break;
+          case 50: 
+            { return SpiceTypes.NEW;
+            } 
+            // fall through
+          case 130: break;
+          case 51: 
+            { return SpiceTypes.NIL;
+            } 
+            // fall through
+          case 131: break;
+          case 52: 
+            { return SpiceTypes.FOR;
+            } 
+            // fall through
+          case 132: break;
+          case 53: 
+            { return SpiceTypes.ELLIPSIS;
+            } 
+            // fall through
+          case 133: break;
+          case 54: 
+            { return SpiceTypes.CHAR;
+            } 
+            // fall through
+          case 134: break;
+          case 55: 
+            { return SpiceTypes.DOUBLE;
+            } 
+            // fall through
+          case 135: break;
+          case 56: 
+            { return SpiceTypes.SHL_EQUAL;
+            } 
+            // fall through
+          case 136: break;
+          case 57: 
+            { return SpiceTypes.SHR_EQUAL;
+            } 
+            // fall through
+          case 137: break;
+          case 58: 
+            { return SpiceTypes.TYPE_BOOL;
+            } 
+            // fall through
+          case 138: break;
+          case 59: 
+            { return SpiceTypes.TYPE_BYTE;
+            } 
+            // fall through
+          case 139: break;
+          case 60: 
+            { return SpiceTypes.TYPE_LONG;
+            } 
+            // fall through
+          case 140: break;
+          case 61: 
+            { return SpiceTypes.ELSE;
+            } 
+            // fall through
+          case 141: break;
+          case 62: 
+            { return SpiceTypes.TRUE;
+            } 
+            // fall through
+          case 142: break;
+          case 63: 
+            { return SpiceTypes.TYPE;
+            } 
+            // fall through
+          case 143: break;
+          case 64: 
+            { return SpiceTypes.TYPE_CHAR;
+            } 
+            // fall through
+          case 144: break;
+          case 65: 
+            { return SpiceTypes.MAIN;
+            } 
+            // fall through
+          case 145: break;
+          case 66: 
+            { return SpiceTypes.BLOCK_COMMENT;
+            } 
+            // fall through
+          case 146: break;
+          case 67: 
+            { return SpiceTypes.BREAK;
+            } 
+            // fall through
+          case 147: break;
+          case 68: 
+            { return SpiceTypes.TYPE_SHORT;
+            } 
+            // fall through
+          case 148: break;
+          case 69: 
+            { return SpiceTypes.CONST;
+            } 
+            // fall through
+          case 149: break;
+          case 70: 
+            { return SpiceTypes.FALSE;
+            } 
+            // fall through
+          case 150: break;
+          case 71: 
+            { return SpiceTypes.WHILE;
+            } 
+            // fall through
+          case 151: break;
+          case 72: 
             { return SpiceTypes.TYPE_DOUBLE;
             } 
             // fall through
-          case 6: break;
+          case 152: break;
+          case 73: 
+            { return SpiceTypes.IMPORT;
+            } 
+            // fall through
+          case 153: break;
+          case 74: 
+            { return SpiceTypes.SIZEOF;
+            } 
+            // fall through
+          case 154: break;
+          case 75: 
+            { return SpiceTypes.STRUCT;
+            } 
+            // fall through
+          case 155: break;
+          case 76: 
+            { return SpiceTypes.TYPE_STRING;
+            } 
+            // fall through
+          case 156: break;
+          case 77: 
+            { return SpiceTypes.RETURN;
+            } 
+            // fall through
+          case 157: break;
+          case 78: 
+            { return SpiceTypes.PRINTF;
+            } 
+            // fall through
+          case 158: break;
+          case 79: 
+            { return SpiceTypes.FOREACH;
+            } 
+            // fall through
+          case 159: break;
+          case 80: 
+            { return SpiceTypes.CONTINUE;
+            } 
+            // fall through
+          case 160: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

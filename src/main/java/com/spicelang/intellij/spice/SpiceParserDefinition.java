@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class SpiceParserDefinition implements ParserDefinition {
 
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    //public static final TokenSet COMMENTS = TokenSet.create(SpiceTypes.COMMENT);
+    public static final TokenSet COMMENTS = TokenSet.create(SpiceTypes.LINE_COMMENT, SpiceTypes.BLOCK_COMMENT);
     public static final TokenSet STRINGS = TokenSet.create(SpiceTypes.STRING, SpiceTypes.CHAR);
 
     public static final IFileElementType FILE = new IFileElementType(SpiceLanguage.INSTANCE);
@@ -38,8 +38,7 @@ public class SpiceParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getCommentTokens() {
-        //return COMMENTS;
-        return TokenSet.EMPTY;
+        return COMMENTS;
     }
 
     @NotNull
