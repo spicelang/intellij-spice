@@ -19,6 +19,8 @@
         <lang.syntaxHighlighterFactory
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory"/>
+        <colorSettingsPage
+                implementation="com.spicelang.intellij.spice.SpiceColorSettingsPage"/>
     </extensions>
 
     <actions></actions>
