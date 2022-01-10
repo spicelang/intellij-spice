@@ -19,13 +19,13 @@ import com.intellij.psi.TokenType;
 %eof}
 
 // Macro definitions
-CHAR = '([^'\\\r\n]|\\(.|EOF))'
-STRING = \"([^\"\\\r\n]|\\(.|EOF))*\"
+CHAR = '(\\.|[^'\\])*'
+STRING = \"(\\.|[^\"\\])*\"
 INTEGER = -?[1-9]+[0-9]*|0
 DOUBLE = -?[0-9]+.[0-9]+
 IDENTIFIER = [_a-zA-Z][_a-zA-Z0-9]*
-BLOCK_COMMENT = \/\*.*?\*\/
-LINE_COMMENT = \/\/[^\r\n]*
+BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
+LINE_COMMENT = "//".*
 ELLIPSIS = \.{3}
 WS = [ \t\r\n]+
 
@@ -70,45 +70,45 @@ false                                             { return SpiceTypes.FALSE; }
 {STRING}                                          { return SpiceTypes.STRING; }
 {INTEGER}                                         { return SpiceTypes.INTEGER; }
 {DOUBLE}                                          { return SpiceTypes.DOUBLE; }
-\{                                                { return SpiceTypes.LBRACE; }
-\}                                                { return SpiceTypes.RBRACE; }
-\(                                                { return SpiceTypes.LPAREN; }
-\)                                                { return SpiceTypes.RPAREN; }
-\[                                                { return SpiceTypes.LBRACKET; }
-\]                                                { return SpiceTypes.RBRACKET; }
-\|\|                                              { return SpiceTypes.LOGICAL_OR; }
+"{"                                               { return SpiceTypes.LBRACE; }
+"}"                                               { return SpiceTypes.RBRACE; }
+"("                                               { return SpiceTypes.LPAREN; }
+")"                                               { return SpiceTypes.RPAREN; }
+"["                                               { return SpiceTypes.LBRACKET; }
+"]"                                               { return SpiceTypes.RBRACKET; }
+"||"                                              { return SpiceTypes.LOGICAL_OR; }
 &&                                                { return SpiceTypes.LOGICAL_AND; }
-\|                                                { return SpiceTypes.BITWISE_OR; }
-&                                                 { return SpiceTypes.BITWISE_AND; }
-\!                                                { return SpiceTypes.NOT; }
-\+\+                                              { return SpiceTypes.PLUS_PLUS; }
---                                                { return SpiceTypes.MINUS_MINUS; }
-\+=                                               { return SpiceTypes.PLUS_EQUAL; }
--=                                                { return SpiceTypes.MINUS_EQUAL; }
-\*=                                               { return SpiceTypes.MUL_EQUAL; }
-\/=                                               { return SpiceTypes.DIV_EQUAL; }
-\<\<=                                             { return SpiceTypes.SHL_EQUAL; }
-\>\>=                                             { return SpiceTypes.SHR_EQUAL; }
-\<\<                                              { return SpiceTypes.SHL; }
-\>\>                                              { return SpiceTypes.SHR; }
-\+                                                { return SpiceTypes.PLUS; }
--                                                 { return SpiceTypes.MINUS; }
-\*                                                { return SpiceTypes.MUL; }
-\/                                                { return SpiceTypes.DIV; }
-%                                                 { return SpiceTypes.REM; }
-\>=                                               { return SpiceTypes.GREATER_EQUAL; }
-\<=                                               { return SpiceTypes.LESS_EQUAL; }
-\>                                                { return SpiceTypes.GREATER; }
-\<                                                { return SpiceTypes.LESS; }
-==                                                { return SpiceTypes.EQUAL; }
-\!=                                               { return SpiceTypes.NOT_EQUAL; }
-=                                                 { return SpiceTypes.ASSIGN_OP; }
-\?                                                { return SpiceTypes.QUESTION_MARK; }
-;                                                 { return SpiceTypes.SEMICOLON; }
-:                                                 { return SpiceTypes.COLON; }
-,                                                 { return SpiceTypes.COMMA; }
-\.                                                { return SpiceTypes.DOT; }
-{BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }
+"|"                                               { return SpiceTypes.BITWISE_OR; }
+"&"                                               { return SpiceTypes.BITWISE_AND; }
+"!"                                               { return SpiceTypes.NOT; }
+"++"                                              { return SpiceTypes.PLUS_PLUS; }
+"--"                                              { return SpiceTypes.MINUS_MINUS; }
+"+="                                              { return SpiceTypes.PLUS_EQUAL; }
+"-="                                              { return SpiceTypes.MINUS_EQUAL; }
+"*="                                              { return SpiceTypes.MUL_EQUAL; }
+"/="                                              { return SpiceTypes.DIV_EQUAL; }
+"<<="                                             { return SpiceTypes.SHL_EQUAL; }
+">>="                                             { return SpiceTypes.SHR_EQUAL; }
+"<<"                                              { return SpiceTypes.SHL; }
+">>"                                              { return SpiceTypes.SHR; }
+"+"                                               { return SpiceTypes.PLUS; }
+"-"                                               { return SpiceTypes.MINUS; }
+"*"                                               { return SpiceTypes.MUL; }
+"/"                                               { return SpiceTypes.DIV; }
+"%"                                               { return SpiceTypes.REM; }
+"<="                                              { return SpiceTypes.LESS_EQUAL; }
+">="                                              { return SpiceTypes.GREATER_EQUAL; }
+"<"                                               { return SpiceTypes.LESS; }
+">"                                               { return SpiceTypes.GREATER; }
+"=="                                              { return SpiceTypes.EQUAL; }
+"!="                                              { return SpiceTypes.NOT_EQUAL; }
+"="                                               { return SpiceTypes.ASSIGN_OP; }
+"?"                                               { return SpiceTypes.QUESTION_MARK; }
+";"                                               { return SpiceTypes.SEMICOLON; }
+":"                                               { return SpiceTypes.COLON; }
+","                                               { return SpiceTypes.COMMA; }
+"."                                               { return SpiceTypes.DOT; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
+{BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }
 {WS}                                              { return TokenType.WHITE_SPACE; }
 [^]                                               { return TokenType.BAD_CHARACTER; }

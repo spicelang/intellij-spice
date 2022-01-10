@@ -16,6 +16,9 @@
         <lang.parserDefinition
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory"/>
     </extensions>
 
     <actions></actions>
