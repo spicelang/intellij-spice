@@ -1,0 +1,4 @@
+f<int> main() {
+    printf("test: %d", 1.0);
+    char test = 'a';
+}

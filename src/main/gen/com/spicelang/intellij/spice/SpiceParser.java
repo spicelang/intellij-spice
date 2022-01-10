@@ -1549,7 +1549,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (declStmt | assignExpr | newStmt | arrayInitStmt | idenValue | builtinCall | returnStmt | breakStmt | continueStmt) SEMICOLON
+  // (assignExpr | declStmt | newStmt | arrayInitStmt | idenValue | builtinCall | returnStmt | breakStmt | continueStmt) SEMICOLON
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
@@ -1560,12 +1560,12 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // declStmt | assignExpr | newStmt | arrayInitStmt | idenValue | builtinCall | returnStmt | breakStmt | continueStmt
+  // assignExpr | declStmt | newStmt | arrayInitStmt | idenValue | builtinCall | returnStmt | breakStmt | continueStmt
   private static boolean stmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt_0")) return false;
     boolean r;
-    r = declStmt(b, l + 1);
-    if (!r) r = assignExpr(b, l + 1);
+    r = assignExpr(b, l + 1);
+    if (!r) r = declStmt(b, l + 1);
     if (!r) r = newStmt(b, l + 1);
     if (!r) r = arrayInitStmt(b, l + 1);
     if (!r) r = idenValue(b, l + 1);
