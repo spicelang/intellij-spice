@@ -29,8 +29,8 @@ public class SpiceMultiplicativeExprImpl extends ASTWrapperPsiElement implements
 
   @Override
   @NotNull
-  public List<SpicePrefixUnaryExpr> getPrefixUnaryExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePrefixUnaryExpr.class);
+  public List<SpiceCastExpr> getCastExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceCastExpr.class);
   }
 
 }

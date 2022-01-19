@@ -11,6 +11,9 @@ public interface SpiceForLoop extends PsiElement {
   List<SpiceAssignExpr> getAssignExprList();
 
   @NotNull
+  SpiceDeclStmt getDeclStmt();
+
+  @NotNull
   SpiceStmtLst getStmtLst();
 
 }

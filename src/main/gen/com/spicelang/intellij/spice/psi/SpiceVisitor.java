@@ -11,15 +11,19 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitArrayInitStmt(@NotNull SpiceArrayInitStmt o) {
-    visitPsiElement(o);
-  }
-
   public void visitAssignExpr(@NotNull SpiceAssignExpr o) {
     visitPsiElement(o);
   }
 
+  public void visitAssignOp(@NotNull SpiceAssignOp o) {
+    visitPsiElement(o);
+  }
+
   public void visitAtomicExpr(@NotNull SpiceAtomicExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBaseDataType(@NotNull SpiceBaseDataType o) {
     visitPsiElement(o);
   }
 
@@ -28,6 +32,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitBitwiseOrExpr(@NotNull SpiceBitwiseOrExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitBitwiseXorExpr(@NotNull SpiceBitwiseXorExpr o) {
     visitPsiElement(o);
   }
 
@@ -52,6 +60,14 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitDataType(@NotNull SpiceDataType o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDeclSpecifier(@NotNull SpiceDeclSpecifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDeclSpecifiers(@NotNull SpiceDeclSpecifiers o) {
     visitPsiElement(o);
   }
 
@@ -87,19 +103,11 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFunctionCall(@NotNull SpiceFunctionCall o) {
-    visitPsiElement(o);
-  }
-
   public void visitFunctionDef(@NotNull SpiceFunctionDef o) {
     visitPsiElement(o);
   }
 
   public void visitGlobalVarDef(@NotNull SpiceGlobalVarDef o) {
-    visitPsiElement(o);
-  }
-
-  public void visitIdenValue(@NotNull SpiceIdenValue o) {
     visitPsiElement(o);
   }
 
@@ -131,10 +139,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitNewStmt(@NotNull SpiceNewStmt o) {
-    visitPsiElement(o);
-  }
-
   public void visitParamLst(@NotNull SpiceParamLst o) {
     visitPsiElement(o);
   }
@@ -148,6 +152,14 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitPrefixUnaryExpr(@NotNull SpicePrefixUnaryExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPrefixUnaryOp(@NotNull SpicePrefixUnaryOp o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPrimitiveValue(@NotNull SpicePrimitiveValue o) {
     visitPsiElement(o);
   }
 

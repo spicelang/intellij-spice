@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceArrayInitStmt extends PsiElement {
+public interface SpiceBitwiseXorExpr extends PsiElement {
 
   @NotNull
-  SpiceDataType getDataType();
-
-  @Nullable
-  SpiceParamLst getParamLst();
+  List<SpiceBitwiseAndExpr> getBitwiseAndExprList();
 
 }

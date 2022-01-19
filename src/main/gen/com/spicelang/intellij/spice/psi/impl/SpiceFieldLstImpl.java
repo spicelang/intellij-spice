@@ -29,8 +29,8 @@ public class SpiceFieldLstImpl extends ASTWrapperPsiElement implements SpiceFiel
 
   @Override
   @NotNull
-  public List<SpiceDeclStmt> getDeclStmtList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceDeclStmt.class);
+  public List<SpiceDataType> getDataTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceDataType.class);
   }
 
 }

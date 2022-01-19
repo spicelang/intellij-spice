@@ -29,8 +29,8 @@ public class SpiceBitwiseOrExprImpl extends ASTWrapperPsiElement implements Spic
 
   @Override
   @NotNull
-  public List<SpiceBitwiseAndExpr> getBitwiseAndExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceBitwiseAndExpr.class);
+  public List<SpiceBitwiseXorExpr> getBitwiseXorExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceBitwiseXorExpr.class);
   }
 
 }

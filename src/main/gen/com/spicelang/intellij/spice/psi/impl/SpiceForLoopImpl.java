@@ -35,6 +35,12 @@ public class SpiceForLoopImpl extends ASTWrapperPsiElement implements SpiceForLo
 
   @Override
   @NotNull
+  public SpiceDeclStmt getDeclStmt() {
+    return findNotNullChildByClass(SpiceDeclStmt.class);
+  }
+
+  @Override
+  @NotNull
   public SpiceStmtLst getStmtLst() {
     return findNotNullChildByClass(SpiceStmtLst.class);
   }

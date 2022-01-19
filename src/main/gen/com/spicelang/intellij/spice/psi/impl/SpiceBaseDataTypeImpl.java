@@ -11,32 +11,20 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceArrayInitStmtImpl extends ASTWrapperPsiElement implements SpiceArrayInitStmt {
+public class SpiceBaseDataTypeImpl extends ASTWrapperPsiElement implements SpiceBaseDataType {
 
-  public SpiceArrayInitStmtImpl(@NotNull ASTNode node) {
+  public SpiceBaseDataTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitArrayInitStmt(this);
+    visitor.visitBaseDataType(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SpiceVisitor) accept((SpiceVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public SpiceDataType getDataType() {
-    return findNotNullChildByClass(SpiceDataType.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceParamLst getParamLst() {
-    return findChildByClass(SpiceParamLst.class);
   }
 
 }

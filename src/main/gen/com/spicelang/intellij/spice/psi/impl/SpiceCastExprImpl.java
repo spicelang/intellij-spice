@@ -28,15 +28,15 @@ public class SpiceCastExprImpl extends ASTWrapperPsiElement implements SpiceCast
   }
 
   @Override
-  @NotNull
-  public SpiceAtomicExpr getAtomicExpr() {
-    return findNotNullChildByClass(SpiceAtomicExpr.class);
-  }
-
-  @Override
   @Nullable
   public SpiceDataType getDataType() {
     return findChildByClass(SpiceDataType.class);
+  }
+
+  @Override
+  @NotNull
+  public SpicePrefixUnaryExpr getPrefixUnaryExpr() {
+    return findNotNullChildByClass(SpicePrefixUnaryExpr.class);
   }
 
 }

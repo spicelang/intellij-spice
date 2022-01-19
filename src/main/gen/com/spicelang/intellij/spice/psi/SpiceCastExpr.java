@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceCastExpr extends PsiElement {
 
-  @NotNull
-  SpiceAtomicExpr getAtomicExpr();
-
   @Nullable
   SpiceDataType getDataType();
+
+  @NotNull
+  SpicePrefixUnaryExpr getPrefixUnaryExpr();
 
 }

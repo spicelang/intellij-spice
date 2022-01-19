@@ -10,4 +10,7 @@ public interface SpicePrefixUnaryExpr extends PsiElement {
   @NotNull
   SpicePostfixUnaryExpr getPostfixUnaryExpr();
 
+  @NotNull
+  List<SpicePrefixUnaryOp> getPrefixUnaryOpList();
+
 }

@@ -29,8 +29,8 @@ public class SpiceForeachHeadImpl extends ASTWrapperPsiElement implements SpiceF
 
   @Override
   @NotNull
-  public List<SpiceAssignExpr> getAssignExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
+  public SpiceAssignExpr getAssignExpr() {
+    return findNotNullChildByClass(SpiceAssignExpr.class);
   }
 
   @Override

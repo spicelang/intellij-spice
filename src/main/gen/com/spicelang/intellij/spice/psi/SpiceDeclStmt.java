@@ -7,7 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceDeclStmt extends PsiElement {
 
+  @Nullable
+  SpiceAssignExpr getAssignExpr();
+
   @NotNull
   SpiceDataType getDataType();
+
+  @Nullable
+  SpiceDeclSpecifiers getDeclSpecifiers();
 
 }

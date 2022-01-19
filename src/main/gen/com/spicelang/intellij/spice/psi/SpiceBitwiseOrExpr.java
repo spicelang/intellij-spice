@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceBitwiseOrExpr extends PsiElement {
 
   @NotNull
-  List<SpiceBitwiseAndExpr> getBitwiseAndExprList();
+  List<SpiceBitwiseXorExpr> getBitwiseXorExprList();
 
 }

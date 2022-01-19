@@ -29,12 +29,6 @@ public class SpiceParamLstDefImpl extends ASTWrapperPsiElement implements SpiceP
 
   @Override
   @NotNull
-  public List<SpiceAssignExpr> getAssignExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
-  }
-
-  @Override
-  @NotNull
   public List<SpiceDeclStmt> getDeclStmtList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceDeclStmt.class);
   }

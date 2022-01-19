@@ -8,12 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface SpiceAssignExpr extends PsiElement {
 
   @Nullable
-  SpiceDeclStmt getDeclStmt();
+  SpiceAssignExpr getAssignExpr();
 
   @Nullable
-  SpiceIdenValue getIdenValue();
+  SpiceAssignOp getAssignOp();
 
-  @NotNull
+  @Nullable
+  SpicePrefixUnaryExpr getPrefixUnaryExpr();
+
+  @Nullable
   SpiceTernaryExpr getTernaryExpr();
 
 }

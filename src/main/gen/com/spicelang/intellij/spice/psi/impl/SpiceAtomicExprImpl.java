@@ -41,12 +41,6 @@ public class SpiceAtomicExprImpl extends ASTWrapperPsiElement implements SpiceAt
 
   @Override
   @Nullable
-  public SpiceIdenValue getIdenValue() {
-    return findChildByClass(SpiceIdenValue.class);
-  }
-
-  @Override
-  @Nullable
   public SpiceValue getValue() {
     return findChildByClass(SpiceValue.class);
   }

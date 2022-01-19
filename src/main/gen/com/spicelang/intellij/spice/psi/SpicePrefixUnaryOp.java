@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceFunctionCall extends PsiElement {
-
-  @Nullable
-  SpiceParamLst getParamLst();
+public interface SpicePrefixUnaryOp extends PsiElement {
 
 }

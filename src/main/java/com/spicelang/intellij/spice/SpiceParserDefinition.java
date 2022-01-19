@@ -19,7 +19,7 @@ public class SpiceParserDefinition implements ParserDefinition {
 
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
     public static final TokenSet COMMENTS = TokenSet.create(SpiceTypes.LINE_COMMENT, SpiceTypes.BLOCK_COMMENT);
-    public static final TokenSet STRINGS = TokenSet.create(SpiceTypes.STRING, SpiceTypes.CHAR);
+    public static final TokenSet STRINGS = TokenSet.create(SpiceTypes.STRING_LITERAL, SpiceTypes.CHAR_LITERAL);
 
     public static final IFileElementType FILE = new IFileElementType(SpiceLanguage.INSTANCE);
 
@@ -54,17 +54,17 @@ public class SpiceParserDefinition implements ParserDefinition {
     }
 
     @Override
-    public IFileElementType getFileNodeType() {
+    public @NotNull IFileElementType getFileNodeType() {
         return FILE;
     }
 
     @Override
-    public PsiFile createFile(FileViewProvider viewProvider) {
+    public @NotNull PsiFile createFile(@NotNull FileViewProvider viewProvider) {
         return new SpiceFile(viewProvider);
     }
 
     @Override
-    public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
+    public @NotNull SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
         return SpaceRequirements.MAY;
     }
 

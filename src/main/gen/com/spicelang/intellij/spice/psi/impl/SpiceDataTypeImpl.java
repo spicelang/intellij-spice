@@ -27,4 +27,10 @@ public class SpiceDataTypeImpl extends ASTWrapperPsiElement implements SpiceData
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public SpiceBaseDataType getBaseDataType() {
+    return findNotNullChildByClass(SpiceBaseDataType.class);
+  }
+
 }

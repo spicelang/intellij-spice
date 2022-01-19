@@ -9,17 +9,21 @@ import com.spicelang.intellij.spice.psi.impl.*;
 public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
-  IElementType ARRAY_INIT_STMT = new SpiceElementType("ARRAY_INIT_STMT");
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
+  IElementType ASSIGN_OP = new SpiceElementType("ASSIGN_OP");
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
+  IElementType BASE_DATA_TYPE = new SpiceElementType("BASE_DATA_TYPE");
   IElementType BITWISE_AND_EXPR = new SpiceElementType("BITWISE_AND_EXPR");
   IElementType BITWISE_OR_EXPR = new SpiceElementType("BITWISE_OR_EXPR");
+  IElementType BITWISE_XOR_EXPR = new SpiceElementType("BITWISE_XOR_EXPR");
   IElementType BLOCK_COM = new SpiceElementType("BLOCK_COM");
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
+  IElementType DECL_SPECIFIER = new SpiceElementType("DECL_SPECIFIER");
+  IElementType DECL_SPECIFIERS = new SpiceElementType("DECL_SPECIFIERS");
   IElementType DECL_STMT = new SpiceElementType("DECL_STMT");
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
@@ -28,10 +32,8 @@ public interface SpiceTypes {
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
-  IElementType FUNCTION_CALL = new SpiceElementType("FUNCTION_CALL");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
-  IElementType IDEN_VALUE = new SpiceElementType("IDEN_VALUE");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
@@ -39,11 +41,12 @@ public interface SpiceTypes {
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
-  IElementType NEW_STMT = new SpiceElementType("NEW_STMT");
   IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
   IElementType PARAM_LST_DEF = new SpiceElementType("PARAM_LST_DEF");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
+  IElementType PREFIX_UNARY_OP = new SpiceElementType("PREFIX_UNARY_OP");
+  IElementType PRIMITIVE_VALUE = new SpiceElementType("PRIMITIVE_VALUE");
   IElementType PRINTF_CALL = new SpiceElementType("PRINTF_CALL");
   IElementType PROCEDURE_DEF = new SpiceElementType("PROCEDURE_DEF");
   IElementType RELATIONAL_EXPR = new SpiceElementType("RELATIONAL_EXPR");
@@ -58,13 +61,16 @@ public interface SpiceTypes {
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
 
+  IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
   IElementType AS = new SpiceTokenType("AS");
-  IElementType ASSIGN_OP = new SpiceTokenType("ASSIGN_OP");
+  IElementType ASSIGN = new SpiceTokenType("ASSIGN");
   IElementType BITWISE_AND = new SpiceTokenType("BITWISE_AND");
+  IElementType BITWISE_NOT = new SpiceTokenType("BITWISE_NOT");
   IElementType BITWISE_OR = new SpiceTokenType("BITWISE_OR");
+  IElementType BITWISE_XOR = new SpiceTokenType("BITWISE_XOR");
   IElementType BLOCK_COMMENT = new SpiceTokenType("BLOCK_COMMENT");
   IElementType BREAK = new SpiceTokenType("BREAK");
-  IElementType CHAR = new SpiceTokenType("CHAR");
+  IElementType CHAR_LITERAL = new SpiceTokenType("CHAR_LITERAL");
   IElementType COLON = new SpiceTokenType("COLON");
   IElementType COMMA = new SpiceTokenType("COMMA");
   IElementType CONST = new SpiceTokenType("CONST");
@@ -102,10 +108,10 @@ public interface SpiceTypes {
   IElementType MINUS_MINUS = new SpiceTokenType("MINUS_MINUS");
   IElementType MUL = new SpiceTokenType("MUL");
   IElementType MUL_EQUAL = new SpiceTokenType("MUL_EQUAL");
-  IElementType NEW = new SpiceTokenType("NEW");
   IElementType NIL = new SpiceTokenType("NIL");
   IElementType NOT = new SpiceTokenType("NOT");
   IElementType NOT_EQUAL = new SpiceTokenType("NOT_EQUAL");
+  IElementType OR_EQUAL = new SpiceTokenType("OR_EQUAL");
   IElementType P = new SpiceTokenType("P");
   IElementType PLUS = new SpiceTokenType("PLUS");
   IElementType PLUS_EQUAL = new SpiceTokenType("PLUS_EQUAL");
@@ -115,6 +121,7 @@ public interface SpiceTypes {
   IElementType RBRACE = new SpiceTokenType("RBRACE");
   IElementType RBRACKET = new SpiceTokenType("RBRACKET");
   IElementType REM = new SpiceTokenType("REM");
+  IElementType REM_EQUAL = new SpiceTokenType("REM_EQUAL");
   IElementType RETURN = new SpiceTokenType("RETURN");
   IElementType RPAREN = new SpiceTokenType("RPAREN");
   IElementType SEMICOLON = new SpiceTokenType("SEMICOLON");
@@ -122,8 +129,9 @@ public interface SpiceTypes {
   IElementType SHL_EQUAL = new SpiceTokenType("SHL_EQUAL");
   IElementType SHR = new SpiceTokenType("SHR");
   IElementType SHR_EQUAL = new SpiceTokenType("SHR_EQUAL");
+  IElementType SIGNED = new SpiceTokenType("SIGNED");
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");
-  IElementType STRING = new SpiceTokenType("STRING");
+  IElementType STRING_LITERAL = new SpiceTokenType("STRING_LITERAL");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
@@ -136,7 +144,9 @@ public interface SpiceTypes {
   IElementType TYPE_LONG = new SpiceTokenType("TYPE_LONG");
   IElementType TYPE_SHORT = new SpiceTokenType("TYPE_SHORT");
   IElementType TYPE_STRING = new SpiceTokenType("TYPE_STRING");
+  IElementType UNSIGNED = new SpiceTokenType("UNSIGNED");
   IElementType WHILE = new SpiceTokenType("WHILE");
+  IElementType XOR_EQUAL = new SpiceTokenType("XOR_EQUAL");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -144,20 +154,26 @@ public interface SpiceTypes {
       if (type == ADDITIVE_EXPR) {
         return new SpiceAdditiveExprImpl(node);
       }
-      else if (type == ARRAY_INIT_STMT) {
-        return new SpiceArrayInitStmtImpl(node);
-      }
       else if (type == ASSIGN_EXPR) {
         return new SpiceAssignExprImpl(node);
       }
+      else if (type == ASSIGN_OP) {
+        return new SpiceAssignOpImpl(node);
+      }
       else if (type == ATOMIC_EXPR) {
         return new SpiceAtomicExprImpl(node);
+      }
+      else if (type == BASE_DATA_TYPE) {
+        return new SpiceBaseDataTypeImpl(node);
       }
       else if (type == BITWISE_AND_EXPR) {
         return new SpiceBitwiseAndExprImpl(node);
       }
       else if (type == BITWISE_OR_EXPR) {
         return new SpiceBitwiseOrExprImpl(node);
+      }
+      else if (type == BITWISE_XOR_EXPR) {
+        return new SpiceBitwiseXorExprImpl(node);
       }
       else if (type == BLOCK_COM) {
         return new SpiceBlockComImpl(node);
@@ -176,6 +192,12 @@ public interface SpiceTypes {
       }
       else if (type == DATA_TYPE) {
         return new SpiceDataTypeImpl(node);
+      }
+      else if (type == DECL_SPECIFIER) {
+        return new SpiceDeclSpecifierImpl(node);
+      }
+      else if (type == DECL_SPECIFIERS) {
+        return new SpiceDeclSpecifiersImpl(node);
       }
       else if (type == DECL_STMT) {
         return new SpiceDeclStmtImpl(node);
@@ -201,17 +223,11 @@ public interface SpiceTypes {
       else if (type == FOR_LOOP) {
         return new SpiceForLoopImpl(node);
       }
-      else if (type == FUNCTION_CALL) {
-        return new SpiceFunctionCallImpl(node);
-      }
       else if (type == FUNCTION_DEF) {
         return new SpiceFunctionDefImpl(node);
       }
       else if (type == GLOBAL_VAR_DEF) {
         return new SpiceGlobalVarDefImpl(node);
-      }
-      else if (type == IDEN_VALUE) {
-        return new SpiceIdenValueImpl(node);
       }
       else if (type == IF_STMT) {
         return new SpiceIfStmtImpl(node);
@@ -234,9 +250,6 @@ public interface SpiceTypes {
       else if (type == MULTIPLICATIVE_EXPR) {
         return new SpiceMultiplicativeExprImpl(node);
       }
-      else if (type == NEW_STMT) {
-        return new SpiceNewStmtImpl(node);
-      }
       else if (type == PARAM_LST) {
         return new SpiceParamLstImpl(node);
       }
@@ -248,6 +261,12 @@ public interface SpiceTypes {
       }
       else if (type == PREFIX_UNARY_EXPR) {
         return new SpicePrefixUnaryExprImpl(node);
+      }
+      else if (type == PREFIX_UNARY_OP) {
+        return new SpicePrefixUnaryOpImpl(node);
+      }
+      else if (type == PRIMITIVE_VALUE) {
+        return new SpicePrimitiveValueImpl(node);
       }
       else if (type == PRINTF_CALL) {
         return new SpicePrintfCallImpl(node);

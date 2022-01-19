@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceIdenValueImpl extends ASTWrapperPsiElement implements SpiceIdenValue {
+public class SpiceBitwiseXorExprImpl extends ASTWrapperPsiElement implements SpiceBitwiseXorExpr {
 
-  public SpiceIdenValueImpl(@NotNull ASTNode node) {
+  public SpiceBitwiseXorExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitIdenValue(this);
+    visitor.visitBitwiseXorExpr(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class SpiceIdenValueImpl extends ASTWrapperPsiElement implements SpiceIde
 
   @Override
   @NotNull
-  public List<SpiceAssignExpr> getAssignExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<SpiceFunctionCall> getFunctionCallList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceFunctionCall.class);
+  public List<SpiceBitwiseAndExpr> getBitwiseAndExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceBitwiseAndExpr.class);
   }
 
 }

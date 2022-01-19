@@ -29,8 +29,26 @@ public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements S
 
   @Override
   @NotNull
-  public SpiceCastExpr getCastExpr() {
-    return findNotNullChildByClass(SpiceCastExpr.class);
+  public List<SpiceAssignExpr> getAssignExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public SpiceAtomicExpr getAtomicExpr() {
+    return findNotNullChildByClass(SpiceAtomicExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public List<SpiceParamLst> getParamLstList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceParamLst.class);
+  }
+
+  @Override
+  @NotNull
+  public List<SpicePostfixUnaryExpr> getPostfixUnaryExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePostfixUnaryExpr.class);
   }
 
 }

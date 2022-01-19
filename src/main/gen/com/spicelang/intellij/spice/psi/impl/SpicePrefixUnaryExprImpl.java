@@ -33,4 +33,10 @@ public class SpicePrefixUnaryExprImpl extends ASTWrapperPsiElement implements Sp
     return findNotNullChildByClass(SpicePostfixUnaryExpr.class);
   }
 
+  @Override
+  @NotNull
+  public List<SpicePrefixUnaryOp> getPrefixUnaryOpList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePrefixUnaryOp.class);
+  }
+
 }

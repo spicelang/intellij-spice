@@ -16,6 +16,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
 
     // Attribute keys
     protected static final TextAttributesKey TYPE = createTextAttributesKey("SPICE_TYPE", DefaultLanguageHighlighterColors.KEYWORD);
+    protected static final TextAttributesKey TYPE_MODIFIER = createTextAttributesKey("SPICE_TYPE", DefaultLanguageHighlighterColors.KEYWORD);
     protected static final TextAttributesKey KEYWORD = createTextAttributesKey("SPICE_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
     protected static final TextAttributesKey IDENTIFIER = createTextAttributesKey("SPICE_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
     protected static final TextAttributesKey BUILTIN = createTextAttributesKey("SPICE_BUILTIN", DefaultLanguageHighlighterColors.KEYWORD);
@@ -35,6 +36,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
 
     // Attribute key arrays
     private final TextAttributesKey[] TYPE_KEY = new TextAttributesKey[] { TYPE };
+    private final TextAttributesKey[] TYPE_MODIFIER_KEY = new TextAttributesKey[] { TYPE_MODIFIER };
     private final TextAttributesKey[] KEYWORD_KEY = new TextAttributesKey[] { KEYWORD};
     private final TextAttributesKey[] IDENTIFIER_KEY = new TextAttributesKey[] { IDENTIFIER };
     private final TextAttributesKey[] BUILTIN_KEY = new TextAttributesKey[] { BUILTIN };
@@ -70,6 +72,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.TYPE_STRING)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_BOOL)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_DYN)) return TYPE_KEY;
+        if (tokenType.equals(SpiceTypes.SIGNED)) return TYPE_MODIFIER_KEY;
+        if (tokenType.equals(SpiceTypes.UNSIGNED)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.F)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.P)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.IF)) return KEYWORD_KEY;
@@ -77,7 +81,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.FOR)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.FOREACH)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.WHILE)) return KEYWORD_KEY;
-        if (tokenType.equals(SpiceTypes.CONST)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.CONST)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.IMPORT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.BREAK)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.CONTINUE)) return KEYWORD_KEY;
@@ -85,7 +89,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.AS)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.STRUCT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TYPE)) return KEYWORD_KEY;
-        if (tokenType.equals(SpiceTypes.NEW)) return KEYWORD_KEY;
+        //if (tokenType.equals(SpiceTypes.NEW)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.NIL)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.MAIN)) return IDENTIFIER_KEY;
         if (tokenType.equals(SpiceTypes.PRINTF)) return BUILTIN_KEY;
@@ -94,10 +98,9 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.DLL)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TRUE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.FALSE)) return CONSTANT_KEY;
-        if (tokenType.equals(SpiceTypes.ELLIPSIS)) return SECONDARY_OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.IDENTIFIER)) return IDENTIFIER_KEY;
-        if (tokenType.equals(SpiceTypes.CHAR)) return STRING_KEY;
-        if (tokenType.equals(SpiceTypes.STRING)) return STRING_KEY;
+        if (tokenType.equals(SpiceTypes.CHAR_LITERAL)) return STRING_KEY;
+        if (tokenType.equals(SpiceTypes.STRING_LITERAL)) return STRING_KEY;
         if (tokenType.equals(SpiceTypes.INTEGER)) return NUMBER_KEY;
         if (tokenType.equals(SpiceTypes.DOUBLE)) return NUMBER_KEY;
         if (tokenType.equals(SpiceTypes.LBRACE)) return BRACES_KEY;
@@ -109,16 +112,20 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.LOGICAL_OR)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.LOGICAL_AND)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.BITWISE_OR)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.BITWISE_XOR)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.BITWISE_AND)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.NOT)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.PLUS_PLUS)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.MINUS_MINUS)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.PLUS_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.MINUS_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.MUL_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.DIV_EQUAL)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.REM_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.SHL_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.SHR_EQUAL)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.AND_EQUAL)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.OR_EQUAL)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.XOR_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.SHL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.SHR)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.PLUS)) return OPERATOR_KEY;
@@ -126,10 +133,12 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.MUL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.DIV)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.REM)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.LESS_EQUAL)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.GREATER_EQUAL)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.LESS)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.NOT)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.BITWISE_NOT)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.GREATER)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.LESS)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.GREATER_EQUAL)) return OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.LESS_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.NOT_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.ASSIGN_OP)) return OPERATOR_KEY;
@@ -138,6 +147,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.COLON)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.COMMA)) return COMMA_KEY;
         if (tokenType.equals(SpiceTypes.DOT)) return DOT_KEY;
+        if (tokenType.equals(SpiceTypes.ELLIPSIS)) return SECONDARY_OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.LINE_COMMENT)) return LINE_COMMENT_KEY;
         if (tokenType.equals(SpiceTypes.BLOCK_COMMENT)) return BLOCK_COMMENT_KEY;
         if (tokenType.equals(TokenType.BAD_CHARACTER)) return BAD_CHAR_KEYS;

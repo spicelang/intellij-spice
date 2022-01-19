@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceMultiplicativeExpr extends PsiElement {
 
   @NotNull
-  List<SpicePrefixUnaryExpr> getPrefixUnaryExprList();
+  List<SpiceCastExpr> getCastExprList();
 
 }

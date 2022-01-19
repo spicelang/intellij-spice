@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceIdenValue extends PsiElement {
+public interface SpiceDeclSpecifiers extends PsiElement {
 
   @NotNull
-  List<SpiceAssignExpr> getAssignExprList();
-
-  @NotNull
-  List<SpiceFunctionCall> getFunctionCallList();
+  List<SpiceDeclSpecifier> getDeclSpecifierList();
 
 }

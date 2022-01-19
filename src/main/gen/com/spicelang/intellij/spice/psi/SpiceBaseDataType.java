@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceNewStmt extends PsiElement {
-
-  @NotNull
-  SpiceDataType getDataType();
-
-  @Nullable
-  SpiceParamLst getParamLst();
+public interface SpiceBaseDataType extends PsiElement {
 
 }

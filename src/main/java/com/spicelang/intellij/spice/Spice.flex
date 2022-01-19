@@ -19,14 +19,13 @@ import com.intellij.psi.TokenType;
 %eof}
 
 // Macro definitions
-CHAR = '(\\.|[^'\\])*'
-STRING = \"(\\.|[^\"\\])*\"
-INTEGER = -?[1-9]+[0-9]*|0
-DOUBLE = -?[0-9]+.[0-9]+
-IDENTIFIER = [_a-zA-Z][_a-zA-Z0-9]*
+CHAR_LITERAL = '(\\.|[^'\\])*'
+STRING_LITERAL = \"(\\.|[^\"\\])*\"
+INTEGER = [1-9][0-9]*|0
+DOUBLE = [0-9]+.[0-9]+
+IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
-ELLIPSIS = \.{3}
 WS = [ \t\r\n]+
 
 %%
@@ -40,6 +39,8 @@ char                                              { return SpiceTypes.TYPE_CHAR;
 string                                            { return SpiceTypes.TYPE_STRING; }
 bool                                              { return SpiceTypes.TYPE_BOOL; }
 dyn                                               { return SpiceTypes.TYPE_DYN; }
+signed                                            { return SpiceTypes.SIGNED; }
+unsigned                                          { return SpiceTypes.UNSIGNED; }
 f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }
@@ -55,7 +56,7 @@ return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
 type                                              { return SpiceTypes.TYPE; }
-new                                               { return SpiceTypes.NEW; }
+//new                                               { return SpiceTypes.NEW; }
 nil                                               { return SpiceTypes.NIL; }
 main                                              { return SpiceTypes.MAIN; }
 printf                                            { return SpiceTypes.PRINTF; }
@@ -64,10 +65,9 @@ ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
-{ELLIPSIS}                                        { return SpiceTypes.ELLIPSIS; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }
-{CHAR}                                            { return SpiceTypes.CHAR; }
-{STRING}                                          { return SpiceTypes.STRING; }
+{CHAR_LITERAL}                                    { return SpiceTypes.CHAR_LITERAL; }
+{STRING_LITERAL}                                  { return SpiceTypes.STRING_LITERAL; }
 {INTEGER}                                         { return SpiceTypes.INTEGER; }
 {DOUBLE}                                          { return SpiceTypes.DOUBLE; }
 "{"                                               { return SpiceTypes.LBRACE; }
@@ -79,16 +79,20 @@ false                                             { return SpiceTypes.FALSE; }
 "||"                                              { return SpiceTypes.LOGICAL_OR; }
 &&                                                { return SpiceTypes.LOGICAL_AND; }
 "|"                                               { return SpiceTypes.BITWISE_OR; }
+"^"                                               { return SpiceTypes.BITWISE_XOR; }
 "&"                                               { return SpiceTypes.BITWISE_AND; }
-"!"                                               { return SpiceTypes.NOT; }
 "++"                                              { return SpiceTypes.PLUS_PLUS; }
 "--"                                              { return SpiceTypes.MINUS_MINUS; }
 "+="                                              { return SpiceTypes.PLUS_EQUAL; }
 "-="                                              { return SpiceTypes.MINUS_EQUAL; }
 "*="                                              { return SpiceTypes.MUL_EQUAL; }
 "/="                                              { return SpiceTypes.DIV_EQUAL; }
+"%="                                              { return SpiceTypes.REM_EQUAL; }
 "<<="                                             { return SpiceTypes.SHL_EQUAL; }
 ">>="                                             { return SpiceTypes.SHR_EQUAL; }
+"&="                                              { return SpiceTypes.AND_EQUAL; }
+"|="                                              { return SpiceTypes.OR_EQUAL; }
+"^="                                              { return SpiceTypes.XOR_EQUAL; }
 "<<"                                              { return SpiceTypes.SHL; }
 ">>"                                              { return SpiceTypes.SHR; }
 "+"                                               { return SpiceTypes.PLUS; }
@@ -96,18 +100,21 @@ false                                             { return SpiceTypes.FALSE; }
 "*"                                               { return SpiceTypes.MUL; }
 "/"                                               { return SpiceTypes.DIV; }
 "%"                                               { return SpiceTypes.REM; }
-"<="                                              { return SpiceTypes.LESS_EQUAL; }
-">="                                              { return SpiceTypes.GREATER_EQUAL; }
-"<"                                               { return SpiceTypes.LESS; }
+"!"                                               { return SpiceTypes.NOT; }
+"~"                                               { return SpiceTypes.BITWISE_NOT; }
 ">"                                               { return SpiceTypes.GREATER; }
+"<"                                               { return SpiceTypes.LESS; }
+">="                                              { return SpiceTypes.GREATER_EQUAL; }
+"<="                                              { return SpiceTypes.LESS_EQUAL; }
 "=="                                              { return SpiceTypes.EQUAL; }
 "!="                                              { return SpiceTypes.NOT_EQUAL; }
-"="                                               { return SpiceTypes.ASSIGN_OP; }
+"="                                               { return SpiceTypes.ASSIGN; }
 "?"                                               { return SpiceTypes.QUESTION_MARK; }
 ";"                                               { return SpiceTypes.SEMICOLON; }
 ":"                                               { return SpiceTypes.COLON; }
 ","                                               { return SpiceTypes.COMMA; }
 "."                                               { return SpiceTypes.DOT; }
+"..."                                             { return SpiceTypes.ELLIPSIS; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
 {BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }
 {WS}                                              { return TokenType.WHITE_SPACE; }

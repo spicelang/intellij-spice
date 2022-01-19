@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceParamLstDef extends PsiElement {
 
   @NotNull
-  List<SpiceAssignExpr> getAssignExprList();
-
-  @NotNull
   List<SpiceDeclStmt> getDeclStmtList();
 
 }

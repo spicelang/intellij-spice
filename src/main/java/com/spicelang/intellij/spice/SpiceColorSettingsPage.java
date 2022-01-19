@@ -14,6 +14,7 @@ import java.util.Map;
 public class SpiceColorSettingsPage implements ColorSettingsPage {
     private final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
             new AttributesDescriptor("Data types", SpiceSyntaxHighlighter.TYPE),
+            new AttributesDescriptor("Type modifiers", SpiceSyntaxHighlighter.TYPE_MODIFIER),
             new AttributesDescriptor("Keywords", SpiceSyntaxHighlighter.KEYWORD),
             new AttributesDescriptor("Identifiers", SpiceSyntaxHighlighter.IDENTIFIER),
             new AttributesDescriptor("Builtin functions", SpiceSyntaxHighlighter.BUILTIN),

@@ -29,12 +29,6 @@ public class SpiceStmtImpl extends ASTWrapperPsiElement implements SpiceStmt {
 
   @Override
   @Nullable
-  public SpiceArrayInitStmt getArrayInitStmt() {
-    return findChildByClass(SpiceArrayInitStmt.class);
-  }
-
-  @Override
-  @Nullable
   public SpiceAssignExpr getAssignExpr() {
     return findChildByClass(SpiceAssignExpr.class);
   }
@@ -47,12 +41,6 @@ public class SpiceStmtImpl extends ASTWrapperPsiElement implements SpiceStmt {
 
   @Override
   @Nullable
-  public SpiceBuiltinCall getBuiltinCall() {
-    return findChildByClass(SpiceBuiltinCall.class);
-  }
-
-  @Override
-  @Nullable
   public SpiceContinueStmt getContinueStmt() {
     return findChildByClass(SpiceContinueStmt.class);
   }
@@ -61,18 +49,6 @@ public class SpiceStmtImpl extends ASTWrapperPsiElement implements SpiceStmt {
   @Nullable
   public SpiceDeclStmt getDeclStmt() {
     return findChildByClass(SpiceDeclStmt.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceIdenValue getIdenValue() {
-    return findChildByClass(SpiceIdenValue.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceNewStmt getNewStmt() {
-    return findChildByClass(SpiceNewStmt.class);
   }
 
   @Override

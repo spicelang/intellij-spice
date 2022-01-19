@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceForeachHead extends PsiElement {
 
   @NotNull
-  List<SpiceAssignExpr> getAssignExprList();
+  SpiceAssignExpr getAssignExpr();
 
   @NotNull
   List<SpiceDeclStmt> getDeclStmtList();

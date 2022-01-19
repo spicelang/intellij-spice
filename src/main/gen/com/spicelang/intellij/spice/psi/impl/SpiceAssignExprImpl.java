@@ -29,20 +29,26 @@ public class SpiceAssignExprImpl extends ASTWrapperPsiElement implements SpiceAs
 
   @Override
   @Nullable
-  public SpiceDeclStmt getDeclStmt() {
-    return findChildByClass(SpiceDeclStmt.class);
+  public SpiceAssignExpr getAssignExpr() {
+    return findChildByClass(SpiceAssignExpr.class);
   }
 
   @Override
   @Nullable
-  public SpiceIdenValue getIdenValue() {
-    return findChildByClass(SpiceIdenValue.class);
+  public SpiceAssignOp getAssignOp() {
+    return findChildByClass(SpiceAssignOp.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public SpicePrefixUnaryExpr getPrefixUnaryExpr() {
+    return findChildByClass(SpicePrefixUnaryExpr.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceTernaryExpr getTernaryExpr() {
-    return findNotNullChildByClass(SpiceTernaryExpr.class);
+    return findChildByClass(SpiceTernaryExpr.class);
   }
 
 }

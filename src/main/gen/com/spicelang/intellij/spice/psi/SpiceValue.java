@@ -10,4 +10,10 @@ public interface SpiceValue extends PsiElement {
   @Nullable
   SpiceDataType getDataType();
 
+  @Nullable
+  SpiceParamLst getParamLst();
+
+  @Nullable
+  SpicePrimitiveValue getPrimitiveValue();
+
 }
