@@ -34,6 +34,7 @@ public interface SpiceTypes {
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
+  IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
@@ -228,6 +229,9 @@ public interface SpiceTypes {
       }
       else if (type == GLOBAL_VAR_DEF) {
         return new SpiceGlobalVarDefImpl(node);
+      }
+      else if (type == IDENTIFIER_EXPR) {
+        return new SpiceIdentifierExprImpl(node);
       }
       else if (type == IF_STMT) {
         return new SpiceIfStmtImpl(node);

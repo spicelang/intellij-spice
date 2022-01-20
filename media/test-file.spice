@@ -20,6 +20,7 @@ const int SEEK_SET = 0;
 const int SEEK_CUR = 1;
 const int SEEK_END = 2;
 
+// spice:Test
 type FilePtr struct {
     byte* ptr
 }

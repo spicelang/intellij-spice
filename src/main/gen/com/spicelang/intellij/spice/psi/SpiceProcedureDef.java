@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceProcedureDef extends PsiElement {
 
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
+
   @Nullable
   SpiceParamLstDef getParamLstDef();
 

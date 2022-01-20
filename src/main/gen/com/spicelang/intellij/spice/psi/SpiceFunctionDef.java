@@ -10,6 +10,9 @@ public interface SpiceFunctionDef extends PsiElement {
   @NotNull
   SpiceDataType getDataType();
 
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
+
   @Nullable
   SpiceParamLstDef getParamLstDef();
 

@@ -10,6 +10,9 @@ public interface SpiceExtDecl extends PsiElement {
   @Nullable
   SpiceDataType getDataType();
 
+  @NotNull
+  SpiceIdentifierExpr getIdentifierExpr();
+
   @Nullable
   SpiceTypeLst getTypeLst();
 

@@ -13,6 +13,9 @@ public interface SpiceGlobalVarDef extends PsiElement {
   @Nullable
   SpiceDeclSpecifiers getDeclSpecifiers();
 
+  @NotNull
+  SpiceIdentifierExpr getIdentifierExpr();
+
   @Nullable
   SpiceValue getValue();
 

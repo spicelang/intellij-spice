@@ -111,6 +111,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIdentifierExpr(@NotNull SpiceIdentifierExpr o) {
+    visitNamedElement(o);
+  }
+
   public void visitIfStmt(@NotNull SpiceIfStmt o) {
     visitPsiElement(o);
   }
@@ -212,6 +216,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileLoop(@NotNull SpiceWhileLoop o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull SpiceNamedElement o) {
     visitPsiElement(o);
   }
 

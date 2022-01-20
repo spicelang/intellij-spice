@@ -33,4 +33,10 @@ public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStr
     return findNotNullChildByClass(SpiceFieldLst.class);
   }
 
+  @Override
+  @NotNull
+  public SpiceIdentifierExpr getIdentifierExpr() {
+    return findNotNullChildByClass(SpiceIdentifierExpr.class);
+  }
+
 }

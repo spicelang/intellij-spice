@@ -10,6 +10,8 @@
   elementTypeHolderClass="com.spicelang.intellij.spice.psi.SpiceTypes"
   elementTypeClass="com.spicelang.intellij.spice.psi.SpiceElementType"
   tokenTypeClass="com.spicelang.intellij.spice.psi.SpiceTokenType"
+
+  psiImplUtilClass="com.spicelang.intellij.spice.psi.impl.SpicePsiImplUtil"
 }
 
 // Control structures
@@ -17,11 +19,11 @@ spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | global
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= F LESS dataType GREATER (IDENTIFIER DOT)? IDENTIFIER LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= P (IDENTIFIER DOT)? IDENTIFIER LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-extDecl ::= EXT (LESS dataType GREATER)? IDENTIFIER LPAREN typeLst? RPAREN DLL? SEMICOLON
-structDef ::= TYPE IDENTIFIER STRUCT LBRACE fieldLst RBRACE
-globalVarDef ::= declSpecifiers? dataType IDENTIFIER (ASSIGN MINUS? value)? SEMICOLON
+functionDef ::= F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
+structDef ::= TYPE identifierExpr STRUCT LBRACE fieldLst RBRACE
+globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
 forLoop ::= FOR declStmt SEMICOLON assignExpr SEMICOLON assignExpr LBRACE stmtLst RBRACE
 foreachLoop ::= FOREACH (foreachHead | LPAREN foreachHead RPAREN) LBRACE stmtLst RBRACE
 foreachHead ::= (declStmt COMMA)? declStmt COLON assignExpr
@@ -31,15 +33,15 @@ elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
 
 // Statements, declarations, definitions and lists
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt)*
-fieldLst ::= (dataType IDENTIFIER)*
+fieldLst ::= (dataType identifierExpr)*
 typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
 paramLstDef ::= declStmt (COMMA declStmt)*
 paramLst ::= assignExpr (COMMA assignExpr)*
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
-declStmt ::= declSpecifiers? dataType IDENTIFIER (ASSIGN assignExpr)?
+declStmt ::= declSpecifiers? dataType identifierExpr (ASSIGN assignExpr)?
 declSpecifiers ::= declSpecifier+
 declSpecifier ::= CONST | SIGNED | UNSIGNED
-importStmt ::= IMPORT STRING_LITERAL AS IDENTIFIER SEMICOLON
+importStmt ::= IMPORT STRING_LITERAL AS identifierExpr SEMICOLON
 returnStmt ::= RETURN assignExpr?
 breakStmt ::= BREAK INTEGER?
 continueStmt ::= CONTINUE INTEGER?
@@ -65,13 +67,18 @@ multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
 postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
-atomicExpr ::= value | IDENTIFIER | builtinCall | LPAREN assignExpr RPAREN
+atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values and types
-value ::= primitiveValue | LBRACE paramLst? RBRACE | IDENTIFIER (DOT IDENTIFIER)* LBRACE paramLst? RBRACE | NIL LESS dataType GREATER
+identifierExpr ::= IDENTIFIER {
+    mixin="com.spicelang.intellij.spice.psi.impl.SpiceNamedElementImpl"
+    implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
+    methods=[getIdentifier getName setName getNameIdentifier]
+}
+value ::= primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* LBRACE paramLst? RBRACE | NIL LESS dataType GREATER
 primitiveValue ::= DOUBLE | INTEGER | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET INTEGER? RBRACKET)*
-baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | IDENTIFIER (DOT IDENTIFIER)*
+baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | identifierExpr (DOT identifierExpr)*
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL

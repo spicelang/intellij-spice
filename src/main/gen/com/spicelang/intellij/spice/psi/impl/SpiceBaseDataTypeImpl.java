@@ -27,4 +27,10 @@ public class SpiceBaseDataTypeImpl extends ASTWrapperPsiElement implements Spice
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<SpiceIdentifierExpr> getIdentifierExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  }
+
 }

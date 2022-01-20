@@ -15,12 +15,23 @@
                 extensions="spice" />
         <lang.parserDefinition
                 language="Spice"
-                implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition"/>
+                implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition" />
         <lang.syntaxHighlighterFactory
                 language="Spice"
-                implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory"/>
+                implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory" />
         <colorSettingsPage
-                implementation="com.spicelang.intellij.spice.SpiceColorSettingsPage"/>
+                implementation="com.spicelang.intellij.spice.SpiceColorSettingsPage" />
+        <completion.contributor
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceCompletionContributor"/>
+        <psi.referenceContributor
+                implementation="com.spicelang.intellij.spice.SpiceReferenceContributor"/>
+        <lang.refactoringSupport
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceRefactoringSupportProvider"/>
+        <lang.commenter
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceCommenter"/>
     </extensions>
 
     <actions></actions>

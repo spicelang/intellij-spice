@@ -14,6 +14,13 @@ public interface SpiceAtomicExpr extends PsiElement {
   SpiceBuiltinCall getBuiltinCall();
 
   @Nullable
+  SpiceIdentifierExpr getIdentifierExpr();
+
+  @Nullable
   SpiceValue getValue();
+
+  //WARNING: getIdentifier(...) is skipped
+  //matching getIdentifier(SpiceAtomicExpr, ...)
+  //methods are not found in SpicePsiImplUtil
 
 }

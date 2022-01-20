@@ -10,4 +10,7 @@ public interface SpiceFieldLst extends PsiElement {
   @NotNull
   List<SpiceDataType> getDataTypeList();
 
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
+
 }

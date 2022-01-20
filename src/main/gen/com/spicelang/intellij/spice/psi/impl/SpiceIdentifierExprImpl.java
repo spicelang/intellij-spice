@@ -8,17 +8,16 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceDeclStmtImpl extends ASTWrapperPsiElement implements SpiceDeclStmt {
+public class SpiceIdentifierExprImpl extends SpiceNamedElementImpl implements SpiceIdentifierExpr {
 
-  public SpiceDeclStmtImpl(@NotNull ASTNode node) {
+  public SpiceIdentifierExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitDeclStmt(this);
+    visitor.visitIdentifierExpr(this);
   }
 
   @Override
@@ -28,27 +27,23 @@ public class SpiceDeclStmtImpl extends ASTWrapperPsiElement implements SpiceDecl
   }
 
   @Override
-  @Nullable
-  public SpiceAssignExpr getAssignExpr() {
-    return findChildByClass(SpiceAssignExpr.class);
+  public String getIdentifier() {
+    return SpicePsiImplUtil.getIdentifier(this);
   }
 
   @Override
-  @NotNull
-  public SpiceDataType getDataType() {
-    return findNotNullChildByClass(SpiceDataType.class);
+  public String getName() {
+    return SpicePsiImplUtil.getName(this);
   }
 
   @Override
-  @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
+  public PsiElement setName(String newName) {
+    return SpicePsiImplUtil.setName(this, newName);
   }
 
   @Override
-  @NotNull
-  public SpiceIdentifierExpr getIdentifierExpr() {
-    return findNotNullChildByClass(SpiceIdentifierExpr.class);
+  public PsiElement getNameIdentifier() {
+    return SpicePsiImplUtil.getNameIdentifier(this);
   }
 
 }

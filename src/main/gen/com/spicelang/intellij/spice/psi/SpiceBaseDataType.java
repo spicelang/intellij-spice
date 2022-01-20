@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceBaseDataType extends PsiElement {
 
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
+
 }
