@@ -23,6 +23,8 @@ CHAR_LITERAL = '(\\.|[^'\\])*'
 STRING_LITERAL = \"(\\.|[^\"\\])*\"
 INTEGER = [1-9][0-9]*|0
 DOUBLE = [0-9]+.[0-9]+
+SHORT = {INTEGER}s
+LONG = {INTEGER}l
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
@@ -69,6 +71,8 @@ false                                             { return SpiceTypes.FALSE; }
 {CHAR_LITERAL}                                    { return SpiceTypes.CHAR_LITERAL; }
 {STRING_LITERAL}                                  { return SpiceTypes.STRING_LITERAL; }
 {INTEGER}                                         { return SpiceTypes.INTEGER; }
+{SHORT}                                           { return SpiceTypes.SHORT; }
+{LONG}                                            { return SpiceTypes.LONG; }
 {DOUBLE}                                          { return SpiceTypes.DOUBLE; }
 "{"                                               { return SpiceTypes.LBRACE; }
 "}"                                               { return SpiceTypes.RBRACE; }

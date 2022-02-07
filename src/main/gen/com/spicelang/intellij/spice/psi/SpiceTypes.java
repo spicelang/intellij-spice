@@ -102,6 +102,7 @@ public interface SpiceTypes {
   IElementType LINE_COMMENT = new SpiceTokenType("LINE_COMMENT");
   IElementType LOGICAL_AND = new SpiceTokenType("LOGICAL_AND");
   IElementType LOGICAL_OR = new SpiceTokenType("LOGICAL_OR");
+  IElementType LONG = new SpiceTokenType("LONG");
   IElementType LPAREN = new SpiceTokenType("LPAREN");
   IElementType MAIN = new SpiceTokenType("MAIN");
   IElementType MINUS = new SpiceTokenType("MINUS");
@@ -128,6 +129,7 @@ public interface SpiceTypes {
   IElementType SEMICOLON = new SpiceTokenType("SEMICOLON");
   IElementType SHL = new SpiceTokenType("SHL");
   IElementType SHL_EQUAL = new SpiceTokenType("SHL_EQUAL");
+  IElementType SHORT = new SpiceTokenType("SHORT");
   IElementType SHR = new SpiceTokenType("SHR");
   IElementType SHR_EQUAL = new SpiceTokenType("SHR_EQUAL");
   IElementType SIGNED = new SpiceTokenType("SIGNED");

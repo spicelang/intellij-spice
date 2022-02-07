@@ -102,6 +102,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.CHAR_LITERAL)) return STRING_KEY;
         if (tokenType.equals(SpiceTypes.STRING_LITERAL)) return STRING_KEY;
         if (tokenType.equals(SpiceTypes.INTEGER)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.SHORT)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.LONG)) return NUMBER_KEY;
         if (tokenType.equals(SpiceTypes.DOUBLE)) return NUMBER_KEY;
         if (tokenType.equals(SpiceTypes.LBRACE)) return BRACES_KEY;
         if (tokenType.equals(SpiceTypes.RBRACE)) return BRACES_KEY;

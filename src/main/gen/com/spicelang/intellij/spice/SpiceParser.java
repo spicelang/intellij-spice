@@ -1237,13 +1237,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOUBLE | INTEGER | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
+  // DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
   public static boolean primitiveValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primitiveValue")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PRIMITIVE_VALUE, "<primitive value>");
     r = consumeToken(b, DOUBLE);
     if (!r) r = consumeToken(b, INTEGER);
+    if (!r) r = consumeToken(b, SHORT);
+    if (!r) r = consumeToken(b, LONG);
     if (!r) r = consumeToken(b, CHAR_LITERAL);
     if (!r) r = consumeToken(b, STRING_LITERAL);
     if (!r) r = consumeToken(b, TRUE);
