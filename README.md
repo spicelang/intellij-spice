@@ -1,4 +1,7 @@
 # Spice for IntelliJ IDEA
+[![CI](https://github.com/spicelang/intellij-spice/actions/workflows/ci.yml/badge.svg)](https://github.com/spicelang/intellij-spice/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/spicelang/intellij-spice/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/spicelang/intellij-spice/actions/workflows/codeql-analysis.yml)
+
 This IntelliJ Spice extension provides language support for the [Spice programming language](https://www.spicelang.com).
 
 ## Features

@@ -1,0 +1,23 @@
+# Workflow for Java CI debug build
+name: Java CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - feature/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
+    - name: Gradle build
+      run: ./gradlew buildPlugin
