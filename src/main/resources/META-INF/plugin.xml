@@ -1,8 +1,22 @@
 <idea-plugin>
     <id>com.spicelang.intellij-spice</id>
     <name>Spice</name>
-    <vendor email="support@chillibits.com" url="https://www.chillibits.com">ChilliBits</vendor>
-    <description>IntelliJ Language Plugin for the Spice Programming Language</description>
+    <version>1.0.0</version>
+    <vendor url="https://www.chillibits.com" email="support@chillibits.com">ChilliBits</vendor>
+    <description>
+        <![CDATA[
+            IntelliJ Language Plugin for the Spice Programming Language. <br>
+            This plugin enhances the coding experience with the following list of features, the plugin supports: <br>
+
+            <ul>
+              <li>Customizable syntax highlighting</li>
+              <li>Auto-completion</li>
+              <li>Code formatting</li>
+              <li>Refactoring assistance</li>
+            </ul>
+        ]]>
+    </description>
+    <change-notes>Initial release of the plugin.</change-notes>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -34,5 +48,5 @@
                 implementationClass="com.spicelang.intellij.spice.SpiceCommenter"/>
     </extensions>
 
-    <actions></actions>
+    <!--<actions></actions>-->
 </idea-plugin>
