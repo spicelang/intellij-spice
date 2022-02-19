@@ -29,8 +29,8 @@ public class SpiceProcedureDefImpl extends ASTWrapperPsiElement implements Spice
 
   @Override
   @Nullable
-  public SpiceFctSpecifiers getFctSpecifiers() {
-    return findChildByClass(SpiceFctSpecifiers.class);
+  public SpiceDeclSpecifiers getDeclSpecifiers() {
+    return findChildByClass(SpiceDeclSpecifiers.class);
   }
 
   @Override

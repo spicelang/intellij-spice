@@ -87,10 +87,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFctSpecifiers(@NotNull SpiceFctSpecifiers o) {
-    visitPsiElement(o);
-  }
-
   public void visitFieldLst(@NotNull SpiceFieldLst o) {
     visitPsiElement(o);
   }
