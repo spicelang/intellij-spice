@@ -43,6 +43,7 @@ bool                                              { return SpiceTypes.TYPE_BOOL;
 dyn                                               { return SpiceTypes.TYPE_DYN; }
 signed                                            { return SpiceTypes.SIGNED; }
 unsigned                                          { return SpiceTypes.UNSIGNED; }
+public                                            { return SpiceTypes.PUBLIC; }
 f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }

@@ -28,6 +28,7 @@ public interface SpiceTypes {
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
+  IElementType FCT_SPECIFIERS = new SpiceElementType("FCT_SPECIFIERS");
   IElementType FIELD_LST = new SpiceElementType("FIELD_LST");
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
@@ -120,6 +121,7 @@ public interface SpiceTypes {
   IElementType PLUS_EQUAL = new SpiceTokenType("PLUS_EQUAL");
   IElementType PLUS_PLUS = new SpiceTokenType("PLUS_PLUS");
   IElementType PRINTF = new SpiceTokenType("PRINTF");
+  IElementType PUBLIC = new SpiceTokenType("PUBLIC");
   IElementType QUESTION_MARK = new SpiceTokenType("QUESTION_MARK");
   IElementType RBRACE = new SpiceTokenType("RBRACE");
   IElementType RBRACKET = new SpiceTokenType("RBRACKET");
@@ -214,6 +216,9 @@ public interface SpiceTypes {
       }
       else if (type == EXT_DECL) {
         return new SpiceExtDeclImpl(node);
+      }
+      else if (type == FCT_SPECIFIERS) {
+        return new SpiceFctSpecifiersImpl(node);
       }
       else if (type == FIELD_LST) {
         return new SpiceFieldLstImpl(node);

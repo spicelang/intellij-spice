@@ -643,6 +643,19 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // INLINE | PUBLIC
+  public static boolean fctSpecifiers(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "fctSpecifiers")) return false;
+    if (!nextTokenIs(b, "<fct specifiers>", INLINE, PUBLIC)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, FCT_SPECIFIERS, "<fct specifiers>");
+    r = consumeToken(b, INLINE);
+    if (!r) r = consumeToken(b, PUBLIC);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // (dataType identifierExpr)*
   public static boolean fieldLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fieldLst")) return false;
@@ -759,10 +772,9 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // INLINE? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+  // fctSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
   public static boolean functionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionDef")) return false;
-    if (!nextTokenIs(b, "<function def>", F, INLINE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FUNCTION_DEF, "<function def>");
     r = functionDef_0(b, l + 1);
@@ -780,10 +792,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INLINE?
+  // fctSpecifiers?
   private static boolean functionDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionDef_0")) return false;
-    consumeToken(b, INLINE);
+    fctSpecifiers(b, l + 1);
     return true;
   }
 
@@ -1299,10 +1311,9 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // INLINE? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+  // fctSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
   public static boolean procedureDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef")) return false;
-    if (!nextTokenIs(b, "<procedure def>", INLINE, P)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROCEDURE_DEF, "<procedure def>");
     r = procedureDef_0(b, l + 1);
@@ -1318,10 +1329,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INLINE?
+  // fctSpecifiers?
   private static boolean procedureDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef_0")) return false;
-    consumeToken(b, INLINE);
+    fctSpecifiers(b, l + 1);
     return true;
   }
 

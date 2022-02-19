@@ -16,7 +16,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
 
     // Attribute keys
     protected static final TextAttributesKey TYPE = createTextAttributesKey("SPICE_TYPE", DefaultLanguageHighlighterColors.KEYWORD);
-    protected static final TextAttributesKey TYPE_MODIFIER = createTextAttributesKey("SPICE_TYPE", DefaultLanguageHighlighterColors.KEYWORD);
+    protected static final TextAttributesKey TYPE_MODIFIER = createTextAttributesKey("SPICE_TYPE_MODIFIER", DefaultLanguageHighlighterColors.KEYWORD);
+    protected static final TextAttributesKey FCT_MODIFIER = createTextAttributesKey("SPICE_FCT_MODIFIER", DefaultLanguageHighlighterColors.KEYWORD);
     protected static final TextAttributesKey KEYWORD = createTextAttributesKey("SPICE_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
     protected static final TextAttributesKey IDENTIFIER = createTextAttributesKey("SPICE_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
     protected static final TextAttributesKey BUILTIN = createTextAttributesKey("SPICE_BUILTIN", DefaultLanguageHighlighterColors.KEYWORD);
@@ -37,6 +38,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     // Attribute key arrays
     private final TextAttributesKey[] TYPE_KEY = new TextAttributesKey[] { TYPE };
     private final TextAttributesKey[] TYPE_MODIFIER_KEY = new TextAttributesKey[] { TYPE_MODIFIER };
+    private final TextAttributesKey[] FCT_MODIFIER_KEY = new TextAttributesKey[] { FCT_MODIFIER };
     private final TextAttributesKey[] KEYWORD_KEY = new TextAttributesKey[] { KEYWORD};
     private final TextAttributesKey[] IDENTIFIER_KEY = new TextAttributesKey[] { IDENTIFIER };
     private final TextAttributesKey[] BUILTIN_KEY = new TextAttributesKey[] { BUILTIN };
@@ -74,6 +76,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.TYPE_DYN)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.SIGNED)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.UNSIGNED)) return TYPE_MODIFIER_KEY;
+        if (tokenType.equals(SpiceTypes.PUBLIC)) return FCT_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.F)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.P)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.IF)) return KEYWORD_KEY;
