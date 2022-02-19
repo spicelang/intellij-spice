@@ -65,6 +65,7 @@ printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
+inline                                            { return SpiceTypes.INLINE; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }

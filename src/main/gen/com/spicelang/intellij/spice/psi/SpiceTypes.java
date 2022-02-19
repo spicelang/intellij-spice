@@ -94,6 +94,7 @@ public interface SpiceTypes {
   IElementType IDENTIFIER = new SpiceTokenType("IDENTIFIER");
   IElementType IF = new SpiceTokenType("IF");
   IElementType IMPORT = new SpiceTokenType("IMPORT");
+  IElementType INLINE = new SpiceTokenType("INLINE");
   IElementType INTEGER = new SpiceTokenType("INTEGER");
   IElementType LBRACE = new SpiceTokenType("LBRACE");
   IElementType LBRACKET = new SpiceTokenType("LBRACKET");
