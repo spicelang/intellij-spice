@@ -28,9 +28,10 @@ public interface SpiceTypes {
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
-  IElementType FIELD_LST = new SpiceElementType("FIELD_LST");
+  IElementType FIELD = new SpiceElementType("FIELD");
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
+  IElementType FOR_HEAD = new SpiceElementType("FOR_HEAD");
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
@@ -216,14 +217,17 @@ public interface SpiceTypes {
       else if (type == EXT_DECL) {
         return new SpiceExtDeclImpl(node);
       }
-      else if (type == FIELD_LST) {
-        return new SpiceFieldLstImpl(node);
+      else if (type == FIELD) {
+        return new SpiceFieldImpl(node);
       }
       else if (type == FOREACH_HEAD) {
         return new SpiceForeachHeadImpl(node);
       }
       else if (type == FOREACH_LOOP) {
         return new SpiceForeachLoopImpl(node);
+      }
+      else if (type == FOR_HEAD) {
+        return new SpiceForHeadImpl(node);
       }
       else if (type == FOR_LOOP) {
         return new SpiceForLoopImpl(node);

@@ -22,9 +22,10 @@ mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRA
 functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
-structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE fieldLst RBRACE
+structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
-forLoop ::= FOR declStmt SEMICOLON assignExpr SEMICOLON assignExpr LBRACE stmtLst RBRACE
+forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
+forHead ::= declStmt SEMICOLON assignExpr SEMICOLON assignExpr
 foreachLoop ::= FOREACH (foreachHead | LPAREN foreachHead RPAREN) LBRACE stmtLst RBRACE
 foreachHead ::= (declStmt COMMA)? declStmt COLON assignExpr
 whileLoop ::= WHILE assignExpr LBRACE stmtLst RBRACE
@@ -33,7 +34,7 @@ elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
 
 // Statements, declarations, definitions and lists
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt)*
-fieldLst ::= (dataType identifierExpr)*
+field ::= declSpecifiers? dataType IDENTIFIER
 typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
 paramLstDef ::= declStmt (COMMA declStmt)*
 paramLst ::= assignExpr (COMMA assignExpr)*
@@ -52,7 +53,7 @@ printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
 sizeOfCall ::= SIZEOF LPAREN assignExpr RPAREN
 
 // Expression loop
-assignExpr ::= ternaryExpr | prefixUnaryExpr assignOp assignExpr
+assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr
 ternaryExpr ::= logicalOrExpr (QUESTION_MARK logicalOrExpr COLON logicalOrExpr)?
 logicalOrExpr ::= logicalAndExpr (LOGICAL_OR logicalAndExpr)*
 logicalAndExpr ::= bitwiseOrExpr (LOGICAL_AND bitwiseOrExpr)*

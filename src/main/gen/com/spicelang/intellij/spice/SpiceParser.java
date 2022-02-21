@@ -79,20 +79,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ternaryExpr | prefixUnaryExpr assignOp assignExpr
+  // prefixUnaryExpr assignOp assignExpr | ternaryExpr
   public static boolean assignExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ASSIGN_EXPR, "<assign expr>");
-    r = ternaryExpr(b, l + 1);
-    if (!r) r = assignExpr_1(b, l + 1);
+    r = assignExpr_0(b, l + 1);
+    if (!r) r = ternaryExpr(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // prefixUnaryExpr assignOp assignExpr
-  private static boolean assignExpr_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignExpr_1")) return false;
+  private static boolean assignExpr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignExpr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = prefixUnaryExpr(b, l + 1);
@@ -645,47 +645,76 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (dataType identifierExpr)*
-  public static boolean fieldLst(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "fieldLst")) return false;
-    Marker m = enter_section_(b, l, _NONE_, FIELD_LST, "<field lst>");
-    while (true) {
-      int c = current_position_(b);
-      if (!fieldLst_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "fieldLst", c)) break;
-    }
-    exit_section_(b, l, m, true, false, null);
+  // declSpecifiers? dataType IDENTIFIER
+  public static boolean field(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, FIELD, "<field>");
+    r = field_0(b, l + 1);
+    r = r && dataType(b, l + 1);
+    r = r && consumeToken(b, IDENTIFIER);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // declSpecifiers?
+  private static boolean field_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_0")) return false;
+    declSpecifiers(b, l + 1);
     return true;
   }
 
-  // dataType identifierExpr
-  private static boolean fieldLst_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "fieldLst_0")) return false;
+  /* ********************************************************** */
+  // declStmt SEMICOLON assignExpr SEMICOLON assignExpr
+  public static boolean forHead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "forHead")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = dataType(b, l + 1);
-    r = r && identifierExpr(b, l + 1);
-    exit_section_(b, m, null, r);
+    Marker m = enter_section_(b, l, _NONE_, FOR_HEAD, "<for head>");
+    r = declStmt(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    r = r && assignExpr(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // FOR declStmt SEMICOLON assignExpr SEMICOLON assignExpr LBRACE stmtLst RBRACE
+  // FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
   public static boolean forLoop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "forLoop")) return false;
     if (!nextTokenIs(b, FOR)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, FOR);
-    r = r && declStmt(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    r = r && assignExpr(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    r = r && assignExpr(b, l + 1);
+    r = r && forLoop_1(b, l + 1);
     r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, FOR_LOOP, r);
+    return r;
+  }
+
+  // forHead | LPAREN forHead RPAREN
+  private static boolean forLoop_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "forLoop_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = forHead(b, l + 1);
+    if (!r) r = forLoop_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LPAREN forHead RPAREN
+  private static boolean forLoop_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "forLoop_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && forHead(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1543,7 +1572,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // declSpecifiers? TYPE identifierExpr STRUCT LBRACE fieldLst RBRACE
+  // declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
   public static boolean structDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef")) return false;
     boolean r;
@@ -1552,7 +1581,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, TYPE);
     r = r && identifierExpr(b, l + 1);
     r = r && consumeTokens(b, 0, STRUCT, LBRACE);
-    r = r && fieldLst(b, l + 1);
+    r = r && structDef_5(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1562,6 +1591,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   private static boolean structDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef_0")) return false;
     declSpecifiers(b, l + 1);
+    return true;
+  }
+
+  // field*
+  private static boolean structDef_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_5")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!field(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "structDef_5", c)) break;
+    }
     return true;
   }
 

@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceForLoop extends PsiElement {
+public interface SpiceForHead extends PsiElement {
 
   @NotNull
-  SpiceForHead getForHead();
+  List<SpiceAssignExpr> getAssignExprList();
 
   @NotNull
-  SpiceStmtLst getStmtLst();
+  SpiceDeclStmt getDeclStmt();
 
 }
