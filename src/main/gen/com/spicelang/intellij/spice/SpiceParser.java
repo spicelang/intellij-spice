@@ -1543,19 +1543,26 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TYPE identifierExpr STRUCT LBRACE fieldLst RBRACE
+  // declSpecifiers? TYPE identifierExpr STRUCT LBRACE fieldLst RBRACE
   public static boolean structDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef")) return false;
-    if (!nextTokenIs(b, TYPE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, TYPE);
+    Marker m = enter_section_(b, l, _NONE_, STRUCT_DEF, "<struct def>");
+    r = structDef_0(b, l + 1);
+    r = r && consumeToken(b, TYPE);
     r = r && identifierExpr(b, l + 1);
     r = r && consumeTokens(b, 0, STRUCT, LBRACE);
     r = r && fieldLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, STRUCT_DEF, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // declSpecifiers?
+  private static boolean structDef_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_0")) return false;
+    declSpecifiers(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

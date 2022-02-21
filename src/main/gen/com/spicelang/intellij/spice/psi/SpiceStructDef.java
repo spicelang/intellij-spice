@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceStructDef extends PsiElement {
 
+  @Nullable
+  SpiceDeclSpecifiers getDeclSpecifiers();
+
   @NotNull
   SpiceFieldLst getFieldLst();
 
