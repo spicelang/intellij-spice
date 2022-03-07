@@ -1546,7 +1546,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (stmt | forLoop | foreachLoop | whileLoop | ifStmt)*
+  // (stmt | forLoop | foreachLoop | whileLoop | ifStmt | threadDef)*
   public static boolean stmtLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst")) return false;
     Marker m = enter_section_(b, l, _NONE_, STMT_LST, "<stmt lst>");
@@ -1559,7 +1559,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // stmt | forLoop | foreachLoop | whileLoop | ifStmt
+  // stmt | forLoop | foreachLoop | whileLoop | ifStmt | threadDef
   private static boolean stmtLst_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst_0")) return false;
     boolean r;
@@ -1568,6 +1568,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = foreachLoop(b, l + 1);
     if (!r) r = whileLoop(b, l + 1);
     if (!r) r = ifStmt(b, l + 1);
+    if (!r) r = threadDef(b, l + 1);
     return r;
   }
 
@@ -1634,6 +1635,22 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, COLON);
     r = r && logicalOrExpr(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // THREAD assignExpr LBRACE stmtLst RBRACE
+  public static boolean threadDef(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "threadDef")) return false;
+    if (!nextTokenIs(b, THREAD)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, THREAD);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, LBRACE);
+    r = r && stmtLst(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, THREAD_DEF, r);
     return r;
   }
 

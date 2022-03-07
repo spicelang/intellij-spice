@@ -59,6 +59,7 @@ public interface SpiceTypes {
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
+  IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -139,6 +140,7 @@ public interface SpiceTypes {
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");
   IElementType STRING_LITERAL = new SpiceTokenType("STRING_LITERAL");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
+  IElementType THREAD = new SpiceTokenType("THREAD");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
   IElementType TYPE_BOOL = new SpiceTokenType("TYPE_BOOL");
@@ -309,6 +311,9 @@ public interface SpiceTypes {
       }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
+      }
+      else if (type == THREAD_DEF) {
+        return new SpiceThreadDefImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);

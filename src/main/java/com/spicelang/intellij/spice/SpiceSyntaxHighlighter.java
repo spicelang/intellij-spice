@@ -91,6 +91,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.AS)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.STRUCT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TYPE)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.THREAD)) return KEYWORD_KEY;
         //if (tokenType.equals(SpiceTypes.NEW)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.NIL)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.MAIN)) return IDENTIFIER_KEY;

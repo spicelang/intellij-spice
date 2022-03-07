@@ -211,6 +211,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitThreadDef(@NotNull SpiceThreadDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitTypeLst(@NotNull SpiceTypeLst o) {
     visitPsiElement(o);
   }
