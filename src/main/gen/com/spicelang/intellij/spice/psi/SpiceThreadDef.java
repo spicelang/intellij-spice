@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceThreadDef extends PsiElement {
 
   @NotNull
-  SpiceAssignExpr getAssignExpr();
-
-  @NotNull
   SpiceStmtLst getStmtLst();
 
 }

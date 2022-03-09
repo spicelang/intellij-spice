@@ -29,12 +29,6 @@ public class SpiceThreadDefImpl extends ASTWrapperPsiElement implements SpiceThr
 
   @Override
   @NotNull
-  public SpiceAssignExpr getAssignExpr() {
-    return findNotNullChildByClass(SpiceAssignExpr.class);
-  }
-
-  @Override
-  @NotNull
   public SpiceStmtLst getStmtLst() {
     return findNotNullChildByClass(SpiceStmtLst.class);
   }

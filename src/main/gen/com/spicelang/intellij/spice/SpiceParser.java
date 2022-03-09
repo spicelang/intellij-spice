@@ -1639,15 +1639,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // THREAD assignExpr LBRACE stmtLst RBRACE
+  // THREAD LBRACE stmtLst RBRACE
   public static boolean threadDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "threadDef")) return false;
     if (!nextTokenIs(b, THREAD)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, THREAD);
-    r = r && assignExpr(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
+    r = consumeTokens(b, 0, THREAD, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, THREAD_DEF, r);
