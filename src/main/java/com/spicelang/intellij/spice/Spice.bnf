@@ -54,7 +54,7 @@ printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
 sizeOfCall ::= SIZEOF LPAREN assignExpr RPAREN
 
 // Expression loop
-assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr
+assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr | threadDef
 ternaryExpr ::= logicalOrExpr (QUESTION_MARK logicalOrExpr COLON logicalOrExpr)?
 logicalOrExpr ::= logicalAndExpr (LOGICAL_OR logicalAndExpr)*
 logicalAndExpr ::= bitwiseOrExpr (LOGICAL_AND bitwiseOrExpr)*

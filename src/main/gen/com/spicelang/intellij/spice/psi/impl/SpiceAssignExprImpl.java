@@ -51,4 +51,10 @@ public class SpiceAssignExprImpl extends ASTWrapperPsiElement implements SpiceAs
     return findChildByClass(SpiceTernaryExpr.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceThreadDef getThreadDef() {
+    return findChildByClass(SpiceThreadDef.class);
+  }
+
 }
