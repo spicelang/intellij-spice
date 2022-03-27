@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceTypeDef extends PsiElement {
+public interface SpiceGenericTypeDef extends PsiElement {
 
   @Nullable
   SpiceDeclSpecifiers getDeclSpecifiers();
-
-  @Nullable
-  SpiceStructDef getStructDef();
 
 }

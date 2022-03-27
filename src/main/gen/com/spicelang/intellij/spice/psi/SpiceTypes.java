@@ -34,6 +34,7 @@ public interface SpiceTypes {
   IElementType FOR_HEAD = new SpiceElementType("FOR_HEAD");
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
+  IElementType GENERIC_TYPE_DEF = new SpiceElementType("GENERIC_TYPE_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
   IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
@@ -59,10 +60,10 @@ public interface SpiceTypes {
   IElementType STMT = new SpiceElementType("STMT");
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
+  IElementType TEMPLATE_DEF = new SpiceElementType("TEMPLATE_DEF");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
   IElementType TID_CALL = new SpiceElementType("TID_CALL");
-  IElementType TYPE_DEF = new SpiceElementType("TYPE_DEF");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -242,6 +243,9 @@ public interface SpiceTypes {
       else if (type == FUNCTION_DEF) {
         return new SpiceFunctionDefImpl(node);
       }
+      else if (type == GENERIC_TYPE_DEF) {
+        return new SpiceGenericTypeDefImpl(node);
+      }
       else if (type == GLOBAL_VAR_DEF) {
         return new SpiceGlobalVarDefImpl(node);
       }
@@ -317,6 +321,9 @@ public interface SpiceTypes {
       else if (type == STRUCT_DEF) {
         return new SpiceStructDefImpl(node);
       }
+      else if (type == TEMPLATE_DEF) {
+        return new SpiceTemplateDefImpl(node);
+      }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
       }
@@ -325,9 +332,6 @@ public interface SpiceTypes {
       }
       else if (type == TID_CALL) {
         return new SpiceTidCallImpl(node);
-      }
-      else if (type == TYPE_DEF) {
-        return new SpiceTypeDefImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);

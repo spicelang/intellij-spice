@@ -15,15 +15,15 @@
 }
 
 // Control structures
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | typeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr templateDef? LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr templateDef? LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
-typeDef ::= declSpecifiers? TYPE IDENTIFIER (structDef | TYPE_DYN SEMICOLON)
-structDef ::= STRUCT LBRACE field* RBRACE
+genericTypeDef ::= declSpecifiers? TYPE IDENTIFIER TYPE_DYN SEMICOLON
+structDef ::= declSpecifiers? TYPE IDENTIFIER STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
 threadDef ::= THREAD LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
@@ -36,6 +36,7 @@ elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
 
 // Statements, declarations, definitions and lists
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt | threadDef)*
+templateDef ::= LESS typeLst GREATER;
 field ::= declSpecifiers? dataType IDENTIFIER
 typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
 paramLstDef ::= declStmt (COMMA declStmt)*
@@ -71,7 +72,7 @@ additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
-postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | templateDef? LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values and types

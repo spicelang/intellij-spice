@@ -22,4 +22,7 @@ public interface SpiceFunctionDef extends PsiElement {
   @NotNull
   SpiceStmtLst getStmtLst();
 
+  @Nullable
+  SpiceTemplateDef getTemplateDef();
+
 }

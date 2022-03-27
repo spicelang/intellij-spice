@@ -14,6 +14,10 @@ p rowLine() {
 
 type T dyn;
 
+f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
+    return T{};
+}
+
 p printGeneration(string name, int[10][10] matrix) {
     printf("%s:\n", name);
     rowLine();

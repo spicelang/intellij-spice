@@ -57,4 +57,10 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
     return findNotNullChildByClass(SpiceStmtLst.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceTemplateDef getTemplateDef() {
+    return findChildByClass(SpiceTemplateDef.class);
+  }
+
 }
