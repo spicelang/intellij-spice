@@ -127,6 +127,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitJoinCall(@NotNull SpiceJoinCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitLineCom(@NotNull SpiceLineCom o) {
     visitPsiElement(o);
   }
@@ -208,6 +212,14 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitTernaryExpr(@NotNull SpiceTernaryExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitThreadDef(@NotNull SpiceThreadDef o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTidCall(@NotNull SpiceTidCall o) {
     visitPsiElement(o);
   }
 

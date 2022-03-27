@@ -59,11 +59,14 @@ return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
 type                                              { return SpiceTypes.TYPE; }
+thread                                            { return SpiceTypes.THREAD; }
 //new                                               { return SpiceTypes.NEW; }
 nil                                               { return SpiceTypes.NIL; }
 main                                              { return SpiceTypes.MAIN; }
 printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
+tid                                               { return SpiceTypes.TID; }
+join                                              { return SpiceTypes.JOIN; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
 inline                                            { return SpiceTypes.INLINE; }

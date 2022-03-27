@@ -21,6 +21,10 @@ p printGeneration(string name, int[10][10] matrix) {
             printf("  %d  :", matrix[i][j]);
         }
         rowLine();
+        byte* t1 = thread {
+            printf("test");
+            join(t1);
+        };
     }
 }
 

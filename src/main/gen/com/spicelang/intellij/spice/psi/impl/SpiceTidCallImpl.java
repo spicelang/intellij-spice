@@ -11,44 +11,20 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceBuiltinCall {
+public class SpiceTidCallImpl extends ASTWrapperPsiElement implements SpiceTidCall {
 
-  public SpiceBuiltinCallImpl(@NotNull ASTNode node) {
+  public SpiceTidCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitBuiltinCall(this);
+    visitor.visitTidCall(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SpiceVisitor) accept((SpiceVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public SpiceJoinCall getJoinCall() {
-    return findChildByClass(SpiceJoinCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpicePrintfCall getPrintfCall() {
-    return findChildByClass(SpicePrintfCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceSizeOfCall getSizeOfCall() {
-    return findChildByClass(SpiceSizeOfCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceTidCall getTidCall() {
-    return findChildByClass(SpiceTidCall.class);
   }
 
 }

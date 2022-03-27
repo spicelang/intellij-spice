@@ -24,6 +24,7 @@ procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN p
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
 structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
+threadDef ::= THREAD LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
 forHead ::= declStmt SEMICOLON assignExpr SEMICOLON assignExpr
 foreachLoop ::= FOREACH (foreachHead | LPAREN foreachHead RPAREN) LBRACE stmtLst RBRACE
@@ -33,7 +34,7 @@ ifStmt ::= IF assignExpr LBRACE stmtLst RBRACE elseStmt?
 elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
 
 // Statements, declarations, definitions and lists
-stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt)*
+stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt | threadDef)*
 field ::= declSpecifiers? dataType IDENTIFIER
 typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
 paramLstDef ::= declStmt (COMMA declStmt)*
@@ -48,12 +49,14 @@ breakStmt ::= BREAK INTEGER?
 continueStmt ::= CONTINUE INTEGER?
 
 // Builtin functions
-builtinCall ::= printfCall | sizeOfCall
+builtinCall ::= printfCall | sizeOfCall | tidCall | joinCall
 printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
 sizeOfCall ::= SIZEOF LPAREN assignExpr RPAREN
+tidCall ::= TID LPAREN RPAREN
+joinCall ::= JOIN LPAREN assignExpr (COMMA assignExpr)* RPAREN;
 
 // Expression loop
-assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr
+assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr | threadDef
 ternaryExpr ::= logicalOrExpr (QUESTION_MARK logicalOrExpr COLON logicalOrExpr)?
 logicalOrExpr ::= logicalAndExpr (LOGICAL_OR logicalAndExpr)*
 logicalAndExpr ::= bitwiseOrExpr (LOGICAL_AND bitwiseOrExpr)*

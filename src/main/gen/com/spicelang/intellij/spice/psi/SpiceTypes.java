@@ -38,6 +38,7 @@ public interface SpiceTypes {
   IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
+  IElementType JOIN_CALL = new SpiceElementType("JOIN_CALL");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
@@ -59,6 +60,8 @@ public interface SpiceTypes {
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
+  IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
+  IElementType TID_CALL = new SpiceElementType("TID_CALL");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -97,6 +100,7 @@ public interface SpiceTypes {
   IElementType IMPORT = new SpiceTokenType("IMPORT");
   IElementType INLINE = new SpiceTokenType("INLINE");
   IElementType INTEGER = new SpiceTokenType("INTEGER");
+  IElementType JOIN = new SpiceTokenType("JOIN");
   IElementType LBRACE = new SpiceTokenType("LBRACE");
   IElementType LBRACKET = new SpiceTokenType("LBRACKET");
   IElementType LESS = new SpiceTokenType("LESS");
@@ -139,6 +143,8 @@ public interface SpiceTypes {
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");
   IElementType STRING_LITERAL = new SpiceTokenType("STRING_LITERAL");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
+  IElementType THREAD = new SpiceTokenType("THREAD");
+  IElementType TID = new SpiceTokenType("TID");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
   IElementType TYPE_BOOL = new SpiceTokenType("TYPE_BOOL");
@@ -247,6 +253,9 @@ public interface SpiceTypes {
       else if (type == IMPORT_STMT) {
         return new SpiceImportStmtImpl(node);
       }
+      else if (type == JOIN_CALL) {
+        return new SpiceJoinCallImpl(node);
+      }
       else if (type == LINE_COM) {
         return new SpiceLineComImpl(node);
       }
@@ -309,6 +318,12 @@ public interface SpiceTypes {
       }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
+      }
+      else if (type == THREAD_DEF) {
+        return new SpiceThreadDefImpl(node);
+      }
+      else if (type == TID_CALL) {
+        return new SpiceTidCallImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
