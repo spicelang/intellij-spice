@@ -65,6 +65,8 @@ nil                                               { return SpiceTypes.NIL; }
 main                                              { return SpiceTypes.MAIN; }
 printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
+tid                                               { return SpiceTypes.TID; }
+join                                              { return SpiceTypes.JOIN; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
 inline                                            { return SpiceTypes.INLINE; }

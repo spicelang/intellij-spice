@@ -8,9 +8,15 @@ import com.intellij.psi.PsiElement;
 public interface SpiceBuiltinCall extends PsiElement {
 
   @Nullable
+  SpiceJoinCall getJoinCall();
+
+  @Nullable
   SpicePrintfCall getPrintfCall();
 
   @Nullable
   SpiceSizeOfCall getSizeOfCall();
+
+  @Nullable
+  SpiceTidCall getTidCall();
 
 }

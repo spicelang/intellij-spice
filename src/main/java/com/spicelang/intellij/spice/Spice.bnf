@@ -49,9 +49,11 @@ breakStmt ::= BREAK INTEGER?
 continueStmt ::= CONTINUE INTEGER?
 
 // Builtin functions
-builtinCall ::= printfCall | sizeOfCall
+builtinCall ::= printfCall | sizeOfCall | tidCall | joinCall
 printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
 sizeOfCall ::= SIZEOF LPAREN assignExpr RPAREN
+tidCall ::= TID LPAREN RPAREN
+joinCall ::= JOIN LPAREN assignExpr (COMMA assignExpr)* RPAREN;
 
 // Expression loop
 assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr | threadDef

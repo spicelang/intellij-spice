@@ -338,14 +338,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall
+  // printfCall | sizeOfCall | tidCall | joinCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
-    if (!nextTokenIs(b, "<builtin call>", PRINTF, SIZEOF)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUILTIN_CALL, "<builtin call>");
     r = printfCall(b, l + 1);
     if (!r) r = sizeOfCall(b, l + 1);
+    if (!r) r = tidCall(b, l + 1);
+    if (!r) r = joinCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -938,6 +939,43 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && identifierExpr(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, IMPORT_STMT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // JOIN LPAREN assignExpr (COMMA assignExpr)* RPAREN
+  public static boolean joinCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "joinCall")) return false;
+    if (!nextTokenIs(b, JOIN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, JOIN, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && joinCall_3(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, JOIN_CALL, r);
+    return r;
+  }
+
+  // (COMMA assignExpr)*
+  private static boolean joinCall_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "joinCall_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!joinCall_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "joinCall_3", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA assignExpr
+  private static boolean joinCall_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "joinCall_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && assignExpr(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1650,6 +1688,18 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, THREAD_DEF, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TID LPAREN RPAREN
+  public static boolean tidCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tidCall")) return false;
+    if (!nextTokenIs(b, TID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, TID, LPAREN, RPAREN);
+    exit_section_(b, m, TID_CALL, r);
     return r;
   }
 
