@@ -12,6 +12,8 @@ p rowLine() {
     printf("\n");
 }
 
+type T dyn;
+
 p printGeneration(string name, int[10][10] matrix) {
     printf("%s:\n", name);
     rowLine();

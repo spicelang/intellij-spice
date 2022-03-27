@@ -15,14 +15,15 @@
 }
 
 // Control structures
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | typeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
-structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
+typeDef ::= declSpecifiers? TYPE IDENTIFIER (structDef | TYPE_DYN SEMICOLON)
+structDef ::= STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
 threadDef ::= THREAD LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE

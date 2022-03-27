@@ -62,6 +62,7 @@ public interface SpiceTypes {
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
   IElementType TID_CALL = new SpiceElementType("TID_CALL");
+  IElementType TYPE_DEF = new SpiceElementType("TYPE_DEF");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -324,6 +325,9 @@ public interface SpiceTypes {
       }
       else if (type == TID_CALL) {
         return new SpiceTidCallImpl(node);
+      }
+      else if (type == TYPE_DEF) {
+        return new SpiceTypeDefImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
