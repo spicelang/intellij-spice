@@ -21,6 +21,7 @@ public interface SpiceTypes {
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
+  IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
   IElementType DECL_SPECIFIER = new SpiceElementType("DECL_SPECIFIER");
   IElementType DECL_SPECIFIERS = new SpiceElementType("DECL_SPECIFIERS");
@@ -203,6 +204,9 @@ public interface SpiceTypes {
       }
       else if (type == CONTINUE_STMT) {
         return new SpiceContinueStmtImpl(node);
+      }
+      else if (type == CUSTOM_DATA_TYPE) {
+        return new SpiceCustomDataTypeImpl(node);
       }
       else if (type == DATA_TYPE) {
         return new SpiceDataTypeImpl(node);

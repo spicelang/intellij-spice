@@ -84,6 +84,16 @@ f<int> main() {
     }
 }
 
+type T dyn;
+
+type Vector<T> struct {
+    T field
+}
+
+p test() {
+    dyn v = Vector<int>{ 12 };
+}
+
 
 // File open modes
 const string MODE_READ                  = "r";

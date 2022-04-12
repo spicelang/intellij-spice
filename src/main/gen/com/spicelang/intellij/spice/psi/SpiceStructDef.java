@@ -13,4 +13,7 @@ public interface SpiceStructDef extends PsiElement {
   @NotNull
   List<SpiceField> getFieldList();
 
+  @Nullable
+  SpiceTypeLst getTypeLst();
+
 }

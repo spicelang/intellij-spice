@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceBaseDataType extends PsiElement {
+public interface SpiceCustomDataType extends PsiElement {
+
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
 
   @Nullable
-  SpiceCustomDataType getCustomDataType();
+  SpiceTypeLst getTypeLst();
 
 }
