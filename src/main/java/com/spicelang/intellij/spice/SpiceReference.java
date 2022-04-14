@@ -21,8 +21,9 @@ public class SpiceReference extends PsiReferenceBase<PsiElement> implements PsiP
         identifier = element.getText().substring(textRange.getStartOffset(), textRange.getEndOffset());
     }
 
+    @NotNull
     @Override
-    public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
+    public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<SpiceIdentifierExpr> identifiers = SpiceUtil.findIdentifiers(project, identifier);
         List<ResolveResult> results = new ArrayList<>();
@@ -38,8 +39,9 @@ public class SpiceReference extends PsiReferenceBase<PsiElement> implements PsiP
         return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
     }
 
+    @NotNull
     @Override
-    public Object @NotNull [] getVariants() {
+    public Object[] getVariants() {
         Project project = myElement.getProject();
         List<SpiceIdentifierExpr> spiceIdentifierExpressions = SpiceUtil.findIdentifiers(project);
         List<LookupElement> variants = new ArrayList<>();

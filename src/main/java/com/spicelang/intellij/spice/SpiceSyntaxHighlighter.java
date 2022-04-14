@@ -61,8 +61,9 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         return new SpiceLexerAdapter();
     }
 
+    @NotNull
     @Override
-    public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
+    public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         if (tokenType.equals(SpiceTypes.TYPE_DOUBLE)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_INT)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_SHORT)) return TYPE_KEY;

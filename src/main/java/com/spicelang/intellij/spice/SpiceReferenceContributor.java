@@ -11,9 +11,10 @@ public class SpiceReferenceContributor extends PsiReferenceContributor {
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(PlatformPatterns.psiElement(PsiLiteralValue.class),
                 new PsiReferenceProvider() {
+                    @NotNull
                     @Override
-                    public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element,
-                                                                           @NotNull ProcessingContext context) {
+                    public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
+                                                                 @NotNull ProcessingContext context) {
                         PsiLiteralValue literalExpression = (PsiLiteralValue) element;
                         String value = literalExpression.getValue() instanceof String ?
                                 (String) literalExpression.getValue() : null;
