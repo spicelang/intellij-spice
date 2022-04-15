@@ -10,4 +10,7 @@ public interface SpiceGenericTypeDef extends PsiElement {
   @Nullable
   SpiceDeclSpecifiers getDeclSpecifiers();
 
+  @NotNull
+  SpiceTypeAlts getTypeAlts();
+
 }

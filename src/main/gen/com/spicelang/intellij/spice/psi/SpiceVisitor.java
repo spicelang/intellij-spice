@@ -235,7 +235,15 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTypeAlts(@NotNull SpiceTypeAlts o) {
+    visitPsiElement(o);
+  }
+
   public void visitTypeLst(@NotNull SpiceTypeLst o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypeLstEllipsis(@NotNull SpiceTypeLstEllipsis o) {
     visitPsiElement(o);
   }
 

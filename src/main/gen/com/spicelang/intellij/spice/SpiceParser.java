@@ -617,7 +617,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
+  // EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLstEllipsis? RPAREN DLL? SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
     if (!nextTokenIs(b, EXT)) return false;
@@ -654,10 +654,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // typeLst?
+  // typeLstEllipsis?
   private static boolean extDecl_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl_4")) return false;
-    typeLst(b, l + 1);
+    typeLstEllipsis(b, l + 1);
     return true;
   }
 
@@ -875,13 +875,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // declSpecifiers? TYPE IDENTIFIER TYPE_DYN SEMICOLON
+  // declSpecifiers? TYPE IDENTIFIER typeAlts SEMICOLON
   public static boolean genericTypeDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "genericTypeDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, GENERIC_TYPE_DEF, "<generic type def>");
     r = genericTypeDef_0(b, l + 1);
-    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, TYPE_DYN, SEMICOLON);
+    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER);
+    r = r && typeAlts(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1803,14 +1805,47 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // dataType (COMMA dataType)* ELLIPSIS?
+  // dataType (BITWISE_OR dataType)*
+  public static boolean typeAlts(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeAlts")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, TYPE_ALTS, "<type alts>");
+    r = dataType(b, l + 1);
+    r = r && typeAlts_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (BITWISE_OR dataType)*
+  private static boolean typeAlts_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeAlts_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!typeAlts_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "typeAlts_1", c)) break;
+    }
+    return true;
+  }
+
+  // BITWISE_OR dataType
+  private static boolean typeAlts_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeAlts_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BITWISE_OR);
+    r = r && dataType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // dataType (COMMA dataType)*
   public static boolean typeLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "typeLst")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE_LST, "<type lst>");
     r = dataType(b, l + 1);
     r = r && typeLst_1(b, l + 1);
-    r = r && typeLst_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1837,9 +1872,21 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  /* ********************************************************** */
+  // typeLst ELLIPSIS?
+  public static boolean typeLstEllipsis(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeLstEllipsis")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, TYPE_LST_ELLIPSIS, "<type lst ellipsis>");
+    r = typeLst(b, l + 1);
+    r = r && typeLstEllipsis_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
   // ELLIPSIS?
-  private static boolean typeLst_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "typeLst_2")) return false;
+  private static boolean typeLstEllipsis_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeLstEllipsis_1")) return false;
     consumeToken(b, ELLIPSIS);
     return true;
   }
