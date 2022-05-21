@@ -305,13 +305,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | tidCall | joinCall
+  // printfCall | sizeOfCall | lenCall | tidCall | joinCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUILTIN_CALL, "<builtin call>");
     r = printfCall(b, l + 1);
     if (!r) r = sizeOfCall(b, l + 1);
+    if (!r) r = lenCall(b, l + 1);
     if (!r) r = tidCall(b, l + 1);
     if (!r) r = joinCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -1027,6 +1028,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, COMMA);
     r = r && assignExpr(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // LEN LPAREN assignExpr RPAREN
+  public static boolean lenCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lenCall")) return false;
+    if (!nextTokenIs(b, LEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, LEN, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, LEN_CALL, r);
     return r;
   }
 

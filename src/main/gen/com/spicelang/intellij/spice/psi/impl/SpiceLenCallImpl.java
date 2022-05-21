@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceBuiltinCall {
+public class SpiceLenCallImpl extends ASTWrapperPsiElement implements SpiceLenCall {
 
-  public SpiceBuiltinCallImpl(@NotNull ASTNode node) {
+  public SpiceLenCallImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitBuiltinCall(this);
+    visitor.visitLenCall(this);
   }
 
   @Override
@@ -28,33 +28,9 @@ public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceB
   }
 
   @Override
-  @Nullable
-  public SpiceJoinCall getJoinCall() {
-    return findChildByClass(SpiceJoinCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceLenCall getLenCall() {
-    return findChildByClass(SpiceLenCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpicePrintfCall getPrintfCall() {
-    return findChildByClass(SpicePrintfCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceSizeOfCall getSizeOfCall() {
-    return findChildByClass(SpiceSizeOfCall.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceTidCall getTidCall() {
-    return findChildByClass(SpiceTidCall.class);
+  @NotNull
+  public SpiceAssignExpr getAssignExpr() {
+    return findNotNullChildByClass(SpiceAssignExpr.class);
   }
 
 }
