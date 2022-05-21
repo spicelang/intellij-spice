@@ -131,6 +131,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLenCall(@NotNull SpiceLenCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitLineCom(@NotNull SpiceLineCom o) {
     visitPsiElement(o);
   }
