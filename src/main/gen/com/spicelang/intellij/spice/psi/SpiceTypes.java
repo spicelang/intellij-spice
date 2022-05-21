@@ -39,6 +39,7 @@ public interface SpiceTypes {
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType JOIN_CALL = new SpiceElementType("JOIN_CALL");
+  IElementType LEN_CALL = new SpiceElementType("LEN_CALL");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
@@ -103,6 +104,7 @@ public interface SpiceTypes {
   IElementType JOIN = new SpiceTokenType("JOIN");
   IElementType LBRACE = new SpiceTokenType("LBRACE");
   IElementType LBRACKET = new SpiceTokenType("LBRACKET");
+  IElementType LEN = new SpiceTokenType("LEN");
   IElementType LESS = new SpiceTokenType("LESS");
   IElementType LESS_EQUAL = new SpiceTokenType("LESS_EQUAL");
   IElementType LINE_COMMENT = new SpiceTokenType("LINE_COMMENT");
@@ -255,6 +257,9 @@ public interface SpiceTypes {
       }
       else if (type == JOIN_CALL) {
         return new SpiceJoinCallImpl(node);
+      }
+      else if (type == LEN_CALL) {
+        return new SpiceLenCallImpl(node);
       }
       else if (type == LINE_COM) {
         return new SpiceLineComImpl(node);
