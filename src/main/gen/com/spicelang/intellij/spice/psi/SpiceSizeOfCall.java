@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceSizeOfCall extends PsiElement {
 
-  @NotNull
+  @Nullable
   SpiceAssignExpr getAssignExpr();
+
+  @Nullable
+  SpiceDataType getDataType();
 
 }

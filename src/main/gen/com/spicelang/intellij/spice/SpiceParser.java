@@ -1601,16 +1601,38 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // SIZEOF LPAREN assignExpr RPAREN
+  // SIZEOF LPAREN (assignExpr | TYPE dataType) RPAREN
   public static boolean sizeOfCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sizeOfCall")) return false;
     if (!nextTokenIs(b, SIZEOF)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, SIZEOF, LPAREN);
-    r = r && assignExpr(b, l + 1);
+    r = r && sizeOfCall_2(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, SIZE_OF_CALL, r);
+    return r;
+  }
+
+  // assignExpr | TYPE dataType
+  private static boolean sizeOfCall_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sizeOfCall_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = assignExpr(b, l + 1);
+    if (!r) r = sizeOfCall_2_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // TYPE dataType
+  private static boolean sizeOfCall_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sizeOfCall_2_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TYPE);
+    r = r && dataType(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
