@@ -51,10 +51,4 @@ public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements S
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePostfixUnaryExpr.class);
   }
 
-  @Override
-  @NotNull
-  public List<SpiceTemplateDef> getTemplateDefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceTemplateDef.class);
-  }
-
 }

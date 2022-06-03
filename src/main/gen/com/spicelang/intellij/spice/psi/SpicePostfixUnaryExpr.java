@@ -19,7 +19,4 @@ public interface SpicePostfixUnaryExpr extends PsiElement {
   @NotNull
   List<SpicePostfixUnaryExpr> getPostfixUnaryExprList();
 
-  @NotNull
-  List<SpiceTemplateDef> getTemplateDefList();
-
 }

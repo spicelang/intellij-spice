@@ -1261,7 +1261,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // atomicExpr (LBRACKET assignExpr RBRACKET | templateDef? LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+  // atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
   public static boolean postfixUnaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr")) return false;
     boolean r;
@@ -1272,7 +1272,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (LBRACKET assignExpr RBRACKET | templateDef? LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+  // (LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
   private static boolean postfixUnaryExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1")) return false;
     while (true) {
@@ -1283,7 +1283,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // LBRACKET assignExpr RBRACKET | templateDef? LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS
+  // LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS
   private static boolean postfixUnaryExpr_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0")) return false;
     boolean r;
@@ -1309,29 +1309,21 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // templateDef? LPAREN paramLst? RPAREN
+  // LPAREN paramLst? RPAREN
   private static boolean postfixUnaryExpr_1_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = postfixUnaryExpr_1_0_1_0(b, l + 1);
-    r = r && consumeToken(b, LPAREN);
-    r = r && postfixUnaryExpr_1_0_1_2(b, l + 1);
+    r = consumeToken(b, LPAREN);
+    r = r && postfixUnaryExpr_1_0_1_1(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // templateDef?
-  private static boolean postfixUnaryExpr_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1_0")) return false;
-    templateDef(b, l + 1);
-    return true;
-  }
-
   // paramLst?
-  private static boolean postfixUnaryExpr_1_0_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1_2")) return false;
+  private static boolean postfixUnaryExpr_1_0_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1_1")) return false;
     paramLst(b, l + 1);
     return true;
   }
