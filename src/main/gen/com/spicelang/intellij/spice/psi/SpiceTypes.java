@@ -64,6 +64,7 @@ public interface SpiceTypes {
   IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
   IElementType TID_CALL = new SpiceElementType("TID_CALL");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
+  IElementType UNSAFE_BLOCK_DEF = new SpiceElementType("UNSAFE_BLOCK_DEF");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
 
@@ -158,6 +159,7 @@ public interface SpiceTypes {
   IElementType TYPE_LONG = new SpiceTokenType("TYPE_LONG");
   IElementType TYPE_SHORT = new SpiceTokenType("TYPE_SHORT");
   IElementType TYPE_STRING = new SpiceTokenType("TYPE_STRING");
+  IElementType UNSAFE = new SpiceTokenType("UNSAFE");
   IElementType UNSIGNED = new SpiceTokenType("UNSIGNED");
   IElementType WHILE = new SpiceTokenType("WHILE");
   IElementType XOR_EQUAL = new SpiceTokenType("XOR_EQUAL");
@@ -332,6 +334,9 @@ public interface SpiceTypes {
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
+      }
+      else if (type == UNSAFE_BLOCK_DEF) {
+        return new SpiceUnsafeBlockDefImpl(node);
       }
       else if (type == VALUE) {
         return new SpiceValueImpl(node);
