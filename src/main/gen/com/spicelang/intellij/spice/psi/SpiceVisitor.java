@@ -250,7 +250,7 @@ public class SpiceVisitor extends PsiElementVisitor {
   public void visitTypeLstEllipsis(@NotNull SpiceTypeLstEllipsis o) {
     visitPsiElement(o);
   }
-  
+
   public void visitUnsafeBlockDef(@NotNull SpiceUnsafeBlockDef o) {
     visitPsiElement(o);
   }

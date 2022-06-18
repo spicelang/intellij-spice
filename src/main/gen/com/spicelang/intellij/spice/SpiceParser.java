@@ -1976,9 +1976,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = identifierExpr(b, l + 1);
     r = r && value_2_1(b, l + 1);
     r = r && value_2_2(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
-    r = r && value_2_4(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
+    r = r && value_2_3(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
