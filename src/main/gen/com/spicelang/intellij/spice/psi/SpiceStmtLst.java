@@ -23,6 +23,9 @@ public interface SpiceStmtLst extends PsiElement {
   List<SpiceThreadDef> getThreadDefList();
 
   @NotNull
+  List<SpiceUnsafeBlockDef> getUnsafeBlockDefList();
+
+  @NotNull
   List<SpiceWhileLoop> getWhileLoopList();
 
 }

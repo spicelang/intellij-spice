@@ -60,6 +60,7 @@ as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
 type                                              { return SpiceTypes.TYPE; }
 thread                                            { return SpiceTypes.THREAD; }
+unsafe                                            { return SpiceTypes.UNSAFE; }
 //new                                               { return SpiceTypes.NEW; }
 nil                                               { return SpiceTypes.NIL; }
 main                                              { return SpiceTypes.MAIN; }
