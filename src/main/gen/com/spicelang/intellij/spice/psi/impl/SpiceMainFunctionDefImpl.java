@@ -29,8 +29,8 @@ public class SpiceMainFunctionDefImpl extends ASTWrapperPsiElement implements Sp
 
   @Override
   @Nullable
-  public SpiceParamLstDef getParamLstDef() {
-    return findChildByClass(SpiceParamLstDef.class);
+  public SpiceArgLstDef getArgLstDef() {
+    return findChildByClass(SpiceArgLstDef.class);
   }
 
   @Override

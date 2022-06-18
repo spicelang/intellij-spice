@@ -9,6 +9,8 @@ import com.spicelang.intellij.spice.psi.impl.*;
 public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
+  IElementType ARG_LST = new SpiceElementType("ARG_LST");
+  IElementType ARG_LST_DEF = new SpiceElementType("ARG_LST_DEF");
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
   IElementType ASSIGN_OP = new SpiceElementType("ASSIGN_OP");
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
@@ -47,8 +49,6 @@ public interface SpiceTypes {
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
-  IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
-  IElementType PARAM_LST_DEF = new SpiceElementType("PARAM_LST_DEF");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_OP = new SpiceElementType("PREFIX_UNARY_OP");
@@ -175,6 +175,12 @@ public interface SpiceTypes {
       if (type == ADDITIVE_EXPR) {
         return new SpiceAdditiveExprImpl(node);
       }
+      else if (type == ARG_LST) {
+        return new SpiceArgLstImpl(node);
+      }
+      else if (type == ARG_LST_DEF) {
+        return new SpiceArgLstDefImpl(node);
+      }
       else if (type == ASSIGN_EXPR) {
         return new SpiceAssignExprImpl(node);
       }
@@ -288,12 +294,6 @@ public interface SpiceTypes {
       }
       else if (type == MULTIPLICATIVE_EXPR) {
         return new SpiceMultiplicativeExprImpl(node);
-      }
-      else if (type == PARAM_LST) {
-        return new SpiceParamLstImpl(node);
-      }
-      else if (type == PARAM_LST_DEF) {
-        return new SpiceParamLstDefImpl(node);
       }
       else if (type == POSTFIX_UNARY_EXPR) {
         return new SpicePostfixUnaryExprImpl(node);

@@ -11,6 +11,14 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArgLst(@NotNull SpiceArgLst o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArgLstDef(@NotNull SpiceArgLstDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitAssignExpr(@NotNull SpiceAssignExpr o) {
     visitPsiElement(o);
   }
@@ -160,14 +168,6 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitMultiplicativeExpr(@NotNull SpiceMultiplicativeExpr o) {
-    visitPsiElement(o);
-  }
-
-  public void visitParamLst(@NotNull SpiceParamLst o) {
-    visitPsiElement(o);
-  }
-
-  public void visitParamLstDef(@NotNull SpiceParamLstDef o) {
     visitPsiElement(o);
   }
 

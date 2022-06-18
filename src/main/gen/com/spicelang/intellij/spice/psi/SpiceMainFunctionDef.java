@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceMainFunctionDef extends PsiElement {
 
   @Nullable
-  SpiceParamLstDef getParamLstDef();
+  SpiceArgLstDef getArgLstDef();
 
   @NotNull
   SpiceStmtLst getStmtLst();
