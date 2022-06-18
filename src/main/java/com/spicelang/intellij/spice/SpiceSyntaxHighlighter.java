@@ -62,7 +62,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     }
 
     @Override
-    public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
+    public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         if (tokenType.equals(SpiceTypes.TYPE_DOUBLE)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_INT)) return TYPE_KEY;
         if (tokenType.equals(SpiceTypes.TYPE_SHORT)) return TYPE_KEY;
@@ -92,6 +92,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.STRUCT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TYPE)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.THREAD)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.UNSAFE)) return KEYWORD_KEY;
         //if (tokenType.equals(SpiceTypes.NEW)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.NIL)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.MAIN)) return IDENTIFIER_KEY;
