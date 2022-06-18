@@ -81,7 +81,7 @@ identifierExpr ::= IDENTIFIER {
     implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
     methods=[getIdentifier getName setName getNameIdentifier]
 }
-value ::= primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* LBRACE paramLst? RBRACE | NIL LESS dataType GREATER
+value ::= primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? (LBRACE paramLst? RBRACE)? | NIL LESS dataType GREATER
 primitiveValue ::= DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET INTEGER? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | identifierExpr (DOT identifierExpr)*
