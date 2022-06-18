@@ -51,4 +51,10 @@ public class SpiceValueImpl extends ASTWrapperPsiElement implements SpiceValue {
     return findChildByClass(SpicePrimitiveValue.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
+  }
+
 }

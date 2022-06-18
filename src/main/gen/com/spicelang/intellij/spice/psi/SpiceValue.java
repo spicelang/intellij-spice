@@ -19,4 +19,7 @@ public interface SpiceValue extends PsiElement {
   @Nullable
   SpicePrimitiveValue getPrimitiveValue();
 
+  @Nullable
+  SpiceTypeLst getTypeLst();
+
 }

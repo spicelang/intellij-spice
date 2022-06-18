@@ -1776,7 +1776,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* LBRACE paramLst? RBRACE | NIL LESS dataType GREATER
+  // primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? (LBRACE paramLst? RBRACE)? | NIL LESS dataType GREATER
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
@@ -1808,16 +1808,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // identifierExpr (DOT identifierExpr)* LBRACE paramLst? RBRACE
+  // identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? (LBRACE paramLst? RBRACE)?
   private static boolean value_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = identifierExpr(b, l + 1);
     r = r && value_2_1(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
+    r = r && value_2_2(b, l + 1);
     r = r && value_2_3(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -1844,9 +1843,47 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // paramLst?
+  // (LESS typeLst GREATER)?
+  private static boolean value_2_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_2_2")) return false;
+    value_2_2_0(b, l + 1);
+    return true;
+  }
+
+  // LESS typeLst GREATER
+  private static boolean value_2_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_2_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
+    r = r && typeLst(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (LBRACE paramLst? RBRACE)?
   private static boolean value_2_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value_2_3")) return false;
+    value_2_3_0(b, l + 1);
+    return true;
+  }
+
+  // LBRACE paramLst? RBRACE
+  private static boolean value_2_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_2_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && value_2_3_0_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // paramLst?
+  private static boolean value_2_3_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_2_3_0_1")) return false;
     paramLst(b, l + 1);
     return true;
   }
