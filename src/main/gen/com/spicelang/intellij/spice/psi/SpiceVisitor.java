@@ -19,6 +19,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitArrayInitialization(@NotNull SpiceArrayInitialization o) {
+    visitPsiElement(o);
+  }
+
   public void visitAssignExpr(@NotNull SpiceAssignExpr o) {
     visitPsiElement(o);
   }
@@ -116,6 +120,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitForeachLoop(@NotNull SpiceForeachLoop o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunctionCall(@NotNull SpiceFunctionCall o) {
     visitPsiElement(o);
   }
 
@@ -220,6 +228,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitStructDef(@NotNull SpiceStructDef o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStructInstantiation(@NotNull SpiceStructInstantiation o) {
     visitPsiElement(o);
   }
 

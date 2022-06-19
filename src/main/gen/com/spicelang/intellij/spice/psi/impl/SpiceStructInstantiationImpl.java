@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements SpicePostfixUnaryExpr {
+public class SpiceStructInstantiationImpl extends ASTWrapperPsiElement implements SpiceStructInstantiation {
 
-  public SpicePostfixUnaryExprImpl(@NotNull ASTNode node) {
+  public SpiceStructInstantiationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitPostfixUnaryExpr(this);
+    visitor.visitStructInstantiation(this);
   }
 
   @Override
@@ -28,21 +28,21 @@ public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements S
   }
 
   @Override
-  @NotNull
-  public List<SpiceAssignExpr> getAssignExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
+  @Nullable
+  public SpiceArgLst getArgLst() {
+    return findChildByClass(SpiceArgLst.class);
   }
 
   @Override
   @NotNull
-  public SpiceAtomicExpr getAtomicExpr() {
-    return findNotNullChildByClass(SpiceAtomicExpr.class);
+  public List<SpiceIdentifierExpr> getIdentifierExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
   }
 
   @Override
-  @NotNull
-  public List<SpicePostfixUnaryExpr> getPostfixUnaryExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePostfixUnaryExpr.class);
+  @Nullable
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
   }
 
 }

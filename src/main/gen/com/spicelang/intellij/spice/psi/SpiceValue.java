@@ -8,18 +8,18 @@ import com.intellij.psi.PsiElement;
 public interface SpiceValue extends PsiElement {
 
   @Nullable
-  SpiceArgLst getArgLst();
+  SpiceArrayInitialization getArrayInitialization();
 
   @Nullable
   SpiceDataType getDataType();
 
-  @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
+  @Nullable
+  SpiceFunctionCall getFunctionCall();
 
   @Nullable
   SpicePrimitiveValue getPrimitiveValue();
 
   @Nullable
-  SpiceTypeLst getTypeLst();
+  SpiceStructInstantiation getStructInstantiation();
 
 }

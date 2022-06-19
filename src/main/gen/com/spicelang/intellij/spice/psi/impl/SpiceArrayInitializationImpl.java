@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements SpicePostfixUnaryExpr {
+public class SpiceArrayInitializationImpl extends ASTWrapperPsiElement implements SpiceArrayInitialization {
 
-  public SpicePostfixUnaryExprImpl(@NotNull ASTNode node) {
+  public SpiceArrayInitializationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitPostfixUnaryExpr(this);
+    visitor.visitArrayInitialization(this);
   }
 
   @Override
@@ -28,21 +28,9 @@ public class SpicePostfixUnaryExprImpl extends ASTWrapperPsiElement implements S
   }
 
   @Override
-  @NotNull
-  public List<SpiceAssignExpr> getAssignExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssignExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public SpiceAtomicExpr getAtomicExpr() {
-    return findNotNullChildByClass(SpiceAtomicExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public List<SpicePostfixUnaryExpr> getPostfixUnaryExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePostfixUnaryExpr.class);
+  @Nullable
+  public SpiceArgLst getArgLst() {
+    return findChildByClass(SpiceArgLst.class);
   }
 
 }

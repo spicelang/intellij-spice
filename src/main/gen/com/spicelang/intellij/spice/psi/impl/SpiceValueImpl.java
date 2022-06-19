@@ -29,8 +29,8 @@ public class SpiceValueImpl extends ASTWrapperPsiElement implements SpiceValue {
 
   @Override
   @Nullable
-  public SpiceArgLst getArgLst() {
-    return findChildByClass(SpiceArgLst.class);
+  public SpiceArrayInitialization getArrayInitialization() {
+    return findChildByClass(SpiceArrayInitialization.class);
   }
 
   @Override
@@ -40,9 +40,9 @@ public class SpiceValueImpl extends ASTWrapperPsiElement implements SpiceValue {
   }
 
   @Override
-  @NotNull
-  public List<SpiceIdentifierExpr> getIdentifierExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  @Nullable
+  public SpiceFunctionCall getFunctionCall() {
+    return findChildByClass(SpiceFunctionCall.class);
   }
 
   @Override
@@ -53,8 +53,8 @@ public class SpiceValueImpl extends ASTWrapperPsiElement implements SpiceValue {
 
   @Override
   @Nullable
-  public SpiceTypeLst getTypeLst() {
-    return findChildByClass(SpiceTypeLst.class);
+  public SpiceStructInstantiation getStructInstantiation() {
+    return findChildByClass(SpiceStructInstantiation.class);
   }
 
 }
