@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceMainFunctionDef extends PsiElement {
+public interface SpiceArrayInitialization extends PsiElement {
 
   @Nullable
-  SpiceArgLstDef getArgLstDef();
-
-  @NotNull
-  SpiceStmtLst getStmtLst();
+  SpiceArgLst getArgLst();
 
 }

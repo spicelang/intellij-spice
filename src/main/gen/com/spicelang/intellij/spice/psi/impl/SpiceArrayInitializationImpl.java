@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceMainFunctionDefImpl extends ASTWrapperPsiElement implements SpiceMainFunctionDef {
+public class SpiceArrayInitializationImpl extends ASTWrapperPsiElement implements SpiceArrayInitialization {
 
-  public SpiceMainFunctionDefImpl(@NotNull ASTNode node) {
+  public SpiceArrayInitializationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitMainFunctionDef(this);
+    visitor.visitArrayInitialization(this);
   }
 
   @Override
@@ -29,14 +29,8 @@ public class SpiceMainFunctionDefImpl extends ASTWrapperPsiElement implements Sp
 
   @Override
   @Nullable
-  public SpiceArgLstDef getArgLstDef() {
-    return findChildByClass(SpiceArgLstDef.class);
-  }
-
-  @Override
-  @NotNull
-  public SpiceStmtLst getStmtLst() {
-    return findNotNullChildByClass(SpiceStmtLst.class);
+  public SpiceArgLst getArgLst() {
+    return findChildByClass(SpiceArgLst.class);
   }
 
 }
