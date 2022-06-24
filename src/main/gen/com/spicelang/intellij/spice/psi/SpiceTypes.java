@@ -12,6 +12,7 @@ public interface SpiceTypes {
   IElementType ARG_LST = new SpiceElementType("ARG_LST");
   IElementType ARG_LST_DEF = new SpiceElementType("ARG_LST_DEF");
   IElementType ARRAY_INITIALIZATION = new SpiceElementType("ARRAY_INITIALIZATION");
+  IElementType ASSERT_STMT = new SpiceElementType("ASSERT_STMT");
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
   IElementType ASSIGN_OP = new SpiceElementType("ASSIGN_OP");
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
@@ -78,6 +79,7 @@ public interface SpiceTypes {
 
   IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
   IElementType AS = new SpiceTokenType("AS");
+  IElementType ASSERT = new SpiceTokenType("ASSERT");
   IElementType ASSIGN = new SpiceTokenType("ASSIGN");
   IElementType BITWISE_AND = new SpiceTokenType("BITWISE_AND");
   IElementType BITWISE_NOT = new SpiceTokenType("BITWISE_NOT");
@@ -186,6 +188,9 @@ public interface SpiceTypes {
       }
       else if (type == ARRAY_INITIALIZATION) {
         return new SpiceArrayInitializationImpl(node);
+      }
+      else if (type == ASSERT_STMT) {
+        return new SpiceAssertStmtImpl(node);
       }
       else if (type == ASSIGN_EXPR) {
         return new SpiceAssignExprImpl(node);
