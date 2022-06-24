@@ -28,9 +28,15 @@ public class SpiceSizeOfCallImpl extends ASTWrapperPsiElement implements SpiceSi
   }
 
   @Override
-  @NotNull
+  @Nullable
   public SpiceAssignExpr getAssignExpr() {
-    return findNotNullChildByClass(SpiceAssignExpr.class);
+    return findChildByClass(SpiceAssignExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceDataType getDataType() {
+    return findChildByClass(SpiceDataType.class);
   }
 
 }

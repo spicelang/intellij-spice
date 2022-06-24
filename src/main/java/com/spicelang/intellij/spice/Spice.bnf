@@ -15,14 +15,15 @@
 }
 
 // Control structures
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
-extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
-structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
+functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr templateDef? LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr templateDef? LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
+extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLstEllipsis? RPAREN DLL? SEMICOLON
+genericTypeDef ::= declSpecifiers? TYPE IDENTIFIER typeAlts SEMICOLON
+structDef ::= declSpecifiers? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
 threadDef ::= THREAD LBRACE stmtLst RBRACE
 unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
@@ -37,8 +38,11 @@ assertStmt ::= ASSERT assignExpr SEMICOLON
 
 // Statements, declarations, definitions and lists
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
+templateDef ::= LESS typeLst GREATER;
 field ::= declSpecifiers? dataType IDENTIFIER
-typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
+typeLst ::= dataType (COMMA dataType)*
+typeLstEllipsis ::= typeLst ELLIPSIS?;
+typeAlts ::= dataType (BITWISE_OR dataType)*;
 argLstDef ::= declStmt (COMMA declStmt)*
 argLst ::= assignExpr (COMMA assignExpr)*
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
@@ -53,7 +57,7 @@ continueStmt ::= CONTINUE INTEGER?
 // Builtin functions
 builtinCall ::= printfCall | sizeOfCall | lenCall | tidCall | joinCall
 printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
-sizeOfCall ::= SIZEOF LPAREN assignExpr RPAREN
+sizeOfCall ::= SIZEOF LPAREN (assignExpr | TYPE dataType) RPAREN
 lenCall ::= LEN LPAREN assignExpr RPAREN
 tidCall ::= TID LPAREN RPAREN
 joinCall ::= JOIN LPAREN assignExpr (COMMA assignExpr)* RPAREN;
@@ -73,7 +77,7 @@ additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
-postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN argLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values and types
@@ -82,14 +86,16 @@ identifierExpr ::= IDENTIFIER {
     implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
     methods=[getIdentifier getName setName getNameIdentifier]
 }
+
 value ::= primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
-functionCall ::= IDENTIFIER (DOT IDENTIFIER)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
+functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
-structInstantiation ::= IDENTIFIER (DOT IDENTIFIER)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+structInstantiation ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
 primitiveValue ::= DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET INTEGER? RBRACKET)*
-baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | identifierExpr (DOT identifierExpr)*
+baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
+customDataType ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)?
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL

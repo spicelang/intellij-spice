@@ -12,6 +12,12 @@ p rowLine() {
     printf("\n");
 }
 
+type T int|double|string;
+
+f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
+    return T{};
+}
+
 p printGeneration(string name, int[10][10] matrix) {
     printf("%s:\n", name);
     rowLine();
@@ -76,6 +82,16 @@ f<int> main() {
         // Set new matrix to old matrix
         a = b;
     }
+}
+
+type T dyn;
+
+type Vector<T> struct {
+    T field
+}
+
+p test() {
+    dyn v = Vector<int>{ 12 };
 }
 
 

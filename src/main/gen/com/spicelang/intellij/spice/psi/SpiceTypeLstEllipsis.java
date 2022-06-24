@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceStructInstantiation extends PsiElement {
-
-  @Nullable
-  SpiceArgLst getArgLst();
+public interface SpiceTypeLstEllipsis extends PsiElement {
 
   @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
-
-  @Nullable
   SpiceTypeLst getTypeLst();
 
 }

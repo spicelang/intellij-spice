@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceProcedureDefImpl extends ASTWrapperPsiElement implements SpiceProcedureDef {
+public class SpiceCustomDataTypeImpl extends ASTWrapperPsiElement implements SpiceCustomDataType {
 
-  public SpiceProcedureDefImpl(@NotNull ASTNode node) {
+  public SpiceCustomDataTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitProcedureDef(this);
+    visitor.visitCustomDataType(this);
   }
 
   @Override
@@ -28,33 +28,15 @@ public class SpiceProcedureDefImpl extends ASTWrapperPsiElement implements Spice
   }
 
   @Override
-  @Nullable
-  public SpiceArgLstDef getArgLstDef() {
-    return findChildByClass(SpiceArgLstDef.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
-  }
-
-  @Override
   @NotNull
   public List<SpiceIdentifierExpr> getIdentifierExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
   }
 
   @Override
-  @NotNull
-  public SpiceStmtLst getStmtLst() {
-    return findNotNullChildByClass(SpiceStmtLst.class);
-  }
-
-  @Override
   @Nullable
-  public SpiceTemplateDef getTemplateDef() {
-    return findChildByClass(SpiceTemplateDef.class);
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
   }
 
 }

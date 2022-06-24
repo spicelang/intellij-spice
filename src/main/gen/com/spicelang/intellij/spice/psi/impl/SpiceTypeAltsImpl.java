@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStructDef {
+public class SpiceTypeAltsImpl extends ASTWrapperPsiElement implements SpiceTypeAlts {
 
-  public SpiceStructDefImpl(@NotNull ASTNode node) {
+  public SpiceTypeAltsImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitStructDef(this);
+    visitor.visitTypeAlts(this);
   }
 
   @Override
@@ -28,21 +28,9 @@ public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStr
   }
 
   @Override
-  @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
-  }
-
-  @Override
   @NotNull
-  public List<SpiceField> getFieldList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceField.class);
-  }
-
-  @Override
-  @Nullable
-  public SpiceTypeLst getTypeLst() {
-    return findChildByClass(SpiceTypeLst.class);
+  public List<SpiceDataType> getDataTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceDataType.class);
   }
 
 }

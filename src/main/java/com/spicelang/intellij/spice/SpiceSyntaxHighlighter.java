@@ -61,6 +61,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         return new SpiceLexerAdapter();
     }
 
+    @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         if (tokenType.equals(SpiceTypes.TYPE_DOUBLE)) return TYPE_KEY;
@@ -100,6 +101,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.PRINTF)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.SIZEOF)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.LEN)) return BUILTIN_KEY;
+        if (tokenType.equals(SpiceTypes.TID)) return BUILTIN_KEY;
+        if (tokenType.equals(SpiceTypes.JOIN)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.EXT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.DLL)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TRUE)) return CONSTANT_KEY;

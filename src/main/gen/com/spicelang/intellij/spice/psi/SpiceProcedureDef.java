@@ -19,4 +19,7 @@ public interface SpiceProcedureDef extends PsiElement {
   @NotNull
   SpiceStmtLst getStmtLst();
 
+  @Nullable
+  SpiceTemplateDef getTemplateDef();
+
 }

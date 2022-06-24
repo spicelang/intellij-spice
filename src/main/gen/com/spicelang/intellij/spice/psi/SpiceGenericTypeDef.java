@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceStructInstantiation extends PsiElement {
+public interface SpiceGenericTypeDef extends PsiElement {
 
   @Nullable
-  SpiceArgLst getArgLst();
+  SpiceDeclSpecifiers getDeclSpecifiers();
 
   @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
-
-  @Nullable
-  SpiceTypeLst getTypeLst();
+  SpiceTypeAlts getTypeAlts();
 
 }

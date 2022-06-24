@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpicePostfixUnaryExpr extends PsiElement {
 
   @NotNull
-  List<SpiceArgLst> getArgLstList();
-
-  @NotNull
   List<SpiceAssignExpr> getAssignExprList();
 
   @NotNull

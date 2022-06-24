@@ -34,6 +34,12 @@ public class SpiceFunctionCallImpl extends ASTWrapperPsiElement implements Spice
   }
 
   @Override
+  @NotNull
+  public List<SpiceIdentifierExpr> getIdentifierExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  }
+
+  @Override
   @Nullable
   public SpiceTypeLst getTypeLst() {
     return findChildByClass(SpiceTypeLst.class);
