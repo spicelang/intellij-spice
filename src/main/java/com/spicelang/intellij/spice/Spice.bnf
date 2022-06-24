@@ -18,9 +18,9 @@
 spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
-mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN paramLstDef? RPAREN LBRACE stmtLst RBRACE
+mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
+functionDef ::= declSpecifiers? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= declSpecifiers? P (identifierExpr DOT)? identifierExpr LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLst? RPAREN DLL? SEMICOLON
 structDef ::= declSpecifiers? TYPE identifierExpr STRUCT LBRACE field* RBRACE
 globalVarDef ::= declSpecifiers? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
@@ -39,8 +39,8 @@ assertStmt ::= ASSERT assignExpr SEMICOLON
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
 field ::= declSpecifiers? dataType IDENTIFIER
 typeLst ::= dataType (COMMA dataType)* ELLIPSIS?
-paramLstDef ::= declStmt (COMMA declStmt)*
-paramLst ::= assignExpr (COMMA assignExpr)*
+argLstDef ::= declStmt (COMMA declStmt)*
+argLst ::= assignExpr (COMMA assignExpr)*
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
 declStmt ::= declSpecifiers? dataType identifierExpr (ASSIGN assignExpr)?
 declSpecifiers ::= declSpecifier+
@@ -73,7 +73,7 @@ additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
-postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN paramLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | LPAREN argLst? RPAREN | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values and types
@@ -82,7 +82,11 @@ identifierExpr ::= IDENTIFIER {
     implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
     methods=[getIdentifier getName setName getNameIdentifier]
 }
-value ::= primitiveValue | LBRACE paramLst? RBRACE | identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? (LBRACE paramLst? RBRACE)? | NIL LESS dataType GREATER
+value ::= primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+functionCall ::= IDENTIFIER (DOT IDENTIFIER)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
+arrayInitialization ::= LBRACE argLst? RBRACE
+structInstantiation ::= IDENTIFIER (DOT IDENTIFIER)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+
 primitiveValue ::= DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET INTEGER? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | identifierExpr (DOT identifierExpr)*
