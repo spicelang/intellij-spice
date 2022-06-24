@@ -1413,25 +1413,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LPAREN);
-    r = r && postfixUnaryExpr_1_0_1_1(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // argLst?
-  private static boolean postfixUnaryExpr_1_0_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_1_1")) return false;
-    argLst(b, l + 1);
-    return true;
-  }
-
-  // DOT postfixUnaryExpr
-  private static boolean postfixUnaryExpr_1_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, DOT);
     r = r && postfixUnaryExpr(b, l + 1);
     exit_section_(b, m, null, r);
