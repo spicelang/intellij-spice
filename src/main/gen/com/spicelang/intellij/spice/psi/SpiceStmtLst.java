@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface SpiceStmtLst extends PsiElement {
 
   @NotNull
+  List<SpiceAssertStmt> getAssertStmtList();
+
+  @NotNull
   List<SpiceForLoop> getForLoopList();
 
   @NotNull

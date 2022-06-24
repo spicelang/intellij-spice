@@ -29,6 +29,12 @@ public class SpiceStmtLstImpl extends ASTWrapperPsiElement implements SpiceStmtL
 
   @Override
   @NotNull
+  public List<SpiceAssertStmt> getAssertStmtList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceAssertStmt.class);
+  }
+
+  @Override
+  @NotNull
   public List<SpiceForLoop> getForLoopList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceForLoop.class);
   }

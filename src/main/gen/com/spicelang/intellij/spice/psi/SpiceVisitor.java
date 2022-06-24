@@ -11,6 +11,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAssertStmt(@NotNull SpiceAssertStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitAssignExpr(@NotNull SpiceAssignExpr o) {
     visitPsiElement(o);
   }

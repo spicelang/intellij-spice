@@ -9,6 +9,7 @@ import com.spicelang.intellij.spice.psi.impl.*;
 public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
+  IElementType ASSERT_STMT = new SpiceElementType("ASSERT_STMT");
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
   IElementType ASSIGN_OP = new SpiceElementType("ASSIGN_OP");
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
@@ -70,6 +71,7 @@ public interface SpiceTypes {
 
   IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
   IElementType AS = new SpiceTokenType("AS");
+  IElementType ASSERT = new SpiceTokenType("ASSERT");
   IElementType ASSIGN = new SpiceTokenType("ASSIGN");
   IElementType BITWISE_AND = new SpiceTokenType("BITWISE_AND");
   IElementType BITWISE_NOT = new SpiceTokenType("BITWISE_NOT");
@@ -169,6 +171,9 @@ public interface SpiceTypes {
       IElementType type = node.getElementType();
       if (type == ADDITIVE_EXPR) {
         return new SpiceAdditiveExprImpl(node);
+      }
+      else if (type == ASSERT_STMT) {
+        return new SpiceAssertStmtImpl(node);
       }
       else if (type == ASSIGN_EXPR) {
         return new SpiceAssignExprImpl(node);
