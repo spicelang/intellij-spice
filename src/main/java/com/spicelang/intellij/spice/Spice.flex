@@ -48,6 +48,7 @@ f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }
 else                                              { return SpiceTypes.ELSE; }
+assert                                            { return SpiceTypes.ASSERT; }
 for                                               { return SpiceTypes.FOR; }
 foreach                                           { return SpiceTypes.FOREACH; }
 while                                             { return SpiceTypes.WHILE; }
