@@ -523,7 +523,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // baseDataType (MUL | LBRACKET INTEGER? RBRACKET)*
+  // baseDataType (MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET)*
   public static boolean dataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType")) return false;
     boolean r;
@@ -534,7 +534,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (MUL | LBRACKET INTEGER? RBRACKET)*
+  // (MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET)*
   private static boolean dataType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1")) return false;
     while (true) {
@@ -545,7 +545,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // MUL | LBRACKET INTEGER? RBRACKET
+  // MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET
   private static boolean dataType_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0")) return false;
     boolean r;
@@ -556,7 +556,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACKET INTEGER? RBRACKET
+  // LBRACKET (INTEGER | assignExpr)? RBRACKET
   private static boolean dataType_1_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_1")) return false;
     boolean r;
@@ -568,11 +568,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INTEGER?
+  // (INTEGER | assignExpr)?
   private static boolean dataType_1_0_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_1_1")) return false;
-    consumeToken(b, INTEGER);
+    dataType_1_0_1_1_0(b, l + 1);
     return true;
+  }
+
+  // INTEGER | assignExpr
+  private static boolean dataType_1_0_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dataType_1_0_1_1_0")) return false;
+    boolean r;
+    r = consumeToken(b, INTEGER);
+    if (!r) r = assignExpr(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1443,7 +1452,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND
+  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND
   public static boolean prefixUnaryOp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "prefixUnaryOp")) return false;
     boolean r;
@@ -1455,6 +1464,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, BITWISE_NOT);
     if (!r) r = consumeToken(b, MUL);
     if (!r) r = consumeToken(b, BITWISE_AND);
+    if (!r) r = consumeToken(b, LOGICAL_AND);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
