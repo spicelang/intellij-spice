@@ -1452,7 +1452,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND
+  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND
   public static boolean prefixUnaryOp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "prefixUnaryOp")) return false;
     boolean r;
@@ -1464,6 +1464,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, BITWISE_NOT);
     if (!r) r = consumeToken(b, MUL);
     if (!r) r = consumeToken(b, BITWISE_AND);
+    if (!r) r = consumeToken(b, LOGICAL_AND);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
