@@ -137,8 +137,6 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.AND_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.OR_EQUAL)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.XOR_EQUAL)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.SHL)) return OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.SHR)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.PLUS)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.MINUS)) return OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.MUL)) return OPERATOR_KEY;

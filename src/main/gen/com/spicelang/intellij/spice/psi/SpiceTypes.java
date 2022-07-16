@@ -147,10 +147,8 @@ public interface SpiceTypes {
   IElementType RETURN = new SpiceTokenType("RETURN");
   IElementType RPAREN = new SpiceTokenType("RPAREN");
   IElementType SEMICOLON = new SpiceTokenType("SEMICOLON");
-  IElementType SHL = new SpiceTokenType("SHL");
   IElementType SHL_EQUAL = new SpiceTokenType("SHL_EQUAL");
   IElementType SHORT = new SpiceTokenType("SHORT");
-  IElementType SHR = new SpiceTokenType("SHR");
   IElementType SHR_EQUAL = new SpiceTokenType("SHR_EQUAL");
   IElementType SIGNED = new SpiceTokenType("SIGNED");
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");

@@ -105,8 +105,6 @@ false                                             { return SpiceTypes.FALSE; }
 "&="                                              { return SpiceTypes.AND_EQUAL; }
 "|="                                              { return SpiceTypes.OR_EQUAL; }
 "^="                                              { return SpiceTypes.XOR_EQUAL; }
-"<<"                                              { return SpiceTypes.SHL; }
-">>"                                              { return SpiceTypes.SHR; }
 "+"                                               { return SpiceTypes.PLUS; }
 "-"                                               { return SpiceTypes.MINUS; }
 "*"                                               { return SpiceTypes.MUL; }

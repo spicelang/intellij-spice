@@ -1644,7 +1644,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // additiveExpr ((SHL | SHR) additiveExpr)?
+  // additiveExpr ((LESS LESS | GREATER GREATER) additiveExpr)?
   public static boolean shiftExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr")) return false;
     boolean r;
@@ -1655,14 +1655,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ((SHL | SHR) additiveExpr)?
+  // ((LESS LESS | GREATER GREATER) additiveExpr)?
   private static boolean shiftExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr_1")) return false;
     shiftExpr_1_0(b, l + 1);
     return true;
   }
 
-  // (SHL | SHR) additiveExpr
+  // (LESS LESS | GREATER GREATER) additiveExpr
   private static boolean shiftExpr_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr_1_0")) return false;
     boolean r;
@@ -1673,12 +1673,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // SHL | SHR
+  // LESS LESS | GREATER GREATER
   private static boolean shiftExpr_1_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr_1_0_0")) return false;
     boolean r;
-    r = consumeToken(b, SHL);
-    if (!r) r = consumeToken(b, SHR);
+    Marker m = enter_section_(b);
+    r = parseTokens(b, 0, LESS, LESS);
+    if (!r) r = parseTokens(b, 0, GREATER, GREATER);
+    exit_section_(b, m, null, r);
     return r;
   }
 
