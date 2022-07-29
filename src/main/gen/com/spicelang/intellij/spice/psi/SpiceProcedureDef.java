@@ -10,11 +10,11 @@ public interface SpiceProcedureDef extends PsiElement {
   @Nullable
   SpiceArgLstDef getArgLstDef();
 
-  @Nullable
-  SpiceDeclSpecifiers getDeclSpecifiers();
-
   @NotNull
   List<SpiceIdentifierExpr> getIdentifierExprList();
+
+  @Nullable
+  SpiceSpecifierLst getSpecifierLst();
 
   @NotNull
   SpiceStmtLst getStmtLst();

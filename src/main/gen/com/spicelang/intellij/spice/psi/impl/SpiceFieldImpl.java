@@ -35,8 +35,8 @@ public class SpiceFieldImpl extends ASTWrapperPsiElement implements SpiceField {
 
   @Override
   @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
 }

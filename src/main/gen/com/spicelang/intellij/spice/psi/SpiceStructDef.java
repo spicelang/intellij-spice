@@ -7,11 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceStructDef extends PsiElement {
 
-  @Nullable
-  SpiceDeclSpecifiers getDeclSpecifiers();
-
   @NotNull
   List<SpiceField> getFieldList();
+
+  @Nullable
+  SpiceSpecifierLst getSpecifierLst();
 
   @Nullable
   SpiceTypeLst getTypeLst();

@@ -29,8 +29,8 @@ public class SpiceGenericTypeDefImpl extends ASTWrapperPsiElement implements Spi
 
   @Override
   @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
   @Override

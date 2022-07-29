@@ -27,8 +27,6 @@ public interface SpiceTypes {
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
-  IElementType DECL_SPECIFIER = new SpiceElementType("DECL_SPECIFIER");
-  IElementType DECL_SPECIFIERS = new SpiceElementType("DECL_SPECIFIERS");
   IElementType DECL_STMT = new SpiceElementType("DECL_STMT");
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
@@ -62,6 +60,8 @@ public interface SpiceTypes {
   IElementType RETURN_STMT = new SpiceElementType("RETURN_STMT");
   IElementType SHIFT_EXPR = new SpiceElementType("SHIFT_EXPR");
   IElementType SIZE_OF_CALL = new SpiceElementType("SIZE_OF_CALL");
+  IElementType SPECIFIER = new SpiceElementType("SPECIFIER");
+  IElementType SPECIFIER_LST = new SpiceElementType("SPECIFIER_LST");
   IElementType STMT = new SpiceElementType("STMT");
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
@@ -232,12 +232,6 @@ public interface SpiceTypes {
       else if (type == DATA_TYPE) {
         return new SpiceDataTypeImpl(node);
       }
-      else if (type == DECL_SPECIFIER) {
-        return new SpiceDeclSpecifierImpl(node);
-      }
-      else if (type == DECL_SPECIFIERS) {
-        return new SpiceDeclSpecifiersImpl(node);
-      }
       else if (type == DECL_STMT) {
         return new SpiceDeclStmtImpl(node);
       }
@@ -336,6 +330,12 @@ public interface SpiceTypes {
       }
       else if (type == SIZE_OF_CALL) {
         return new SpiceSizeOfCallImpl(node);
+      }
+      else if (type == SPECIFIER) {
+        return new SpiceSpecifierImpl(node);
+      }
+      else if (type == SPECIFIER_LST) {
+        return new SpiceSpecifierLstImpl(node);
       }
       else if (type == STMT) {
         return new SpiceStmtImpl(node);

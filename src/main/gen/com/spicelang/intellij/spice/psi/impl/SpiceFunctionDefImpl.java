@@ -40,15 +40,15 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
   }
 
   @Override
-  @Nullable
-  public SpiceDeclSpecifiers getDeclSpecifiers() {
-    return findChildByClass(SpiceDeclSpecifiers.class);
-  }
-
-  @Override
   @NotNull
   public List<SpiceIdentifierExpr> getIdentifierExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
   @Override

@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceGenericTypeDef extends PsiElement {
 
   @Nullable
-  SpiceDeclSpecifiers getDeclSpecifiers();
+  SpiceSpecifierLst getSpecifierLst();
 
   @NotNull
   SpiceTypeAlts getTypeAlts();
