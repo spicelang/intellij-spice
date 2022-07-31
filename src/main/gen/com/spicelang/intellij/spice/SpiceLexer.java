@@ -648,7 +648,7 @@ class SpiceLexer implements FlexLexer {
             // fall through
           case 98: break;
           case 3: 
-            { return SpiceTypes.INTEGER;
+            { return SpiceTypes.INT_LIT;
             } 
             // fall through
           case 99: break;
@@ -788,22 +788,22 @@ class SpiceLexer implements FlexLexer {
             // fall through
           case 126: break;
           case 31: 
-            { return SpiceTypes.CHAR_LITERAL;
+            { return SpiceTypes.CHAR_LIT;
             } 
             // fall through
           case 127: break;
           case 32: 
-            { return SpiceTypes.STRING_LITERAL;
+            { return SpiceTypes.STRING_LIT;
             } 
             // fall through
           case 128: break;
           case 33: 
-            { return SpiceTypes.SHORT;
+            { return SpiceTypes.SHORT_LIT;
             } 
             // fall through
           case 129: break;
           case 34: 
-            { return SpiceTypes.LONG;
+            { return SpiceTypes.LONG_LIT;
             } 
             // fall through
           case 130: break;
@@ -903,7 +903,7 @@ class SpiceLexer implements FlexLexer {
             // fall through
           case 149: break;
           case 54: 
-            { return SpiceTypes.DOUBLE;
+            { return SpiceTypes.DOUBLE_LIT;
             } 
             // fall through
           case 150: break;

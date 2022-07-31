@@ -19,12 +19,12 @@ import com.intellij.psi.TokenType;
 %eof}
 
 // Macro definitions
-CHAR_LITERAL = '(\\.|[^'\\])*'
-STRING_LITERAL = \"(\\.|[^\"\\])*\"
-INTEGER = [1-9][0-9]*|0
-DOUBLE = [0-9]+.[0-9]+
-SHORT = {INTEGER}s
-LONG = {INTEGER}l
+CHAR_LIT = '(\\.|[^'\\])*'
+STRING_LIT = \"(\\.|[^\"\\])*\"
+INT_LIT = [1-9][0-9]*|0
+DOUBLE_LIT = [0-9]+.[0-9]+
+SHORT_LIT = {INT_LIT}s
+LONG_LIT = {INT_LIT}l
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
@@ -76,12 +76,12 @@ inline                                            { return SpiceTypes.INLINE; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }
-{CHAR_LITERAL}                                    { return SpiceTypes.CHAR_LITERAL; }
-{STRING_LITERAL}                                  { return SpiceTypes.STRING_LITERAL; }
-{INTEGER}                                         { return SpiceTypes.INTEGER; }
-{SHORT}                                           { return SpiceTypes.SHORT; }
-{LONG}                                            { return SpiceTypes.LONG; }
-{DOUBLE}                                          { return SpiceTypes.DOUBLE; }
+{CHAR_LIT}                                        { return SpiceTypes.CHAR_LIT; }
+{STRING_LIT}                                      { return SpiceTypes.STRING_LIT; }
+{INT_LIT}                                         { return SpiceTypes.INT_LIT; }
+{SHORT_LIT}                                       { return SpiceTypes.SHORT_LIT; }
+{LONG_LIT}                                        { return SpiceTypes.LONG_LIT; }
+{DOUBLE_LIT}                                      { return SpiceTypes.DOUBLE_LIT; }
 "{"                                               { return SpiceTypes.LBRACE; }
 "}"                                               { return SpiceTypes.RBRACE; }
 "("                                               { return SpiceTypes.LPAREN; }

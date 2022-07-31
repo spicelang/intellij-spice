@@ -108,12 +108,12 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.TRUE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.FALSE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.IDENTIFIER)) return IDENTIFIER_KEY;
-        if (tokenType.equals(SpiceTypes.CHAR_LITERAL)) return STRING_KEY;
-        if (tokenType.equals(SpiceTypes.STRING_LITERAL)) return STRING_KEY;
-        if (tokenType.equals(SpiceTypes.INTEGER)) return NUMBER_KEY;
-        if (tokenType.equals(SpiceTypes.SHORT)) return NUMBER_KEY;
-        if (tokenType.equals(SpiceTypes.LONG)) return NUMBER_KEY;
-        if (tokenType.equals(SpiceTypes.DOUBLE)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.CHAR_LIT)) return STRING_KEY;
+        if (tokenType.equals(SpiceTypes.STRING_LIT)) return STRING_KEY;
+        if (tokenType.equals(SpiceTypes.INT_LIT)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.SHORT_LIT)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.LONG_LIT)) return NUMBER_KEY;
+        if (tokenType.equals(SpiceTypes.DOUBLE_LIT)) return NUMBER_KEY;
         if (tokenType.equals(SpiceTypes.LBRACE)) return BRACES_KEY;
         if (tokenType.equals(SpiceTypes.RBRACE)) return BRACES_KEY;
         if (tokenType.equals(SpiceTypes.LPAREN)) return PARENTHESES_KEY;

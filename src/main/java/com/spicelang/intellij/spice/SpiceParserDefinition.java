@@ -19,7 +19,7 @@ public class SpiceParserDefinition implements ParserDefinition {
 
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
     public static final TokenSet COMMENTS = TokenSet.create(SpiceTypes.LINE_COMMENT, SpiceTypes.BLOCK_COMMENT);
-    public static final TokenSet STRINGS = TokenSet.create(SpiceTypes.STRING_LITERAL, SpiceTypes.CHAR_LITERAL);
+    public static final TokenSet STRINGS = TokenSet.create(SpiceTypes.STRING_LIT, SpiceTypes.CHAR_LIT);
 
     public static final IFileElementType FILE = new IFileElementType(SpiceLanguage.INSTANCE);
 

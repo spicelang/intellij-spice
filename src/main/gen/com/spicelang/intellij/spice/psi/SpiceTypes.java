@@ -87,7 +87,7 @@ public interface SpiceTypes {
   IElementType BITWISE_XOR = new SpiceTokenType("BITWISE_XOR");
   IElementType BLOCK_COMMENT = new SpiceTokenType("BLOCK_COMMENT");
   IElementType BREAK = new SpiceTokenType("BREAK");
-  IElementType CHAR_LITERAL = new SpiceTokenType("CHAR_LITERAL");
+  IElementType CHAR_LIT = new SpiceTokenType("CHAR_LIT");
   IElementType COLON = new SpiceTokenType("COLON");
   IElementType COMMA = new SpiceTokenType("COMMA");
   IElementType CONST = new SpiceTokenType("CONST");
@@ -96,7 +96,7 @@ public interface SpiceTypes {
   IElementType DIV_EQUAL = new SpiceTokenType("DIV_EQUAL");
   IElementType DLL = new SpiceTokenType("DLL");
   IElementType DOT = new SpiceTokenType("DOT");
-  IElementType DOUBLE = new SpiceTokenType("DOUBLE");
+  IElementType DOUBLE_LIT = new SpiceTokenType("DOUBLE_LIT");
   IElementType ELLIPSIS = new SpiceTokenType("ELLIPSIS");
   IElementType ELSE = new SpiceTokenType("ELSE");
   IElementType EQUAL = new SpiceTokenType("EQUAL");
@@ -111,7 +111,7 @@ public interface SpiceTypes {
   IElementType IF = new SpiceTokenType("IF");
   IElementType IMPORT = new SpiceTokenType("IMPORT");
   IElementType INLINE = new SpiceTokenType("INLINE");
-  IElementType INTEGER = new SpiceTokenType("INTEGER");
+  IElementType INT_LIT = new SpiceTokenType("INT_LIT");
   IElementType JOIN = new SpiceTokenType("JOIN");
   IElementType LBRACE = new SpiceTokenType("LBRACE");
   IElementType LBRACKET = new SpiceTokenType("LBRACKET");
@@ -121,7 +121,7 @@ public interface SpiceTypes {
   IElementType LINE_COMMENT = new SpiceTokenType("LINE_COMMENT");
   IElementType LOGICAL_AND = new SpiceTokenType("LOGICAL_AND");
   IElementType LOGICAL_OR = new SpiceTokenType("LOGICAL_OR");
-  IElementType LONG = new SpiceTokenType("LONG");
+  IElementType LONG_LIT = new SpiceTokenType("LONG_LIT");
   IElementType LPAREN = new SpiceTokenType("LPAREN");
   IElementType MAIN = new SpiceTokenType("MAIN");
   IElementType MINUS = new SpiceTokenType("MINUS");
@@ -148,11 +148,11 @@ public interface SpiceTypes {
   IElementType RPAREN = new SpiceTokenType("RPAREN");
   IElementType SEMICOLON = new SpiceTokenType("SEMICOLON");
   IElementType SHL_EQUAL = new SpiceTokenType("SHL_EQUAL");
-  IElementType SHORT = new SpiceTokenType("SHORT");
+  IElementType SHORT_LIT = new SpiceTokenType("SHORT_LIT");
   IElementType SHR_EQUAL = new SpiceTokenType("SHR_EQUAL");
   IElementType SIGNED = new SpiceTokenType("SIGNED");
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");
-  IElementType STRING_LITERAL = new SpiceTokenType("STRING_LITERAL");
+  IElementType STRING_LIT = new SpiceTokenType("STRING_LIT");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
   IElementType THREAD = new SpiceTokenType("THREAD");
   IElementType TID = new SpiceTokenType("TID");

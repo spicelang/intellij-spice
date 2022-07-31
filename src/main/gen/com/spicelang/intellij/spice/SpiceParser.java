@@ -388,7 +388,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // BREAK INTEGER?
+  // BREAK INT_LIT?
   public static boolean breakStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "breakStmt")) return false;
     if (!nextTokenIs(b, BREAK)) return false;
@@ -400,10 +400,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INTEGER?
+  // INT_LIT?
   private static boolean breakStmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "breakStmt_1")) return false;
-    consumeToken(b, INTEGER);
+    consumeToken(b, INT_LIT);
     return true;
   }
 
@@ -448,7 +448,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONTINUE INTEGER?
+  // CONTINUE INT_LIT?
   public static boolean continueStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "continueStmt")) return false;
     if (!nextTokenIs(b, CONTINUE)) return false;
@@ -460,10 +460,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INTEGER?
+  // INT_LIT?
   private static boolean continueStmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "continueStmt_1")) return false;
-    consumeToken(b, INTEGER);
+    consumeToken(b, INT_LIT);
     return true;
   }
 
@@ -523,7 +523,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // baseDataType (MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET)*
+  // baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
   public static boolean dataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType")) return false;
     boolean r;
@@ -534,7 +534,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET)*
+  // (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
   private static boolean dataType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1")) return false;
     while (true) {
@@ -545,7 +545,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET
+  // MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET
   private static boolean dataType_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0")) return false;
     boolean r;
@@ -556,7 +556,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACKET (INTEGER | assignExpr)? RBRACKET
+  // LBRACKET (INT_LIT | assignExpr)? RBRACKET
   private static boolean dataType_1_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_1")) return false;
     boolean r;
@@ -568,18 +568,18 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (INTEGER | assignExpr)?
+  // (INT_LIT | assignExpr)?
   private static boolean dataType_1_0_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_1_1")) return false;
     dataType_1_0_1_1_0(b, l + 1);
     return true;
   }
 
-  // INTEGER | assignExpr
+  // INT_LIT | assignExpr
   private static boolean dataType_1_0_1_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_1_1_0")) return false;
     boolean r;
-    r = consumeToken(b, INTEGER);
+    r = consumeToken(b, INT_LIT);
     if (!r) r = assignExpr(b, l + 1);
     return r;
   }
@@ -1127,13 +1127,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IMPORT STRING_LITERAL AS identifierExpr SEMICOLON
+  // IMPORT STRING_LIT AS identifierExpr SEMICOLON
   public static boolean importStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "importStmt")) return false;
     if (!nextTokenIs(b, IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IMPORT, STRING_LITERAL, AS);
+    r = consumeTokens(b, 0, IMPORT, STRING_LIT, AS);
     r = r && identifierExpr(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, IMPORT_STMT, r);
@@ -1439,17 +1439,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
+  // DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
   public static boolean primitiveValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primitiveValue")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PRIMITIVE_VALUE, "<primitive value>");
-    r = consumeToken(b, DOUBLE);
-    if (!r) r = consumeToken(b, INTEGER);
-    if (!r) r = consumeToken(b, SHORT);
-    if (!r) r = consumeToken(b, LONG);
-    if (!r) r = consumeToken(b, CHAR_LITERAL);
-    if (!r) r = consumeToken(b, STRING_LITERAL);
+    r = consumeToken(b, DOUBLE_LIT);
+    if (!r) r = consumeToken(b, INT_LIT);
+    if (!r) r = consumeToken(b, SHORT_LIT);
+    if (!r) r = consumeToken(b, LONG_LIT);
+    if (!r) r = consumeToken(b, CHAR_LIT);
+    if (!r) r = consumeToken(b, STRING_LIT);
     if (!r) r = consumeToken(b, TRUE);
     if (!r) r = consumeToken(b, FALSE);
     exit_section_(b, l, m, r, false, null);
@@ -1457,13 +1457,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
+  // PRINTF LPAREN STRING_LIT (COMMA assignExpr)* RPAREN
   public static boolean printfCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "printfCall")) return false;
     if (!nextTokenIs(b, PRINTF)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, PRINTF, LPAREN, STRING_LITERAL);
+    r = consumeTokens(b, 0, PRINTF, LPAREN, STRING_LIT);
     r = r && printfCall_3(b, l + 1);
     r = r && consumeToken(b, RPAREN);
     exit_section_(b, m, PRINTF_CALL, r);

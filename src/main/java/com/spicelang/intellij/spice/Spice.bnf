@@ -49,14 +49,14 @@ stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOL
 declStmt ::= specifierLst? dataType identifierExpr (ASSIGN assignExpr)?
 specifierLst ::= specifier+
 specifier ::= CONST | SIGNED | UNSIGNED | INLINE | PUBLIC
-importStmt ::= IMPORT STRING_LITERAL AS identifierExpr SEMICOLON
+importStmt ::= IMPORT STRING_LIT AS identifierExpr SEMICOLON
 returnStmt ::= RETURN assignExpr?
-breakStmt ::= BREAK INTEGER?
-continueStmt ::= CONTINUE INTEGER?
+breakStmt ::= BREAK INT_LIT?
+continueStmt ::= CONTINUE INT_LIT?
 
 // Builtin functions
 builtinCall ::= printfCall | sizeOfCall | lenCall | tidCall | joinCall
-printfCall ::= PRINTF LPAREN STRING_LITERAL (COMMA assignExpr)* RPAREN
+printfCall ::= PRINTF LPAREN STRING_LIT (COMMA assignExpr)* RPAREN
 sizeOfCall ::= SIZEOF LPAREN (assignExpr | TYPE dataType) RPAREN
 lenCall ::= LEN LPAREN assignExpr RPAREN
 tidCall ::= TID LPAREN RPAREN
@@ -92,8 +92,8 @@ functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LP
 arrayInitialization ::= LBRACE argLst? RBRACE
 structInstantiation ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
-primitiveValue ::= DOUBLE | INTEGER | SHORT | LONG | CHAR_LITERAL | STRING_LITERAL | TRUE | FALSE
-dataType ::= baseDataType (MUL | LBRACKET (INTEGER | assignExpr)? RBRACKET)*
+primitiveValue ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
+dataType ::= baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
 customDataType ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)?
 
