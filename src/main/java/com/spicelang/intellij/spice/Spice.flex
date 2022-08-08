@@ -19,13 +19,20 @@ import com.intellij.psi.TokenType;
 %eof}
 
 // Macro definitions
+DEC_LIT = ([0][dD])?[0-9]+
+BIN_LIT = [0][bB][01]+
+HEX_LIT = [0][xXhH][0-9a-fA-F]+
+OCT_LIT = [0][oO][0-7]+
+NUM_LIT = {DEC_LIT}|{BIN_LIT}|{HEX_LIT}|{OCT_LIT}
+
+DOUBLE_LIT = [0-9]*[.][0-9]+
+INT_LIT = {NUM_LIT}
+SHORT_LIT = {NUM_LIT}s
+LONG_LIT = {NUM_LIT}l
 CHAR_LIT = '(\\.|[^'\\])*'
 STRING_LIT = \"(\\.|[^\"\\])*\"
-INT_LIT = [1-9][0-9]*|0
-DOUBLE_LIT = [0-9]+.[0-9]+
-SHORT_LIT = {INT_LIT}s
-LONG_LIT = {INT_LIT}l
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+
 BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
 WS = [ \t\r\n]+
