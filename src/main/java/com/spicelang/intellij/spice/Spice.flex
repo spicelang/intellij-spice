@@ -131,6 +131,7 @@ false                                             { return SpiceTypes.FALSE; }
 ":"                                               { return SpiceTypes.COLON; }
 ","                                               { return SpiceTypes.COMMA; }
 "."                                               { return SpiceTypes.DOT; }
+"::"                                              { return SpiceTypes.SCOPE_ACCESS; }
 "..."                                             { return SpiceTypes.ELLIPSIS; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
 {BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }
