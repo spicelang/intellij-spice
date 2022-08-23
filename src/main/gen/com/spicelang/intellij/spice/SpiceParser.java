@@ -468,7 +468,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)?
+  // identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
   public static boolean customDataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "customDataType")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -481,7 +481,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (DOT identifierExpr)*
+  // (SCOPE_ACCESS identifierExpr)*
   private static boolean customDataType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "customDataType_1")) return false;
     while (true) {
@@ -492,12 +492,12 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DOT identifierExpr
+  // SCOPE_ACCESS identifierExpr
   private static boolean customDataType_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "customDataType_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, DOT);
+    r = consumeToken(b, SCOPE_ACCESS);
     r = r && identifierExpr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;

@@ -95,7 +95,7 @@ structInstantiation ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREAT
 primitiveValue ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
-customDataType ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)?
+customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
