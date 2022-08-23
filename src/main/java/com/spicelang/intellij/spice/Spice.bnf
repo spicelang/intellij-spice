@@ -90,7 +90,7 @@ identifierExpr ::= IDENTIFIER {
 value ::= primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
 functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
-structInstantiation ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
 primitiveValue ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
