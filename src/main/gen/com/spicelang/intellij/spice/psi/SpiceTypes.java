@@ -146,6 +146,7 @@ public interface SpiceTypes {
   IElementType REM_EQUAL = new SpiceTokenType("REM_EQUAL");
   IElementType RETURN = new SpiceTokenType("RETURN");
   IElementType RPAREN = new SpiceTokenType("RPAREN");
+  IElementType SCOPE_ACCESS = new SpiceTokenType("SCOPE_ACCESS");
   IElementType SEMICOLON = new SpiceTokenType("SEMICOLON");
   IElementType SHL_EQUAL = new SpiceTokenType("SHL_EQUAL");
   IElementType SHORT_LIT = new SpiceTokenType("SHORT_LIT");

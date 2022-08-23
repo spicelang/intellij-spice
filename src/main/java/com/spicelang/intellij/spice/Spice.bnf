@@ -77,7 +77,7 @@ additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
-postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS)*
+postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values and types
@@ -90,12 +90,12 @@ identifierExpr ::= IDENTIFIER {
 value ::= primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
 functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
-structInstantiation ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
 primitiveValue ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
 dataType ::= baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
-customDataType ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)?
+customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
