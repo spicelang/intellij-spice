@@ -1947,7 +1947,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // logicalOrExpr (QUESTION_MARK logicalOrExpr COLON logicalOrExpr)?
+  // logicalOrExpr (QUESTION_MARK logicalOrExpr? COLON logicalOrExpr)?
   public static boolean ternaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ternaryExpr")) return false;
     boolean r;
@@ -1958,24 +1958,31 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (QUESTION_MARK logicalOrExpr COLON logicalOrExpr)?
+  // (QUESTION_MARK logicalOrExpr? COLON logicalOrExpr)?
   private static boolean ternaryExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ternaryExpr_1")) return false;
     ternaryExpr_1_0(b, l + 1);
     return true;
   }
 
-  // QUESTION_MARK logicalOrExpr COLON logicalOrExpr
+  // QUESTION_MARK logicalOrExpr? COLON logicalOrExpr
   private static boolean ternaryExpr_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ternaryExpr_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, QUESTION_MARK);
-    r = r && logicalOrExpr(b, l + 1);
+    r = r && ternaryExpr_1_0_1(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && logicalOrExpr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // logicalOrExpr?
+  private static boolean ternaryExpr_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ternaryExpr_1_0_1")) return false;
+    logicalOrExpr(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
