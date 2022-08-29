@@ -626,14 +626,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE IDENTIFIER ENUM LBRACE identifierLst RBRACE
+  // specifierLst? TYPE IDENTIFIER ENUM LBRACE enumValueLst RBRACE
   public static boolean enumDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enumDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_DEF, "<enum def>");
     r = enumDef_0(b, l + 1);
     r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, ENUM, LBRACE);
-    r = r && identifierLst(b, l + 1);
+    r = r && enumValueLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -644,6 +644,71 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "enumDef_0")) return false;
     specifierLst(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // IDENTIFIER (ASSIGN INT_LIT)?
+  public static boolean enumValue(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValue")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    r = r && enumValue_1(b, l + 1);
+    exit_section_(b, m, ENUM_VALUE, r);
+    return r;
+  }
+
+  // (ASSIGN INT_LIT)?
+  private static boolean enumValue_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValue_1")) return false;
+    enumValue_1_0(b, l + 1);
+    return true;
+  }
+
+  // ASSIGN INT_LIT
+  private static boolean enumValue_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValue_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, ASSIGN, INT_LIT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // enumValue (COMMA enumValue)*
+  public static boolean enumValueLst(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValueLst")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = enumValue(b, l + 1);
+    r = r && enumValueLst_1(b, l + 1);
+    exit_section_(b, m, ENUM_VALUE_LST, r);
+    return r;
+  }
+
+  // (COMMA enumValue)*
+  private static boolean enumValueLst_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValueLst_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!enumValueLst_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "enumValueLst_1", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA enumValue
+  private static boolean enumValueLst_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumValueLst_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && enumValue(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -1116,41 +1181,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, IDENTIFIER_EXPR, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // identifierExpr (COMMA identifierExpr)*
-  public static boolean identifierLst(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = identifierExpr(b, l + 1);
-    r = r && identifierLst_1(b, l + 1);
-    exit_section_(b, m, IDENTIFIER_LST, r);
-    return r;
-  }
-
-  // (COMMA identifierExpr)*
-  private static boolean identifierLst_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!identifierLst_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "identifierLst_1", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA identifierExpr
-  private static boolean identifierLst_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && identifierExpr(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 

@@ -91,6 +91,14 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEnumValue(@NotNull SpiceEnumValue o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumValueLst(@NotNull SpiceEnumValueLst o) {
+    visitPsiElement(o);
+  }
+
   public void visitEqualityExpr(@NotNull SpiceEqualityExpr o) {
     visitPsiElement(o);
   }
@@ -137,10 +145,6 @@ public class SpiceVisitor extends PsiElementVisitor {
 
   public void visitIdentifierExpr(@NotNull SpiceIdentifierExpr o) {
     visitNamedElement(o);
-  }
-
-  public void visitIdentifierLst(@NotNull SpiceIdentifierLst o) {
-    visitPsiElement(o);
   }
 
   public void visitIfStmt(@NotNull SpiceIfStmt o) {
