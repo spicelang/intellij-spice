@@ -67,6 +67,7 @@ return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
 type                                              { return SpiceTypes.TYPE; }
+enum                                              { return SpiceTypes.ENUM; }
 thread                                            { return SpiceTypes.THREAD; }
 unsafe                                            { return SpiceTypes.UNSAFE; }
 //new                                               { return SpiceTypes.NEW; }

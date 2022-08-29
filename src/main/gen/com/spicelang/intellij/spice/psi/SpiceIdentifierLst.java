@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceTypeLstEllipsis extends PsiElement {
+public interface SpiceIdentifierLst extends PsiElement {
 
   @NotNull
-  SpiceTypeLst getTypeLst();
+  List<SpiceIdentifierExpr> getIdentifierExprList();
 
 }

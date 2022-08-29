@@ -28,15 +28,15 @@ public class SpiceProcedureDefImpl extends ASTWrapperPsiElement implements Spice
   }
 
   @Override
-  @Nullable
-  public SpiceArgLstDef getArgLstDef() {
-    return findChildByClass(SpiceArgLstDef.class);
-  }
-
-  @Override
   @NotNull
   public List<SpiceIdentifierExpr> getIdentifierExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceParamLst getParamLst() {
+    return findChildByClass(SpiceParamLst.class);
   }
 
   @Override
@@ -53,8 +53,8 @@ public class SpiceProcedureDefImpl extends ASTWrapperPsiElement implements Spice
 
   @Override
   @Nullable
-  public SpiceTemplateDef getTemplateDef() {
-    return findChildByClass(SpiceTemplateDef.class);
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
   }
 
 }

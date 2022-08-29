@@ -11,6 +11,6 @@ public interface SpiceGenericTypeDef extends PsiElement {
   SpiceSpecifierLst getSpecifierLst();
 
   @NotNull
-  SpiceTypeAlts getTypeAlts();
+  SpiceTypeAltsLst getTypeAltsLst();
 
 }

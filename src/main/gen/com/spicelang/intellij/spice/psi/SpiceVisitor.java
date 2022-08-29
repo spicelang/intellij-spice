@@ -15,10 +15,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitArgLstDef(@NotNull SpiceArgLstDef o) {
-    visitPsiElement(o);
-  }
-
   public void visitArrayInitialization(@NotNull SpiceArrayInitialization o) {
     visitPsiElement(o);
   }
@@ -91,6 +87,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitEnumDef(@NotNull SpiceEnumDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitEqualityExpr(@NotNull SpiceEqualityExpr o) {
     visitPsiElement(o);
   }
@@ -139,6 +139,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitIdentifierLst(@NotNull SpiceIdentifierLst o) {
+    visitPsiElement(o);
+  }
+
   public void visitIfStmt(@NotNull SpiceIfStmt o) {
     visitPsiElement(o);
   }
@@ -172,6 +176,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitMultiplicativeExpr(@NotNull SpiceMultiplicativeExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParamLst(@NotNull SpiceParamLst o) {
     visitPsiElement(o);
   }
 
@@ -239,10 +247,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTemplateDef(@NotNull SpiceTemplateDef o) {
-    visitPsiElement(o);
-  }
-
   public void visitTernaryExpr(@NotNull SpiceTernaryExpr o) {
     visitPsiElement(o);
   }
@@ -255,15 +259,11 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTypeAlts(@NotNull SpiceTypeAlts o) {
+  public void visitTypeAltsLst(@NotNull SpiceTypeAltsLst o) {
     visitPsiElement(o);
   }
 
   public void visitTypeLst(@NotNull SpiceTypeLst o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTypeLstEllipsis(@NotNull SpiceTypeLstEllipsis o) {
     visitPsiElement(o);
   }
 

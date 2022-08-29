@@ -41,8 +41,8 @@ public class SpiceExtDeclImpl extends ASTWrapperPsiElement implements SpiceExtDe
 
   @Override
   @Nullable
-  public SpiceTypeLstEllipsis getTypeLstEllipsis() {
-    return findChildByClass(SpiceTypeLstEllipsis.class);
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
   }
 
 }
