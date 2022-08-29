@@ -91,11 +91,11 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitEnumValue(@NotNull SpiceEnumValue o) {
+  public void visitEnumItem(@NotNull SpiceEnumItem o) {
     visitPsiElement(o);
   }
 
-  public void visitEnumValueLst(@NotNull SpiceEnumValueLst o) {
+  public void visitEnumItemLst(@NotNull SpiceEnumItemLst o) {
     visitPsiElement(o);
   }
 

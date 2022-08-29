@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceEnumValueImpl extends ASTWrapperPsiElement implements SpiceEnumValue {
+public class SpiceEnumItemImpl extends ASTWrapperPsiElement implements SpiceEnumItem {
 
-  public SpiceEnumValueImpl(@NotNull ASTNode node) {
+  public SpiceEnumItemImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitEnumValue(this);
+    visitor.visitEnumItem(this);
   }
 
   @Override

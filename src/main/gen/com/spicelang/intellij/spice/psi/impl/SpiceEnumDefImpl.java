@@ -29,8 +29,8 @@ public class SpiceEnumDefImpl extends ASTWrapperPsiElement implements SpiceEnumD
 
   @Override
   @NotNull
-  public SpiceEnumValueLst getEnumValueLst() {
-    return findNotNullChildByClass(SpiceEnumValueLst.class);
+  public SpiceEnumItemLst getEnumItemLst() {
+    return findNotNullChildByClass(SpiceEnumItemLst.class);
   }
 
   @Override

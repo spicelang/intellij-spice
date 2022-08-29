@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceEnumValueLst extends PsiElement {
+public interface SpiceEnumItemLst extends PsiElement {
 
   @NotNull
-  List<SpiceEnumValue> getEnumValueList();
+  List<SpiceEnumItem> getEnumItemList();
 
 }

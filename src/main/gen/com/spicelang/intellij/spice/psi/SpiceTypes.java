@@ -29,8 +29,8 @@ public interface SpiceTypes {
   IElementType DECL_STMT = new SpiceElementType("DECL_STMT");
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType ENUM_DEF = new SpiceElementType("ENUM_DEF");
-  IElementType ENUM_VALUE = new SpiceElementType("ENUM_VALUE");
-  IElementType ENUM_VALUE_LST = new SpiceElementType("ENUM_VALUE_LST");
+  IElementType ENUM_ITEM = new SpiceElementType("ENUM_ITEM");
+  IElementType ENUM_ITEM_LST = new SpiceElementType("ENUM_ITEM_LST");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
   IElementType FIELD = new SpiceElementType("FIELD");
@@ -241,11 +241,11 @@ public interface SpiceTypes {
       else if (type == ENUM_DEF) {
         return new SpiceEnumDefImpl(node);
       }
-      else if (type == ENUM_VALUE) {
-        return new SpiceEnumValueImpl(node);
+      else if (type == ENUM_ITEM) {
+        return new SpiceEnumItemImpl(node);
       }
-      else if (type == ENUM_VALUE_LST) {
-        return new SpiceEnumValueLstImpl(node);
+      else if (type == ENUM_ITEM_LST) {
+        return new SpiceEnumItemLstImpl(node);
       }
       else if (type == EQUALITY_EXPR) {
         return new SpiceEqualityExprImpl(node);

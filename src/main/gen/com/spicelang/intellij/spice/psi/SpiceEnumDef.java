@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceEnumDef extends PsiElement {
 
   @NotNull
-  SpiceEnumValueLst getEnumValueLst();
+  SpiceEnumItemLst getEnumItemLst();
 
   @Nullable
   SpiceSpecifierLst getSpecifierLst();

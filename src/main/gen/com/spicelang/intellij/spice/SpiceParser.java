@@ -626,14 +626,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE IDENTIFIER ENUM LBRACE enumValueLst RBRACE
+  // specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
   public static boolean enumDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enumDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_DEF, "<enum def>");
     r = enumDef_0(b, l + 1);
     r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, ENUM, LBRACE);
-    r = r && enumValueLst(b, l + 1);
+    r = r && enumItemLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -648,27 +648,27 @@ public class SpiceParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // IDENTIFIER (ASSIGN INT_LIT)?
-  public static boolean enumValue(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValue")) return false;
+  public static boolean enumItem(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItem")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
-    r = r && enumValue_1(b, l + 1);
-    exit_section_(b, m, ENUM_VALUE, r);
+    r = r && enumItem_1(b, l + 1);
+    exit_section_(b, m, ENUM_ITEM, r);
     return r;
   }
 
   // (ASSIGN INT_LIT)?
-  private static boolean enumValue_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValue_1")) return false;
-    enumValue_1_0(b, l + 1);
+  private static boolean enumItem_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItem_1")) return false;
+    enumItem_1_0(b, l + 1);
     return true;
   }
 
   // ASSIGN INT_LIT
-  private static boolean enumValue_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValue_1_0")) return false;
+  private static boolean enumItem_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItem_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, ASSIGN, INT_LIT);
@@ -677,36 +677,36 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // enumValue (COMMA enumValue)*
-  public static boolean enumValueLst(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValueLst")) return false;
+  // enumItem (COMMA enumItem)*
+  public static boolean enumItemLst(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItemLst")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = enumValue(b, l + 1);
-    r = r && enumValueLst_1(b, l + 1);
-    exit_section_(b, m, ENUM_VALUE_LST, r);
+    r = enumItem(b, l + 1);
+    r = r && enumItemLst_1(b, l + 1);
+    exit_section_(b, m, ENUM_ITEM_LST, r);
     return r;
   }
 
-  // (COMMA enumValue)*
-  private static boolean enumValueLst_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValueLst_1")) return false;
+  // (COMMA enumItem)*
+  private static boolean enumItemLst_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItemLst_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!enumValueLst_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "enumValueLst_1", c)) break;
+      if (!enumItemLst_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "enumItemLst_1", c)) break;
     }
     return true;
   }
 
-  // COMMA enumValue
-  private static boolean enumValueLst_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "enumValueLst_1_0")) return false;
+  // COMMA enumItem
+  private static boolean enumItemLst_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "enumItemLst_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COMMA);
-    r = r && enumValue(b, l + 1);
+    r = r && enumItem(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
