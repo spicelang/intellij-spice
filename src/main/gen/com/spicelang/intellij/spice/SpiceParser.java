@@ -626,13 +626,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? ENUM IDENTIFIER LBRACE identifierLst RBRACE
+  // specifierLst? TYPE IDENTIFIER ENUM LBRACE identifierLst RBRACE
   public static boolean enumDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "enumDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ENUM_DEF, "<enum def>");
     r = enumDef_0(b, l + 1);
-    r = r && consumeTokens(b, 0, ENUM, IDENTIFIER, LBRACE);
+    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, ENUM, LBRACE);
     r = r && identifierLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
