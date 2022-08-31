@@ -35,8 +35,8 @@ public class SpiceGenericTypeDefImpl extends ASTWrapperPsiElement implements Spi
 
   @Override
   @NotNull
-  public SpiceTypeAlts getTypeAlts() {
-    return findNotNullChildByClass(SpiceTypeAlts.class);
+  public SpiceTypeAltsLst getTypeAltsLst() {
+    return findNotNullChildByClass(SpiceTypeAltsLst.class);
   }
 
 }

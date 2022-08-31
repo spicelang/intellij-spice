@@ -15,16 +15,17 @@
 }
 
 // Control structures
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | enumDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
-mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= specifierLst? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr templateDef? LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= specifierLst? P (identifierExpr DOT)? identifierExpr templateDef? LPAREN argLstDef? RPAREN LBRACE stmtLst RBRACE
+mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+functionDef ::= specifierLst? F LESS dataType GREATER (identifierExpr DOT)? identifierExpr (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= specifierLst? P (identifierExpr DOT)? identifierExpr (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 structDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT LBRACE field* RBRACE
-genericTypeDef ::= specifierLst? TYPE IDENTIFIER typeAlts SEMICOLON
+enumDef ::= specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
+genericTypeDef ::= specifierLst? TYPE IDENTIFIER typeAltsLst SEMICOLON
 globalVarDef ::= specifierLst? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
-extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN typeLstEllipsis? RPAREN DLL? SEMICOLON
+extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
 threadDef ::= THREAD LBRACE stmtLst RBRACE
 unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
@@ -38,13 +39,13 @@ assertStmt ::= ASSERT assignExpr SEMICOLON
 
 // Statements, declarations, definitions and lists
 stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
-templateDef ::= LESS typeLst GREATER;
-field ::= specifierLst? dataType IDENTIFIER
 typeLst ::= dataType (COMMA dataType)*
-typeLstEllipsis ::= typeLst ELLIPSIS?;
-typeAlts ::= dataType (BITWISE_OR dataType)*;
-argLstDef ::= declStmt (COMMA declStmt)*
+typeAltsLst ::= dataType (BITWISE_OR dataType)*;
+paramLst ::= declStmt (COMMA declStmt)*
 argLst ::= assignExpr (COMMA assignExpr)*
+enumItemLst ::= enumItem (COMMA enumItem)*
+enumItem ::= IDENTIFIER (ASSIGN INT_LIT)?
+field ::= specifierLst? dataType IDENTIFIER
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
 declStmt ::= specifierLst? dataType identifierExpr (ASSIGN assignExpr)?
 specifierLst ::= specifier+

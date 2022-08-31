@@ -7,14 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceFunctionDef extends PsiElement {
 
-  @Nullable
-  SpiceArgLstDef getArgLstDef();
-
   @NotNull
   SpiceDataType getDataType();
 
   @NotNull
   List<SpiceIdentifierExpr> getIdentifierExprList();
+
+  @Nullable
+  SpiceParamLst getParamLst();
 
   @Nullable
   SpiceSpecifierLst getSpecifierLst();
@@ -23,6 +23,6 @@ public interface SpiceFunctionDef extends PsiElement {
   SpiceStmtLst getStmtLst();
 
   @Nullable
-  SpiceTemplateDef getTemplateDef();
+  SpiceTypeLst getTypeLst();
 
 }

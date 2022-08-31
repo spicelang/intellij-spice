@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceTypeAltsImpl extends ASTWrapperPsiElement implements SpiceTypeAlts {
+public class SpiceTypeAltsLstImpl extends ASTWrapperPsiElement implements SpiceTypeAltsLst {
 
-  public SpiceTypeAltsImpl(@NotNull ASTNode node) {
+  public SpiceTypeAltsLstImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitTypeAlts(this);
+    visitor.visitTypeAltsLst(this);
   }
 
   @Override

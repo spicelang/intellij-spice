@@ -10,7 +10,6 @@ public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
   IElementType ARG_LST = new SpiceElementType("ARG_LST");
-  IElementType ARG_LST_DEF = new SpiceElementType("ARG_LST_DEF");
   IElementType ARRAY_INITIALIZATION = new SpiceElementType("ARRAY_INITIALIZATION");
   IElementType ASSERT_STMT = new SpiceElementType("ASSERT_STMT");
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
@@ -29,6 +28,9 @@ public interface SpiceTypes {
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
   IElementType DECL_STMT = new SpiceElementType("DECL_STMT");
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
+  IElementType ENUM_DEF = new SpiceElementType("ENUM_DEF");
+  IElementType ENUM_ITEM = new SpiceElementType("ENUM_ITEM");
+  IElementType ENUM_ITEM_LST = new SpiceElementType("ENUM_ITEM_LST");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
   IElementType FIELD = new SpiceElementType("FIELD");
@@ -50,6 +52,7 @@ public interface SpiceTypes {
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
+  IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_OP = new SpiceElementType("PREFIX_UNARY_OP");
@@ -66,13 +69,11 @@ public interface SpiceTypes {
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
   IElementType STRUCT_INSTANTIATION = new SpiceElementType("STRUCT_INSTANTIATION");
-  IElementType TEMPLATE_DEF = new SpiceElementType("TEMPLATE_DEF");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType THREAD_DEF = new SpiceElementType("THREAD_DEF");
   IElementType TID_CALL = new SpiceElementType("TID_CALL");
-  IElementType TYPE_ALTS = new SpiceElementType("TYPE_ALTS");
+  IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
-  IElementType TYPE_LST_ELLIPSIS = new SpiceElementType("TYPE_LST_ELLIPSIS");
   IElementType UNSAFE_BLOCK_DEF = new SpiceElementType("UNSAFE_BLOCK_DEF");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -99,6 +100,7 @@ public interface SpiceTypes {
   IElementType DOUBLE_LIT = new SpiceTokenType("DOUBLE_LIT");
   IElementType ELLIPSIS = new SpiceTokenType("ELLIPSIS");
   IElementType ELSE = new SpiceTokenType("ELSE");
+  IElementType ENUM = new SpiceTokenType("ENUM");
   IElementType EQUAL = new SpiceTokenType("EQUAL");
   IElementType EXT = new SpiceTokenType("EXT");
   IElementType F = new SpiceTokenType("F");
@@ -182,9 +184,6 @@ public interface SpiceTypes {
       else if (type == ARG_LST) {
         return new SpiceArgLstImpl(node);
       }
-      else if (type == ARG_LST_DEF) {
-        return new SpiceArgLstDefImpl(node);
-      }
       else if (type == ARRAY_INITIALIZATION) {
         return new SpiceArrayInitializationImpl(node);
       }
@@ -238,6 +237,15 @@ public interface SpiceTypes {
       }
       else if (type == ELSE_STMT) {
         return new SpiceElseStmtImpl(node);
+      }
+      else if (type == ENUM_DEF) {
+        return new SpiceEnumDefImpl(node);
+      }
+      else if (type == ENUM_ITEM) {
+        return new SpiceEnumItemImpl(node);
+      }
+      else if (type == ENUM_ITEM_LST) {
+        return new SpiceEnumItemLstImpl(node);
       }
       else if (type == EQUALITY_EXPR) {
         return new SpiceEqualityExprImpl(node);
@@ -302,6 +310,9 @@ public interface SpiceTypes {
       else if (type == MULTIPLICATIVE_EXPR) {
         return new SpiceMultiplicativeExprImpl(node);
       }
+      else if (type == PARAM_LST) {
+        return new SpiceParamLstImpl(node);
+      }
       else if (type == POSTFIX_UNARY_EXPR) {
         return new SpicePostfixUnaryExprImpl(node);
       }
@@ -350,9 +361,6 @@ public interface SpiceTypes {
       else if (type == STRUCT_INSTANTIATION) {
         return new SpiceStructInstantiationImpl(node);
       }
-      else if (type == TEMPLATE_DEF) {
-        return new SpiceTemplateDefImpl(node);
-      }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
       }
@@ -362,14 +370,11 @@ public interface SpiceTypes {
       else if (type == TID_CALL) {
         return new SpiceTidCallImpl(node);
       }
-      else if (type == TYPE_ALTS) {
-        return new SpiceTypeAltsImpl(node);
+      else if (type == TYPE_ALTS_LST) {
+        return new SpiceTypeAltsLstImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
-      }
-      else if (type == TYPE_LST_ELLIPSIS) {
-        return new SpiceTypeLstEllipsisImpl(node);
       }
       else if (type == UNSAFE_BLOCK_DEF) {
         return new SpiceUnsafeBlockDefImpl(node);

@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceTemplateDef extends PsiElement {
+public interface SpiceEnumDef extends PsiElement {
 
   @NotNull
-  SpiceTypeLst getTypeLst();
+  SpiceEnumItemLst getEnumItemLst();
+
+  @Nullable
+  SpiceSpecifierLst getSpecifierLst();
 
 }

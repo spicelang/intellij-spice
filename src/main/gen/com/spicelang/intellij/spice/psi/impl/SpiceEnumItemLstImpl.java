@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceTypeLstEllipsisImpl extends ASTWrapperPsiElement implements SpiceTypeLstEllipsis {
+public class SpiceEnumItemLstImpl extends ASTWrapperPsiElement implements SpiceEnumItemLst {
 
-  public SpiceTypeLstEllipsisImpl(@NotNull ASTNode node) {
+  public SpiceEnumItemLstImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitTypeLstEllipsis(this);
+    visitor.visitEnumItemLst(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class SpiceTypeLstEllipsisImpl extends ASTWrapperPsiElement implements Sp
 
   @Override
   @NotNull
-  public SpiceTypeLst getTypeLst() {
-    return findNotNullChildByClass(SpiceTypeLst.class);
+  public List<SpiceEnumItem> getEnumItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceEnumItem.class);
   }
 
 }
