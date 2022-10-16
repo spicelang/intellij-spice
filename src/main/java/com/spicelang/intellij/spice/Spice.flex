@@ -66,6 +66,7 @@ continue                                          { return SpiceTypes.CONTINUE; 
 return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
+interface                                         { return SpiceTypes.INTERFACE; }
 type                                              { return SpiceTypes.TYPE; }
 enum                                              { return SpiceTypes.ENUM; }
 thread                                            { return SpiceTypes.THREAD; }

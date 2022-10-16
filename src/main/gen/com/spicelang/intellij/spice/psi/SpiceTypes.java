@@ -45,6 +45,7 @@ public interface SpiceTypes {
   IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
+  IElementType INTERFACE_DEF = new SpiceElementType("INTERFACE_DEF");
   IElementType JOIN_CALL = new SpiceElementType("JOIN_CALL");
   IElementType LEN_CALL = new SpiceElementType("LEN_CALL");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
@@ -62,6 +63,7 @@ public interface SpiceTypes {
   IElementType RELATIONAL_EXPR = new SpiceElementType("RELATIONAL_EXPR");
   IElementType RETURN_STMT = new SpiceElementType("RETURN_STMT");
   IElementType SHIFT_EXPR = new SpiceElementType("SHIFT_EXPR");
+  IElementType SIGNATURE = new SpiceElementType("SIGNATURE");
   IElementType SIZE_OF_CALL = new SpiceElementType("SIZE_OF_CALL");
   IElementType SPECIFIER = new SpiceElementType("SPECIFIER");
   IElementType SPECIFIER_LST = new SpiceElementType("SPECIFIER_LST");
@@ -113,6 +115,7 @@ public interface SpiceTypes {
   IElementType IF = new SpiceTokenType("IF");
   IElementType IMPORT = new SpiceTokenType("IMPORT");
   IElementType INLINE = new SpiceTokenType("INLINE");
+  IElementType INTERFACE = new SpiceTokenType("INTERFACE");
   IElementType INT_LIT = new SpiceTokenType("INT_LIT");
   IElementType JOIN = new SpiceTokenType("JOIN");
   IElementType LBRACE = new SpiceTokenType("LBRACE");
@@ -289,6 +292,9 @@ public interface SpiceTypes {
       else if (type == IMPORT_STMT) {
         return new SpiceImportStmtImpl(node);
       }
+      else if (type == INTERFACE_DEF) {
+        return new SpiceInterfaceDefImpl(node);
+      }
       else if (type == JOIN_CALL) {
         return new SpiceJoinCallImpl(node);
       }
@@ -339,6 +345,9 @@ public interface SpiceTypes {
       }
       else if (type == SHIFT_EXPR) {
         return new SpiceShiftExprImpl(node);
+      }
+      else if (type == SIGNATURE) {
+        return new SpiceSignatureImpl(node);
       }
       else if (type == SIZE_OF_CALL) {
         return new SpiceSizeOfCallImpl(node);
