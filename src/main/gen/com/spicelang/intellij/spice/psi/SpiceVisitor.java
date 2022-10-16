@@ -147,10 +147,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
-  public void visitIdentifierLst(@NotNull SpiceIdentifierLst o) {
-    visitPsiElement(o);
-  }
-
   public void visitIfStmt(@NotNull SpiceIfStmt o) {
     visitPsiElement(o);
   }

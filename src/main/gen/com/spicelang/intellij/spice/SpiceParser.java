@@ -1185,40 +1185,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (COMMA IDENTIFIER)*
-  public static boolean identifierLst(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    r = r && identifierLst_1(b, l + 1);
-    exit_section_(b, m, IDENTIFIER_LST, r);
-    return r;
-  }
-
-  // (COMMA IDENTIFIER)*
-  private static boolean identifierLst_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!identifierLst_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "identifierLst_1", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA IDENTIFIER
-  private static boolean identifierLst_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierLst_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, COMMA, IDENTIFIER);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // IF assignExpr LBRACE stmtLst RBRACE elseStmt?
   public static boolean ifStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStmt")) return false;
@@ -2063,7 +2029,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON identifierLst)? LBRACE field* RBRACE
+  // specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
   public static boolean structDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef")) return false;
     boolean r;
@@ -2106,20 +2072,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (COLON identifierLst)?
+  // (COLON typeLst)?
   private static boolean structDef_5(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef_5")) return false;
     structDef_5_0(b, l + 1);
     return true;
   }
 
-  // COLON identifierLst
+  // COLON typeLst
   private static boolean structDef_5_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef_5_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COLON);
-    r = r && identifierLst(b, l + 1);
+    r = r && typeLst(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
