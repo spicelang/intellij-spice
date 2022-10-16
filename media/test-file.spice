@@ -12,6 +12,11 @@ p rowLine() {
     printf("\n");
 }
 
+type AstNode interface {
+    f<bool> accept(Visitor* v)
+    p dump()
+}
+
 type T int|double|string;
 
 f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
