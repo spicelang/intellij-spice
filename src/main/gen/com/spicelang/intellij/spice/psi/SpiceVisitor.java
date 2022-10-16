@@ -155,6 +155,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitInterfaceDef(@NotNull SpiceInterfaceDef o) {
+    visitPsiElement(o);
+  }
+
   public void visitJoinCall(@NotNull SpiceJoinCall o) {
     visitPsiElement(o);
   }
@@ -220,6 +224,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitShiftExpr(@NotNull SpiceShiftExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSignature(@NotNull SpiceSignature o) {
     visitPsiElement(o);
   }
 
