@@ -43,6 +43,7 @@ public interface SpiceTypes {
   IElementType GENERIC_TYPE_DEF = new SpiceElementType("GENERIC_TYPE_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
   IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
+  IElementType IDENTIFIER_LST = new SpiceElementType("IDENTIFIER_LST");
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType INTERFACE_DEF = new SpiceElementType("INTERFACE_DEF");
@@ -285,6 +286,9 @@ public interface SpiceTypes {
       }
       else if (type == IDENTIFIER_EXPR) {
         return new SpiceIdentifierExprImpl(node);
+      }
+      else if (type == IDENTIFIER_LST) {
+        return new SpiceIdentifierLstImpl(node);
       }
       else if (type == IF_STMT) {
         return new SpiceIfStmtImpl(node);
