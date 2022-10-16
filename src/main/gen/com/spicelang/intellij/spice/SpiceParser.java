@@ -1826,13 +1826,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? dataType IDENTIFIER LPAREN typeLst? RPAREN
+  // specifierLst? (F LESS dataType GREATER | P) IDENTIFIER LPAREN typeLst? RPAREN
   public static boolean signature(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "signature")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, SIGNATURE, "<signature>");
     r = signature_0(b, l + 1);
-    r = r && dataType(b, l + 1);
+    r = r && signature_1(b, l + 1);
     r = r && consumeTokens(b, 0, IDENTIFIER, LPAREN);
     r = r && signature_4(b, l + 1);
     r = r && consumeToken(b, RPAREN);
@@ -1845,6 +1845,29 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "signature_0")) return false;
     specifierLst(b, l + 1);
     return true;
+  }
+
+  // F LESS dataType GREATER | P
+  private static boolean signature_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signature_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = signature_1_0(b, l + 1);
+    if (!r) r = consumeToken(b, P);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // F LESS dataType GREATER
+  private static boolean signature_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signature_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F, LESS);
+    r = r && dataType(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   // typeLst?

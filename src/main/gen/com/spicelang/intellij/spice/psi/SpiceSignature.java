@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceSignature extends PsiElement {
 
-  @NotNull
+  @Nullable
   SpiceDataType getDataType();
 
   @Nullable

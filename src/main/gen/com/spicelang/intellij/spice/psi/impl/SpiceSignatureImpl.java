@@ -28,9 +28,9 @@ public class SpiceSignatureImpl extends ASTWrapperPsiElement implements SpiceSig
   }
 
   @Override
-  @NotNull
+  @Nullable
   public SpiceDataType getDataType() {
-    return findNotNullChildByClass(SpiceDataType.class);
+    return findChildByClass(SpiceDataType.class);
   }
 
   @Override

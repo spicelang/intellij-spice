@@ -13,7 +13,7 @@ p rowLine() {
 }
 
 type AstNode interface {
-    f<bool> accept(Visitor* v)
+    f<bool> accept(Visitor*)
     p dump()
 }
 
