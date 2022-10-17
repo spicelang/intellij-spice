@@ -25,7 +25,7 @@ HEX_LIT = [0][xXhH][0-9a-fA-F]+
 OCT_LIT = [0][oO][0-7]+
 NUM_LIT = {DEC_LIT}|{BIN_LIT}|{HEX_LIT}|{OCT_LIT}
 
-DOUBLE_LIT = [0-9]*[.][0-9]+
+DOUBLE_LIT = [-]?[0-9]*[.][0-9]+([eE][+-]?[0-9]+)?
 INT_LIT = {NUM_LIT}
 SHORT_LIT = {NUM_LIT}s
 LONG_LIT = {NUM_LIT}l
