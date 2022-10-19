@@ -78,7 +78,7 @@ relationalExpr ::= shiftExpr ((LESS | GREATER | LESS_EQUAL | GREATER_EQUAL) shif
 shiftExpr ::= additiveExpr ((LESS LESS | GREATER GREATER) additiveExpr)?
 additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
-castExpr ::= prefixUnaryExpr | LPAREN dataType RPAREN prefixUnaryExpr
+castExpr ::= LPAREN dataType RPAREN prefixUnaryExpr | prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
 postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}

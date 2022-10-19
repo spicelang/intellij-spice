@@ -23,6 +23,17 @@ f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
     return T{};
 }
 
+public f<Number> cos<Number>(Number input, bool precise = false) {
+    Number tp = (Number) (1.0 / (2.0 / cst::PI));
+    input *= tp;
+    input -= .25 + floor(input + .25);
+    input *= 16.0 * (abs(input) - .5);
+    if precise {
+        input += .225 * input * (abs(input) - 1.0);
+    }
+    return input;
+}
+
 p printGeneration(string name, int[10][10] matrix) {
     printf("%s:\n", name);
     rowLine();
