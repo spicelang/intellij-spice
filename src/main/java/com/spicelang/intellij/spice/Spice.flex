@@ -48,9 +48,12 @@ char                                              { return SpiceTypes.TYPE_CHAR;
 string                                            { return SpiceTypes.TYPE_STRING; }
 bool                                              { return SpiceTypes.TYPE_BOOL; }
 dyn                                               { return SpiceTypes.TYPE_DYN; }
+const                                             { return SpiceTypes.CONST; }
 signed                                            { return SpiceTypes.SIGNED; }
 unsigned                                          { return SpiceTypes.UNSIGNED; }
+inline                                            { return SpiceTypes.INLINE; }
 public                                            { return SpiceTypes.PUBLIC; }
+heap                                              { return SpiceTypes.HEAP; }
 f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }
@@ -59,7 +62,6 @@ assert                                            { return SpiceTypes.ASSERT; }
 for                                               { return SpiceTypes.FOR; }
 foreach                                           { return SpiceTypes.FOREACH; }
 while                                             { return SpiceTypes.WHILE; }
-const                                             { return SpiceTypes.CONST; }
 import                                            { return SpiceTypes.IMPORT; }
 break                                             { return SpiceTypes.BREAK; }
 continue                                          { return SpiceTypes.CONTINUE; }
@@ -81,7 +83,6 @@ tid                                               { return SpiceTypes.TID; }
 join                                              { return SpiceTypes.JOIN; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
-inline                                            { return SpiceTypes.INLINE; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }
