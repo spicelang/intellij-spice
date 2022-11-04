@@ -489,7 +489,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // baseDataType (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
+  // baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
   public static boolean dataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType")) return false;
     boolean r;
@@ -500,7 +500,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
+  // (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
   private static boolean dataType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1")) return false;
     while (true) {
@@ -511,39 +511,40 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // MUL | LBRACKET (INT_LIT | assignExpr)? RBRACKET
+  // MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET
   private static boolean dataType_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, MUL);
-    if (!r) r = dataType_1_0_1(b, l + 1);
+    if (!r) r = consumeToken(b, BITWISE_AND);
+    if (!r) r = dataType_1_0_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // LBRACKET (INT_LIT | assignExpr)? RBRACKET
-  private static boolean dataType_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dataType_1_0_1")) return false;
+  private static boolean dataType_1_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dataType_1_0_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACKET);
-    r = r && dataType_1_0_1_1(b, l + 1);
+    r = r && dataType_1_0_2_1(b, l + 1);
     r = r && consumeToken(b, RBRACKET);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (INT_LIT | assignExpr)?
-  private static boolean dataType_1_0_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dataType_1_0_1_1")) return false;
-    dataType_1_0_1_1_0(b, l + 1);
+  private static boolean dataType_1_0_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dataType_1_0_2_1")) return false;
+    dataType_1_0_2_1_0(b, l + 1);
     return true;
   }
 
   // INT_LIT | assignExpr
-  private static boolean dataType_1_0_1_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "dataType_1_0_1_1_0")) return false;
+  private static boolean dataType_1_0_2_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "dataType_1_0_2_1_0")) return false;
     boolean r;
     r = consumeToken(b, INT_LIT);
     if (!r) r = assignExpr(b, l + 1);
