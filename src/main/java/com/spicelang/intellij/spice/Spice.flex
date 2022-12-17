@@ -23,7 +23,9 @@ DEC_LIT = ([0][dD])?[0-9]+
 BIN_LIT = [0][bB][01]+
 HEX_LIT = [0][xXhH][0-9a-fA-F]+
 OCT_LIT = [0][oO][0-7]+
-NUM_LIT = {DEC_LIT}|{BIN_LIT}|{HEX_LIT}|{OCT_LIT}
+NUM_LIT = {NUM_LIT_S}|{NUM_LIT_U}
+NUM_LIT_S = [-]({DEC_LIT}|{BIN_LIT}|{HEX_LIT}|{OCT_LIT})
+NUM_LIT_U = ({DEC_LIT}|{BIN_LIT}|{HEX_LIT}|{OCT_LIT})[u]?
 
 DOUBLE_LIT = [-]?[0-9]*[.][0-9]+([eE][+-]?[0-9]+)?
 INT_LIT = {NUM_LIT}
@@ -48,9 +50,12 @@ char                                              { return SpiceTypes.TYPE_CHAR;
 string                                            { return SpiceTypes.TYPE_STRING; }
 bool                                              { return SpiceTypes.TYPE_BOOL; }
 dyn                                               { return SpiceTypes.TYPE_DYN; }
+const                                             { return SpiceTypes.CONST; }
 signed                                            { return SpiceTypes.SIGNED; }
 unsigned                                          { return SpiceTypes.UNSIGNED; }
+inline                                            { return SpiceTypes.INLINE; }
 public                                            { return SpiceTypes.PUBLIC; }
+heap                                              { return SpiceTypes.HEAP; }
 f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }
@@ -59,7 +64,6 @@ assert                                            { return SpiceTypes.ASSERT; }
 for                                               { return SpiceTypes.FOR; }
 foreach                                           { return SpiceTypes.FOREACH; }
 while                                             { return SpiceTypes.WHILE; }
-const                                             { return SpiceTypes.CONST; }
 import                                            { return SpiceTypes.IMPORT; }
 break                                             { return SpiceTypes.BREAK; }
 continue                                          { return SpiceTypes.CONTINUE; }
@@ -81,7 +85,6 @@ tid                                               { return SpiceTypes.TID; }
 join                                              { return SpiceTypes.JOIN; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
-inline                                            { return SpiceTypes.INLINE; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }

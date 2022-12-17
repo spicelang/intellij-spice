@@ -2,7 +2,7 @@
 
 import "std/math/rand" as rand;
 
-const int row = 10;
+const int row = 10us;
 const int col = 10;
 const int generationsToCalculate = 5;
 

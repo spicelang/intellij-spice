@@ -1915,7 +1915,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC
+  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP
   public static boolean specifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "specifier")) return false;
     boolean r;
@@ -1925,6 +1925,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, UNSIGNED);
     if (!r) r = consumeToken(b, INLINE);
     if (!r) r = consumeToken(b, PUBLIC);
+    if (!r) r = consumeToken(b, HEAP);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

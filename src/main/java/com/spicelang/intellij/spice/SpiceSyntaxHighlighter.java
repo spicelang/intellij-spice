@@ -8,7 +8,6 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.spicelang.intellij.spice.psi.SpiceTypes;
-import jnr.a64asm.SIZE;
 import org.jetbrains.annotations.NotNull;
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
