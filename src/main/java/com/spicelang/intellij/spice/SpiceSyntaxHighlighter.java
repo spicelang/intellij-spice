@@ -83,6 +83,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.ASSERT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.FOR)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.FOREACH)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.DO)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.WHILE)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.CONST)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.IMPORT)) return KEYWORD_KEY;

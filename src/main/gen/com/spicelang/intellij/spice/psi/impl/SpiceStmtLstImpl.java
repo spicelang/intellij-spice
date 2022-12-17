@@ -35,6 +35,12 @@ public class SpiceStmtLstImpl extends ASTWrapperPsiElement implements SpiceStmtL
 
   @Override
   @NotNull
+  public List<SpiceDoWhileLoop> getDoWhileLoopList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceDoWhileLoop.class);
+  }
+
+  @Override
+  @NotNull
   public List<SpiceForLoop> getForLoopList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceForLoop.class);
   }

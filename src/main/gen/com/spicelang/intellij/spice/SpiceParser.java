@@ -591,6 +591,22 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DO LBRACE stmtLst RBRACE WHILE assignExpr SEMICOLON
+  public static boolean doWhileLoop(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "doWhileLoop")) return false;
+    if (!nextTokenIs(b, DO)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DO, LBRACE);
+    r = r && stmtLst(b, l + 1);
+    r = r && consumeTokens(b, 0, RBRACE, WHILE);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, m, DO_WHILE_LOOP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
   public static boolean elseStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "elseStmt")) return false;
@@ -2002,7 +2018,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (stmt | forLoop | foreachLoop | whileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
+  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
   public static boolean stmtLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst")) return false;
     Marker m = enter_section_(b, l, _NONE_, STMT_LST, "<stmt lst>");
@@ -2015,7 +2031,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // stmt | forLoop | foreachLoop | whileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef
+  // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef
   private static boolean stmtLst_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst_0")) return false;
     boolean r;
@@ -2023,6 +2039,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = forLoop(b, l + 1);
     if (!r) r = foreachLoop(b, l + 1);
     if (!r) r = whileLoop(b, l + 1);
+    if (!r) r = doWhileLoop(b, l + 1);
     if (!r) r = ifStmt(b, l + 1);
     if (!r) r = assertStmt(b, l + 1);
     if (!r) r = threadDef(b, l + 1);
