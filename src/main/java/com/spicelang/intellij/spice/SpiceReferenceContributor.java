@@ -13,8 +13,8 @@ public class SpiceReferenceContributor extends PsiReferenceContributor {
                 new PsiReferenceProvider() {
                     @NotNull
                     @Override
-                    public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
-                                                                 @NotNull ProcessingContext context) {
+                    public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element,
+                                                                           @NotNull ProcessingContext context) {
                         PsiLiteralValue literalExpression = (PsiLiteralValue) element;
                         String value = literalExpression.getValue() instanceof String ?
                                 (String) literalExpression.getValue() : null;
