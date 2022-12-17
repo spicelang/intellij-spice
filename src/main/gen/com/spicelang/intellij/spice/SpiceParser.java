@@ -1843,7 +1843,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? (F LESS dataType GREATER | P) IDENTIFIER LPAREN typeLst? RPAREN
+  // specifierLst? (F LESS dataType GREATER | P) IDENTIFIER LPAREN typeLst? RPAREN SEMICOLON
   public static boolean signature(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "signature")) return false;
     boolean r;
@@ -1852,7 +1852,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && signature_1(b, l + 1);
     r = r && consumeTokens(b, 0, IDENTIFIER, LPAREN);
     r = r && signature_4(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
+    r = r && consumeTokens(b, 0, RPAREN, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
