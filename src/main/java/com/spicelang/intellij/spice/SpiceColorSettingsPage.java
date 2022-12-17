@@ -48,9 +48,10 @@ public class SpiceColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDemoText() {
-        return "f<int> main() {\n" +
-                "    printf(\"Hello World!\");\n" +
-                "}";
+        return """
+                f<int> main() {
+                    printf("Hello World!");
+                }""";
     }
 
     @Nullable

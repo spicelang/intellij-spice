@@ -23,7 +23,7 @@ public class SpiceReference extends PsiReferenceBase<PsiElement> implements PsiP
 
     @NotNull
     @Override
-    public ResolveResult[] multiResolve(boolean incompleteCode) {
+    public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<SpiceIdentifierExpr> identifiers = SpiceUtil.findIdentifiers(project, identifier);
         List<ResolveResult> results = new ArrayList<>();
@@ -41,7 +41,7 @@ public class SpiceReference extends PsiReferenceBase<PsiElement> implements PsiP
 
     @NotNull
     @Override
-    public Object[] getVariants() {
+    public Object @NotNull [] getVariants() {
         Project project = myElement.getProject();
         List<SpiceIdentifierExpr> spiceIdentifierExpressions = SpiceUtil.findIdentifiers(project);
         List<LookupElement> variants = new ArrayList<>();
