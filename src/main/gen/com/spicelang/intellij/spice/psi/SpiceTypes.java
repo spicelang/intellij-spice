@@ -111,6 +111,7 @@ public interface SpiceTypes {
   IElementType FOREACH = new SpiceTokenType("FOREACH");
   IElementType GREATER = new SpiceTokenType("GREATER");
   IElementType GREATER_EQUAL = new SpiceTokenType("GREATER_EQUAL");
+  IElementType HEAP = new SpiceTokenType("HEAP");
   IElementType IDENTIFIER = new SpiceTokenType("IDENTIFIER");
   IElementType IF = new SpiceTokenType("IF");
   IElementType IMPORT = new SpiceTokenType("IMPORT");
