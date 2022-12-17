@@ -11,6 +11,9 @@ public interface SpiceStmtLst extends PsiElement {
   List<SpiceAssertStmt> getAssertStmtList();
 
   @NotNull
+  List<SpiceDoWhileLoop> getDoWhileLoopList();
+
+  @NotNull
   List<SpiceForLoop> getForLoopList();
 
   @NotNull

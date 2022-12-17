@@ -27,6 +27,7 @@ public interface SpiceTypes {
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
   IElementType DECL_STMT = new SpiceElementType("DECL_STMT");
+  IElementType DO_WHILE_LOOP = new SpiceElementType("DO_WHILE_LOOP");
   IElementType ELSE_STMT = new SpiceElementType("ELSE_STMT");
   IElementType ENUM_DEF = new SpiceElementType("ENUM_DEF");
   IElementType ENUM_ITEM = new SpiceElementType("ENUM_ITEM");
@@ -98,6 +99,7 @@ public interface SpiceTypes {
   IElementType DIV = new SpiceTokenType("DIV");
   IElementType DIV_EQUAL = new SpiceTokenType("DIV_EQUAL");
   IElementType DLL = new SpiceTokenType("DLL");
+  IElementType DO = new SpiceTokenType("DO");
   IElementType DOT = new SpiceTokenType("DOT");
   IElementType DOUBLE_LIT = new SpiceTokenType("DOUBLE_LIT");
   IElementType ELLIPSIS = new SpiceTokenType("ELLIPSIS");
@@ -238,6 +240,9 @@ public interface SpiceTypes {
       }
       else if (type == DECL_STMT) {
         return new SpiceDeclStmtImpl(node);
+      }
+      else if (type == DO_WHILE_LOOP) {
+        return new SpiceDoWhileLoopImpl(node);
       }
       else if (type == ELSE_STMT) {
         return new SpiceElseStmtImpl(node);

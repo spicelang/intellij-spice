@@ -63,6 +63,7 @@ else                                              { return SpiceTypes.ELSE; }
 assert                                            { return SpiceTypes.ASSERT; }
 for                                               { return SpiceTypes.FOR; }
 foreach                                           { return SpiceTypes.FOREACH; }
+do                                                { return SpiceTypes.DO; }
 while                                             { return SpiceTypes.WHILE; }
 import                                            { return SpiceTypes.IMPORT; }
 break                                             { return SpiceTypes.BREAK; }

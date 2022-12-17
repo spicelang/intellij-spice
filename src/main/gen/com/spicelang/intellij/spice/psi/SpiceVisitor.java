@@ -83,6 +83,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDoWhileLoop(@NotNull SpiceDoWhileLoop o) {
+    visitPsiElement(o);
+  }
+
   public void visitElseStmt(@NotNull SpiceElseStmt o) {
     visitPsiElement(o);
   }
