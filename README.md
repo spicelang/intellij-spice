@@ -29,4 +29,4 @@ This project follows our [Code of Conduct](https://github.com/spicelang/intellij
 ## License
 The project is licensed under the [MIT software license](https://github.com/spicelang/intellij-spice/blob/main/LICENSE) and provided/distributed by ChilliBits.
 
-© ChilliBits 2022
+© ChilliBits 2022-2023

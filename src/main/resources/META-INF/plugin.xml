@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2022-2023 ChilliBits. All rights reserved.
+  -->
+
 <idea-plugin>
     <id>com.spicelang.intellij-spice</id>
     <name>Spice</name>

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022-2023 ChilliBits. All rights reserved.
+ */
+
 package com.spicelang.intellij.spice;
 
 import com.google.common.collect.Lists;

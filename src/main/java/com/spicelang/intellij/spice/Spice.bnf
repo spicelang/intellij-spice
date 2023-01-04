@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022-2023 ChilliBits. All rights reserved.
+ */
+
 {
   parserClass="com.spicelang.intellij.spice.SpiceParser"
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
