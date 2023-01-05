@@ -1226,16 +1226,34 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IMPORT STRING_LIT AS identifierExpr SEMICOLON
+  // IMPORT STRING_LIT (AS identifierExpr)? SEMICOLON
   public static boolean importStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "importStmt")) return false;
     if (!nextTokenIs(b, IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IMPORT, STRING_LIT, AS);
-    r = r && identifierExpr(b, l + 1);
+    r = consumeTokens(b, 0, IMPORT, STRING_LIT);
+    r = r && importStmt_2(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, IMPORT_STMT, r);
+    return r;
+  }
+
+  // (AS identifierExpr)?
+  private static boolean importStmt_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "importStmt_2")) return false;
+    importStmt_2_0(b, l + 1);
+    return true;
+  }
+
+  // AS identifierExpr
+  private static boolean importStmt_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "importStmt_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, AS);
+    r = r && identifierExpr(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 

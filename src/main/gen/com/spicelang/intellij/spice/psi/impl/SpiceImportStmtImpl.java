@@ -28,9 +28,9 @@ public class SpiceImportStmtImpl extends ASTWrapperPsiElement implements SpiceIm
   }
 
   @Override
-  @NotNull
+  @Nullable
   public SpiceIdentifierExpr getIdentifierExpr() {
-    return findNotNullChildByClass(SpiceIdentifierExpr.class);
+    return findChildByClass(SpiceIdentifierExpr.class);
   }
 
 }
