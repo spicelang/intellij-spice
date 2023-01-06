@@ -79,6 +79,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // TYPE IDENTIFIER ALIAS dataType SEMICOLON
+  public static boolean aliasDef(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "aliasDef")) return false;
+    if (!nextTokenIs(b, TYPE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, TYPE, IDENTIFIER, ALIAS);
+    r = r && dataType(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, m, ALIAS_DEF, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // assignExpr (COMMA assignExpr)*
   public static boolean argLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argLst")) return false;
@@ -410,6 +424,24 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, RPAREN);
     r = r && prefixUnaryExpr(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
+  public static boolean constant(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "constant")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CONSTANT, "<constant>");
+    r = consumeToken(b, DOUBLE_LIT);
+    if (!r) r = consumeToken(b, INT_LIT);
+    if (!r) r = consumeToken(b, SHORT_LIT);
+    if (!r) r = consumeToken(b, LONG_LIT);
+    if (!r) r = consumeToken(b, CHAR_LIT);
+    if (!r) r = consumeToken(b, STRING_LIT);
+    if (!r) r = consumeToken(b, TRUE);
+    if (!r) r = consumeToken(b, FALSE);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -1121,24 +1153,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE IDENTIFIER typeAltsLst SEMICOLON
+  // TYPE IDENTIFIER typeAltsLst SEMICOLON
   public static boolean genericTypeDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "genericTypeDef")) return false;
+    if (!nextTokenIs(b, TYPE)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, GENERIC_TYPE_DEF, "<generic type def>");
-    r = genericTypeDef_0(b, l + 1);
-    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER);
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, TYPE, IDENTIFIER);
     r = r && typeAltsLst(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, GENERIC_TYPE_DEF, r);
     return r;
-  }
-
-  // specifierLst?
-  private static boolean genericTypeDef_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "genericTypeDef_0")) return false;
-    specifierLst(b, l + 1);
-    return true;
   }
 
   /* ********************************************************** */
@@ -1634,24 +1659,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
-  public static boolean primitiveValue(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primitiveValue")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PRIMITIVE_VALUE, "<primitive value>");
-    r = consumeToken(b, DOUBLE_LIT);
-    if (!r) r = consumeToken(b, INT_LIT);
-    if (!r) r = consumeToken(b, SHORT_LIT);
-    if (!r) r = consumeToken(b, LONG_LIT);
-    if (!r) r = consumeToken(b, CHAR_LIT);
-    if (!r) r = consumeToken(b, STRING_LIT);
-    if (!r) r = consumeToken(b, TRUE);
-    if (!r) r = consumeToken(b, FALSE);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // PRINTF LPAREN STRING_LIT (COMMA assignExpr)* RPAREN
   public static boolean printfCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "printfCall")) return false;
@@ -1981,7 +1988,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
   static boolean spiceFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile")) return false;
     while (true) {
@@ -1992,7 +1999,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom
+  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom
   private static boolean spiceFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile_0")) return false;
     boolean r;
@@ -2003,6 +2010,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = interfaceDef(b, l + 1);
     if (!r) r = enumDef(b, l + 1);
     if (!r) r = genericTypeDef(b, l + 1);
+    if (!r) r = aliasDef(b, l + 1);
     if (!r) r = globalVarDef(b, l + 1);
     if (!r) r = importStmt(b, l + 1);
     if (!r) r = extDecl(b, l + 1);
@@ -2351,12 +2359,12 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+  // constant | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, VALUE, "<value>");
-    r = primitiveValue(b, l + 1);
+    r = constant(b, l + 1);
     if (!r) r = functionCall(b, l + 1);
     if (!r) r = arrayInitialization(b, l + 1);
     if (!r) r = structInstantiation(b, l + 1);

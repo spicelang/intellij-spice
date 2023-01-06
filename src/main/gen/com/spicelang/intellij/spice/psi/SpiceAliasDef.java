@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceGenericTypeDef extends PsiElement {
+public interface SpiceAliasDef extends PsiElement {
 
   @NotNull
-  SpiceTypeAltsLst getTypeAltsLst();
+  SpiceDataType getDataType();
 
 }

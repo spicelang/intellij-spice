@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpicePrimitiveValueImpl extends ASTWrapperPsiElement implements SpicePrimitiveValue {
+public class SpiceConstantImpl extends ASTWrapperPsiElement implements SpiceConstant {
 
-  public SpicePrimitiveValueImpl(@NotNull ASTNode node) {
+  public SpiceConstantImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitPrimitiveValue(this);
+    visitor.visitConstant(this);
   }
 
   @Override

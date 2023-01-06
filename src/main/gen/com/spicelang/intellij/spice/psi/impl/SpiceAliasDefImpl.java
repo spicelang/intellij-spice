@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceGenericTypeDefImpl extends ASTWrapperPsiElement implements SpiceGenericTypeDef {
+public class SpiceAliasDefImpl extends ASTWrapperPsiElement implements SpiceAliasDef {
 
-  public SpiceGenericTypeDefImpl(@NotNull ASTNode node) {
+  public SpiceAliasDefImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitGenericTypeDef(this);
+    visitor.visitAliasDef(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class SpiceGenericTypeDefImpl extends ASTWrapperPsiElement implements Spi
 
   @Override
   @NotNull
-  public SpiceTypeAltsLst getTypeAltsLst() {
-    return findNotNullChildByClass(SpiceTypeAltsLst.class);
+  public SpiceDataType getDataType() {
+    return findNotNullChildByClass(SpiceDataType.class);
   }
 
 }

@@ -18,8 +18,8 @@
   psiImplUtilClass="com.spicelang.intellij.spice.psi.impl.SpicePsiImplUtil"
 }
 
-// Control structures
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+// Top level definitions and declarations
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
@@ -28,9 +28,12 @@ procedureDef ::= specifierLst? P (identifierExpr DOT)? identifierExpr (LESS type
 structDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
 interfaceDef ::= specifierLst? TYPE IDENTIFIER INTERFACE LBRACE signature* RBRACE
 enumDef ::= specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
-genericTypeDef ::= specifierLst? TYPE IDENTIFIER typeAltsLst SEMICOLON
+genericTypeDef ::= TYPE IDENTIFIER typeAltsLst SEMICOLON
+aliasDef ::= TYPE IDENTIFIER ALIAS dataType SEMICOLON
 globalVarDef ::= specifierLst? dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
 extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
+
+// Control structures
 threadDef ::= THREAD LBRACE stmtLst RBRACE
 unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
@@ -88,19 +91,14 @@ prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
 postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
 atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
-// Values and types
-identifierExpr ::= IDENTIFIER {
-    mixin="com.spicelang.intellij.spice.psi.impl.SpiceNamedElementImpl"
-    implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
-    methods=[getIdentifier getName setName getNameIdentifier]
-}
-
-value ::= primitiveValue | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+// Values
+value ::= constant | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+constant ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
 functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
 structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
-primitiveValue ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
+// Types
 dataType ::= baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
 customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
@@ -108,3 +106,9 @@ customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst G
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
 prefixUnaryOp ::= MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND // Here, '&&' means the same as two times '&'
+
+identifierExpr ::= IDENTIFIER {
+    mixin="com.spicelang.intellij.spice.psi.impl.SpiceNamedElementImpl"
+    implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
+    methods=[getIdentifier getName setName getNameIdentifier]
+}

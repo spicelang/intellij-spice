@@ -5,6 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpicePrimitiveValue extends PsiElement {
+public interface SpiceConstant extends PsiElement {
 
 }

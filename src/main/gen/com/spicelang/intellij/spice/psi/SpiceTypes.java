@@ -9,6 +9,7 @@ import com.spicelang.intellij.spice.psi.impl.*;
 public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
+  IElementType ALIAS_DEF = new SpiceElementType("ALIAS_DEF");
   IElementType ARG_LST = new SpiceElementType("ARG_LST");
   IElementType ARRAY_INITIALIZATION = new SpiceElementType("ARRAY_INITIALIZATION");
   IElementType ASSERT_STMT = new SpiceElementType("ASSERT_STMT");
@@ -23,6 +24,7 @@ public interface SpiceTypes {
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
+  IElementType CONSTANT = new SpiceElementType("CONSTANT");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
@@ -58,7 +60,6 @@ public interface SpiceTypes {
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_OP = new SpiceElementType("PREFIX_UNARY_OP");
-  IElementType PRIMITIVE_VALUE = new SpiceElementType("PRIMITIVE_VALUE");
   IElementType PRINTF_CALL = new SpiceElementType("PRINTF_CALL");
   IElementType PROCEDURE_DEF = new SpiceElementType("PROCEDURE_DEF");
   IElementType RELATIONAL_EXPR = new SpiceElementType("RELATIONAL_EXPR");
@@ -81,6 +82,7 @@ public interface SpiceTypes {
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
 
+  IElementType ALIAS = new SpiceTokenType("ALIAS");
   IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
   IElementType AS = new SpiceTokenType("AS");
   IElementType ASSERT = new SpiceTokenType("ASSERT");
@@ -187,6 +189,9 @@ public interface SpiceTypes {
       if (type == ADDITIVE_EXPR) {
         return new SpiceAdditiveExprImpl(node);
       }
+      else if (type == ALIAS_DEF) {
+        return new SpiceAliasDefImpl(node);
+      }
       else if (type == ARG_LST) {
         return new SpiceArgLstImpl(node);
       }
@@ -228,6 +233,9 @@ public interface SpiceTypes {
       }
       else if (type == CAST_EXPR) {
         return new SpiceCastExprImpl(node);
+      }
+      else if (type == CONSTANT) {
+        return new SpiceConstantImpl(node);
       }
       else if (type == CONTINUE_STMT) {
         return new SpiceContinueStmtImpl(node);
@@ -333,9 +341,6 @@ public interface SpiceTypes {
       }
       else if (type == PREFIX_UNARY_OP) {
         return new SpicePrefixUnaryOpImpl(node);
-      }
-      else if (type == PRIMITIVE_VALUE) {
-        return new SpicePrimitiveValueImpl(node);
       }
       else if (type == PRINTF_CALL) {
         return new SpicePrintfCallImpl(node);

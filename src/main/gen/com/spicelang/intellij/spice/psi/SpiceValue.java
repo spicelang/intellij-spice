@@ -11,13 +11,13 @@ public interface SpiceValue extends PsiElement {
   SpiceArrayInitialization getArrayInitialization();
 
   @Nullable
+  SpiceConstant getConstant();
+
+  @Nullable
   SpiceDataType getDataType();
 
   @Nullable
   SpiceFunctionCall getFunctionCall();
-
-  @Nullable
-  SpicePrimitiveValue getPrimitiveValue();
 
   @Nullable
   SpiceStructInstantiation getStructInstantiation();
