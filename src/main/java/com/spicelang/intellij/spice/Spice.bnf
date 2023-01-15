@@ -19,7 +19,8 @@
 }
 
 // Top level definitions and declarations
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | docCom | lineCom | blockCom)*
+docCom ::= DOC_COMMENT
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE

@@ -639,6 +639,18 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DOC_COMMENT
+  public static boolean docCom(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "docCom")) return false;
+    if (!nextTokenIs(b, DOC_COMMENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DOC_COMMENT);
+    exit_section_(b, m, DOC_COM, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
   public static boolean elseStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "elseStmt")) return false;
@@ -1988,7 +2000,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom)*
+  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | docCom | lineCom | blockCom)*
   static boolean spiceFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile")) return false;
     while (true) {
@@ -1999,7 +2011,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | lineCom | blockCom
+  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | docCom | lineCom | blockCom
   private static boolean spiceFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile_0")) return false;
     boolean r;
@@ -2014,6 +2026,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = globalVarDef(b, l + 1);
     if (!r) r = importStmt(b, l + 1);
     if (!r) r = extDecl(b, l + 1);
+    if (!r) r = docCom(b, l + 1);
     if (!r) r = lineCom(b, l + 1);
     if (!r) r = blockCom(b, l + 1);
     return r;
