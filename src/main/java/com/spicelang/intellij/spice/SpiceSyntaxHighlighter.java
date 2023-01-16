@@ -33,6 +33,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     protected static final TextAttributesKey DOT = createTextAttributesKey("SPICE_DOT", DefaultLanguageHighlighterColors.DOT);
     protected static final TextAttributesKey LINE_COMMENT = createTextAttributesKey("SPICE_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     protected static final TextAttributesKey BLOCK_COMMENT = createTextAttributesKey("SPICE_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
+    protected static final TextAttributesKey DOC_COMMENT = createTextAttributesKey("SPICE_DOC_COMMENT", DefaultLanguageHighlighterColors.DOC_COMMENT);
     protected static final TextAttributesKey NUMBER = createTextAttributesKey("SPICE_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     protected static final TextAttributesKey STRING = createTextAttributesKey("SPICE_STRING", DefaultLanguageHighlighterColors.STRING);
     protected static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("SPICE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
@@ -53,6 +54,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     private final TextAttributesKey[] DOT_KEY = new TextAttributesKey[] { DOT };
     private final TextAttributesKey[] LINE_COMMENT_KEY = new TextAttributesKey[] { LINE_COMMENT };
     private final TextAttributesKey[] BLOCK_COMMENT_KEY = new TextAttributesKey[] { BLOCK_COMMENT };
+    private final TextAttributesKey[] DOC_COMMENT_KEY = new TextAttributesKey[] { DOC_COMMENT };
     private final TextAttributesKey[] NUMBER_KEY = new TextAttributesKey[] { NUMBER };
     private final TextAttributesKey[] STRING_KEY = new TextAttributesKey[] { STRING };
     private final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[] { BAD_CHARACTER };
@@ -166,6 +168,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.ELLIPSIS)) return SECONDARY_OPERATOR_KEY;
         if (tokenType.equals(SpiceTypes.LINE_COMMENT)) return LINE_COMMENT_KEY;
         if (tokenType.equals(SpiceTypes.BLOCK_COMMENT)) return BLOCK_COMMENT_KEY;
+        if (tokenType.equals(SpiceTypes.DOC_COMMENT)) return DOC_COMMENT_KEY;
         if (tokenType.equals(TokenType.BAD_CHARACTER)) return BAD_CHAR_KEYS;
         return EMPTY_KEYS;
     }

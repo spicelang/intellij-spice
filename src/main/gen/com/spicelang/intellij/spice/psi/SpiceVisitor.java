@@ -95,6 +95,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDocCom(@NotNull SpiceDocCom o) {
+    visitPsiElement(o);
+  }
+
   public void visitElseStmt(@NotNull SpiceElseStmt o) {
     visitPsiElement(o);
   }

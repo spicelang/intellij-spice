@@ -35,8 +35,9 @@ CHAR_LIT = '(\\.|[^'\\])*'
 STRING_LIT = \"(\\.|[^\"\\])*\"
 IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
 
-BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
+DOC_COMMENT = "/**"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
+BLOCK_COMMENT = "/*"([^*] | (\*+[^*/]))*\*+\/
 WS = [ \t\r\n]+
 
 %%
@@ -140,6 +141,7 @@ false                                             { return SpiceTypes.FALSE; }
 "."                                               { return SpiceTypes.DOT; }
 "::"                                              { return SpiceTypes.SCOPE_ACCESS; }
 "..."                                             { return SpiceTypes.ELLIPSIS; }
+{DOC_COMMENT}                                     { return SpiceTypes.DOC_COMMENT; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
 {BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }
 {WS}                                              { return TokenType.WHITE_SPACE; }

@@ -20,6 +20,8 @@ type AstNode interface {
 type T int|double|string;
 
 f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
+    /* Test
+    */
     return T{};
 }
 
