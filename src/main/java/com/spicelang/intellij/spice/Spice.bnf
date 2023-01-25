@@ -100,7 +100,7 @@ arrayInitialization ::= LBRACE argLst? RBRACE
 structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
 // Types
-dataType ::= baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
+dataType ::= baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
 customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
 

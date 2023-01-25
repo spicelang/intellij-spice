@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceDataType extends PsiElement {
 
   @NotNull
-  List<SpiceAssignExpr> getAssignExprList();
-
-  @NotNull
   SpiceBaseDataType getBaseDataType();
 
 }

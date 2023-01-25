@@ -521,7 +521,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
+  // baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET)*
   public static boolean dataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType")) return false;
     boolean r;
@@ -532,7 +532,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET)*
+  // (MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET)*
   private static boolean dataType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1")) return false;
     while (true) {
@@ -543,7 +543,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // MUL | BITWISE_AND | LBRACKET (INT_LIT | assignExpr)? RBRACKET
+  // MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET
   private static boolean dataType_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0")) return false;
     boolean r;
@@ -555,7 +555,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACKET (INT_LIT | assignExpr)? RBRACKET
+  // LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET
   private static boolean dataType_1_0_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_2")) return false;
     boolean r;
@@ -567,19 +567,19 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (INT_LIT | assignExpr)?
+  // (INT_LIT | IDENTIFIER)?
   private static boolean dataType_1_0_2_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_2_1")) return false;
     dataType_1_0_2_1_0(b, l + 1);
     return true;
   }
 
-  // INT_LIT | assignExpr
+  // INT_LIT | IDENTIFIER
   private static boolean dataType_1_0_2_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "dataType_1_0_2_1_0")) return false;
     boolean r;
     r = consumeToken(b, INT_LIT);
-    if (!r) r = assignExpr(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
     return r;
   }
 
