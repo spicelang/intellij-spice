@@ -1761,18 +1761,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? P (identifierExpr DOT)? (identifierExpr | OPERATOR overloadableOperators) (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
   public static boolean procedureDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROCEDURE_DEF, "<procedure def>");
     r = procedureDef_0(b, l + 1);
     r = r && consumeToken(b, P);
-    r = r && procedureDef_2(b, l + 1);
+    r = r && functionName(b, l + 1);
     r = r && procedureDef_3(b, l + 1);
-    r = r && procedureDef_4(b, l + 1);
     r = r && consumeToken(b, LPAREN);
-    r = r && procedureDef_6(b, l + 1);
+    r = r && procedureDef_5(b, l + 1);
     r = r && consumeTokens(b, 0, RPAREN, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
@@ -1787,45 +1786,16 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (identifierExpr DOT)?
-  private static boolean procedureDef_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "procedureDef_2")) return false;
-    procedureDef_2_0(b, l + 1);
-    return true;
-  }
-
-  // identifierExpr DOT
-  private static boolean procedureDef_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "procedureDef_2_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = identifierExpr(b, l + 1);
-    r = r && consumeToken(b, DOT);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // identifierExpr | OPERATOR overloadableOperators
+  // (LESS typeLst GREATER)?
   private static boolean procedureDef_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef_3")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = identifierExpr(b, l + 1);
-    if (!r) r = parseTokens(b, 0, OPERATOR, OVERLOADABLEOPERATORS);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (LESS typeLst GREATER)?
-  private static boolean procedureDef_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "procedureDef_4")) return false;
-    procedureDef_4_0(b, l + 1);
+    procedureDef_3_0(b, l + 1);
     return true;
   }
 
   // LESS typeLst GREATER
-  private static boolean procedureDef_4_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "procedureDef_4_0")) return false;
+  private static boolean procedureDef_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "procedureDef_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LESS);
@@ -1836,8 +1806,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   // paramLst?
-  private static boolean procedureDef_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "procedureDef_6")) return false;
+  private static boolean procedureDef_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "procedureDef_5")) return false;
     paramLst(b, l + 1);
     return true;
   }

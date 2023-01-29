@@ -148,7 +148,6 @@ public interface SpiceTypes {
   IElementType NOT_EQUAL = new SpiceTokenType("NOT_EQUAL");
   IElementType OPERATOR = new SpiceTokenType("OPERATOR");
   IElementType OR_EQUAL = new SpiceTokenType("OR_EQUAL");
-  IElementType OVERLOADABLEOPERATORS = new SpiceTokenType("overloadableOperators");
   IElementType P = new SpiceTokenType("P");
   IElementType PLUS = new SpiceTokenType("PLUS");
   IElementType PLUS_EQUAL = new SpiceTokenType("PLUS_EQUAL");
