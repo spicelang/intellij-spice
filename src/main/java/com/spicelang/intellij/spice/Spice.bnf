@@ -108,7 +108,7 @@ customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst G
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
 prefixUnaryOp ::= MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND // Here, '&&' means the same as two times '&'
-overloadableOp ::= PLUS | MINUS | MUL | DIV;
+overloadableOp ::= PLUS | MINUS | MUL | DIV | EQUAL | NOT_EQUAL;
 
 identifierExpr ::= IDENTIFIER {
     mixin="com.spicelang.intellij.spice.psi.impl.SpiceNamedElementImpl"
