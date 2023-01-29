@@ -35,8 +35,8 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
 
   @Override
   @NotNull
-  public List<SpiceIdentifierExpr> getIdentifierExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
+  public SpiceFunctionName getFunctionName() {
+    return findNotNullChildByClass(SpiceFunctionName.class);
   }
 
   @Override

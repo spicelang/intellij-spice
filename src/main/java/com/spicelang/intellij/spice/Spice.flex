@@ -75,6 +75,7 @@ struct                                            { return SpiceTypes.STRUCT; }
 interface                                         { return SpiceTypes.INTERFACE; }
 type                                              { return SpiceTypes.TYPE; }
 enum                                              { return SpiceTypes.ENUM; }
+operator                                          { return SpiceTypes.OPERATOR; }
 alias                                             { return SpiceTypes.ALIAS; }
 thread                                            { return SpiceTypes.THREAD; }
 unsafe                                            { return SpiceTypes.UNSAFE; }

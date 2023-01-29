@@ -44,6 +44,7 @@ public interface SpiceTypes {
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_CALL = new SpiceElementType("FUNCTION_CALL");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
+  IElementType FUNCTION_NAME = new SpiceElementType("FUNCTION_NAME");
   IElementType GENERIC_TYPE_DEF = new SpiceElementType("GENERIC_TYPE_DEF");
   IElementType GLOBAL_VAR_DEF = new SpiceElementType("GLOBAL_VAR_DEF");
   IElementType IDENTIFIER_EXPR = new SpiceElementType("IDENTIFIER_EXPR");
@@ -57,6 +58,7 @@ public interface SpiceTypes {
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
+  IElementType OVERLOADABLE_OP = new SpiceElementType("OVERLOADABLE_OP");
   IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
@@ -144,7 +146,9 @@ public interface SpiceTypes {
   IElementType NIL = new SpiceTokenType("NIL");
   IElementType NOT = new SpiceTokenType("NOT");
   IElementType NOT_EQUAL = new SpiceTokenType("NOT_EQUAL");
+  IElementType OPERATOR = new SpiceTokenType("OPERATOR");
   IElementType OR_EQUAL = new SpiceTokenType("OR_EQUAL");
+  IElementType OVERLOADABLEOPERATORS = new SpiceTokenType("overloadableOperators");
   IElementType P = new SpiceTokenType("P");
   IElementType PLUS = new SpiceTokenType("PLUS");
   IElementType PLUS_EQUAL = new SpiceTokenType("PLUS_EQUAL");
@@ -296,6 +300,9 @@ public interface SpiceTypes {
       else if (type == FUNCTION_DEF) {
         return new SpiceFunctionDefImpl(node);
       }
+      else if (type == FUNCTION_NAME) {
+        return new SpiceFunctionNameImpl(node);
+      }
       else if (type == GENERIC_TYPE_DEF) {
         return new SpiceGenericTypeDefImpl(node);
       }
@@ -334,6 +341,9 @@ public interface SpiceTypes {
       }
       else if (type == MULTIPLICATIVE_EXPR) {
         return new SpiceMultiplicativeExprImpl(node);
+      }
+      else if (type == OVERLOADABLE_OP) {
+        return new SpiceOverloadableOpImpl(node);
       }
       else if (type == PARAM_LST) {
         return new SpiceParamLstImpl(node);

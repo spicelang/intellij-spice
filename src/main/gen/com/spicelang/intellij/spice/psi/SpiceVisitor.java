@@ -151,6 +151,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunctionName(@NotNull SpiceFunctionName o) {
+    visitPsiElement(o);
+  }
+
   public void visitGenericTypeDef(@NotNull SpiceGenericTypeDef o) {
     visitPsiElement(o);
   }
@@ -200,6 +204,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitMultiplicativeExpr(@NotNull SpiceMultiplicativeExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitOverloadableOp(@NotNull SpiceOverloadableOp o) {
     visitPsiElement(o);
   }
 
