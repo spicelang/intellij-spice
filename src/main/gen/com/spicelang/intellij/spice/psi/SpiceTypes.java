@@ -10,6 +10,7 @@ public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
   IElementType ALIAS_DEF = new SpiceElementType("ALIAS_DEF");
+  IElementType ANONYMOUS_BLOCK_STMT = new SpiceElementType("ANONYMOUS_BLOCK_STMT");
   IElementType ARG_LST = new SpiceElementType("ARG_LST");
   IElementType ARRAY_INITIALIZATION = new SpiceElementType("ARRAY_INITIALIZATION");
   IElementType ASSERT_STMT = new SpiceElementType("ASSERT_STMT");
@@ -196,6 +197,9 @@ public interface SpiceTypes {
       }
       else if (type == ALIAS_DEF) {
         return new SpiceAliasDefImpl(node);
+      }
+      else if (type == ANONYMOUS_BLOCK_STMT) {
+        return new SpiceAnonymousBlockStmtImpl(node);
       }
       else if (type == ARG_LST) {
         return new SpiceArgLstImpl(node);

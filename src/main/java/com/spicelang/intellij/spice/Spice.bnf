@@ -46,10 +46,10 @@ whileLoop ::= WHILE assignExpr LBRACE stmtLst RBRACE
 doWhileLoop ::= DO LBRACE stmtLst RBRACE WHILE assignExpr SEMICOLON
 ifStmt ::= IF assignExpr LBRACE stmtLst RBRACE elseStmt?
 elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
-assertStmt ::= ASSERT assignExpr SEMICOLON
+anonymousBlockStmt ::= LBRACE stmtLst RBRACE;
 
 // Statements, declarations, definitions and lists
-stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef)*
+stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef | anonymousBlockStmt)*
 typeLst ::= dataType (COMMA dataType)*
 typeAltsLst ::= dataType (BITWISE_OR dataType)*;
 paramLst ::= declStmt (COMMA declStmt)*
@@ -66,6 +66,7 @@ importStmt ::= IMPORT STRING_LIT (AS identifierExpr)? SEMICOLON
 returnStmt ::= RETURN assignExpr?
 breakStmt ::= BREAK INT_LIT?
 continueStmt ::= CONTINUE INT_LIT?
+assertStmt ::= ASSERT assignExpr SEMICOLON
 
 // Builtin functions
 builtinCall ::= printfCall | sizeOfCall | lenCall | tidCall | joinCall

@@ -15,6 +15,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAnonymousBlockStmt(@NotNull SpiceAnonymousBlockStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitArgLst(@NotNull SpiceArgLst o) {
     visitPsiElement(o);
   }
