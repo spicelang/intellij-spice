@@ -33,4 +33,10 @@ public class SpiceDataTypeImpl extends ASTWrapperPsiElement implements SpiceData
     return findNotNullChildByClass(SpiceBaseDataType.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
+  }
+
 }

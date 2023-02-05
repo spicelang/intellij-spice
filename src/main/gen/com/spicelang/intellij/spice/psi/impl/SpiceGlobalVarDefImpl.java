@@ -41,12 +41,6 @@ public class SpiceGlobalVarDefImpl extends ASTWrapperPsiElement implements Spice
 
   @Override
   @Nullable
-  public SpiceSpecifierLst getSpecifierLst() {
-    return findChildByClass(SpiceSpecifierLst.class);
-  }
-
-  @Override
-  @Nullable
   public SpiceValue getValue() {
     return findChildByClass(SpiceValue.class);
   }

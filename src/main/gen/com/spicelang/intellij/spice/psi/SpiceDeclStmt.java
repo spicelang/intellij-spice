@@ -16,7 +16,4 @@ public interface SpiceDeclStmt extends PsiElement {
   @NotNull
   SpiceIdentifierExpr getIdentifierExpr();
 
-  @Nullable
-  SpiceSpecifierLst getSpecifierLst();
-
 }

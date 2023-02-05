@@ -10,4 +10,7 @@ public interface SpiceDataType extends PsiElement {
   @NotNull
   SpiceBaseDataType getBaseDataType();
 
+  @Nullable
+  SpiceSpecifierLst getSpecifierLst();
+
 }
