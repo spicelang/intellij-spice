@@ -33,4 +33,10 @@ public class SpiceAliasDefImpl extends ASTWrapperPsiElement implements SpiceAlia
     return findNotNullChildByClass(SpiceDataType.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
+  }
+
 }

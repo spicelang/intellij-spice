@@ -79,17 +79,24 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TYPE IDENTIFIER ALIAS dataType SEMICOLON
+  // specifierLst? TYPE IDENTIFIER ALIAS dataType SEMICOLON
   public static boolean aliasDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "aliasDef")) return false;
-    if (!nextTokenIs(b, TYPE)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, TYPE, IDENTIFIER, ALIAS);
+    Marker m = enter_section_(b, l, _NONE_, ALIAS_DEF, "<alias def>");
+    r = aliasDef_0(b, l + 1);
+    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, ALIAS);
     r = r && dataType(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, ALIAS_DEF, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // specifierLst?
+  private static boolean aliasDef_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "aliasDef_0")) return false;
+    specifierLst(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
