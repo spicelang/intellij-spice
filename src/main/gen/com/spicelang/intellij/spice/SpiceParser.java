@@ -1334,14 +1334,16 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE IDENTIFIER INTERFACE LBRACE signature+ RBRACE
+  // specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
   public static boolean interfaceDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "interfaceDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INTERFACE_DEF, "<interface def>");
     r = interfaceDef_0(b, l + 1);
-    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER, INTERFACE, LBRACE);
-    r = r && interfaceDef_5(b, l + 1);
+    r = r && consumeTokens(b, 0, TYPE, IDENTIFIER);
+    r = r && interfaceDef_3(b, l + 1);
+    r = r && consumeTokens(b, 0, INTERFACE, LBRACE);
+    r = r && interfaceDef_6(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1354,16 +1356,35 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  // (LESS typeLst GREATER)?
+  private static boolean interfaceDef_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_3")) return false;
+    interfaceDef_3_0(b, l + 1);
+    return true;
+  }
+
+  // LESS typeLst GREATER
+  private static boolean interfaceDef_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
+    r = r && typeLst(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // signature+
-  private static boolean interfaceDef_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interfaceDef_5")) return false;
+  private static boolean interfaceDef_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_6")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = signature(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!signature(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "interfaceDef_5", c)) break;
+      if (!empty_element_parsed_guard_(b, "interfaceDef_6", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
