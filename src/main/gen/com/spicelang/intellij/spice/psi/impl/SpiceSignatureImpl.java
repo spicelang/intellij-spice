@@ -40,9 +40,9 @@ public class SpiceSignatureImpl extends ASTWrapperPsiElement implements SpiceSig
   }
 
   @Override
-  @Nullable
-  public SpiceTypeLst getTypeLst() {
-    return findChildByClass(SpiceTypeLst.class);
+  @NotNull
+  public List<SpiceTypeLst> getTypeLstList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceTypeLst.class);
   }
 
 }

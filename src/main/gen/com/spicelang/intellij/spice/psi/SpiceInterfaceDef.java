@@ -13,4 +13,7 @@ public interface SpiceInterfaceDef extends PsiElement {
   @Nullable
   SpiceSpecifierLst getSpecifierLst();
 
+  @Nullable
+  SpiceTypeLst getTypeLst();
+
 }

@@ -39,4 +39,10 @@ public class SpiceInterfaceDefImpl extends ASTWrapperPsiElement implements Spice
     return findChildByClass(SpiceSpecifierLst.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
+  }
+
 }
