@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.spicelang'
-version '1.0.2'
+version '1.0.3'
 
 repositories {
     mavenCentral()
@@ -33,6 +33,11 @@ patchPluginXml {
       <b>Changes in release 1.0.2:</b>
       <ul>
         <li>Support IntelliJ 2022.3</li>
+      </ul>
+      
+      <b>Changes in release 1.0.3:</b>
+      <ul>
+        <li>Support IntelliJ 2023.1</li>
       </ul>
     """
 }

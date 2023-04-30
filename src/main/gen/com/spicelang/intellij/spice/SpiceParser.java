@@ -833,7 +833,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // EXT (LESS dataType GREATER)? identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
+  // EXT (F LESS dataType GREATER | P) identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
     if (!nextTokenIs(b, EXT)) return false;
@@ -851,19 +851,23 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (LESS dataType GREATER)?
+  // F LESS dataType GREATER | P
   private static boolean extDecl_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl_1")) return false;
-    extDecl_1_0(b, l + 1);
-    return true;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = extDecl_1_0(b, l + 1);
+    if (!r) r = consumeToken(b, P);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
-  // LESS dataType GREATER
+  // F LESS dataType GREATER
   private static boolean extDecl_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LESS);
+    r = consumeTokens(b, 0, F, LESS);
     r = r && dataType(b, l + 1);
     r = r && consumeToken(b, GREATER);
     exit_section_(b, m, null, r);

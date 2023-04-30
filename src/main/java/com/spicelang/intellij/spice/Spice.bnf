@@ -33,7 +33,7 @@ enumDef ::= specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
 genericTypeDef ::= TYPE IDENTIFIER typeAltsLst SEMICOLON
 aliasDef ::= specifierLst? TYPE IDENTIFIER ALIAS dataType SEMICOLON
 globalVarDef ::= dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
-extDecl ::= EXT (LESS dataType GREATER)? identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
+extDecl ::= EXT (F LESS dataType GREATER | P) identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
 
 // Control structures
 threadDef ::= THREAD LBRACE stmtLst RBRACE
