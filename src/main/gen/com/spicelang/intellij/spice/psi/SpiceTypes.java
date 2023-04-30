@@ -45,6 +45,7 @@ public interface SpiceTypes {
   IElementType FOR_HEAD = new SpiceElementType("FOR_HEAD");
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_CALL = new SpiceElementType("FUNCTION_CALL");
+  IElementType FUNCTION_DATA_TYPE = new SpiceElementType("FUNCTION_DATA_TYPE");
   IElementType FUNCTION_DEF = new SpiceElementType("FUNCTION_DEF");
   IElementType FUNCTION_NAME = new SpiceElementType("FUNCTION_NAME");
   IElementType GENERIC_TYPE_DEF = new SpiceElementType("GENERIC_TYPE_DEF");
@@ -304,6 +305,9 @@ public interface SpiceTypes {
       }
       else if (type == FUNCTION_CALL) {
         return new SpiceFunctionCallImpl(node);
+      }
+      else if (type == FUNCTION_DATA_TYPE) {
+        return new SpiceFunctionDataTypeImpl(node);
       }
       else if (type == FUNCTION_DEF) {
         return new SpiceFunctionDefImpl(node);

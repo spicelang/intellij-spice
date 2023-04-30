@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceBaseDataTypeImpl extends ASTWrapperPsiElement implements SpiceBaseDataType {
+public class SpiceFunctionDataTypeImpl extends ASTWrapperPsiElement implements SpiceFunctionDataType {
 
-  public SpiceBaseDataTypeImpl(@NotNull ASTNode node) {
+  public SpiceFunctionDataTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitBaseDataType(this);
+    visitor.visitFunctionDataType(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class SpiceBaseDataTypeImpl extends ASTWrapperPsiElement implements Spice
 
   @Override
   @Nullable
-  public SpiceCustomDataType getCustomDataType() {
-    return findChildByClass(SpiceCustomDataType.class);
+  public SpiceDataType getDataType() {
+    return findChildByClass(SpiceDataType.class);
   }
 
   @Override
   @Nullable
-  public SpiceFunctionDataType getFunctionDataType() {
-    return findChildByClass(SpiceFunctionDataType.class);
+  public SpiceTypeLst getTypeLst() {
+    return findChildByClass(SpiceTypeLst.class);
   }
 
 }
