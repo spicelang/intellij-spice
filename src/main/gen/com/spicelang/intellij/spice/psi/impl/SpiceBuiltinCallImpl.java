@@ -29,6 +29,12 @@ public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceB
 
   @Override
   @Nullable
+  public SpiceAlignOfCall getAlignOfCall() {
+    return findChildByClass(SpiceAlignOfCall.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceJoinCall getJoinCall() {
     return findChildByClass(SpiceJoinCall.class);
   }
