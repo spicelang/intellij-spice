@@ -100,6 +100,42 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ALIGNOF LPAREN (assignExpr | TYPE dataType) RPAREN
+  public static boolean alignOfCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall")) return false;
+    if (!nextTokenIs(b, ALIGNOF)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, ALIGNOF, LPAREN);
+    r = r && alignOfCall_2(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, ALIGN_OF_CALL, r);
+    return r;
+  }
+
+  // assignExpr | TYPE dataType
+  private static boolean alignOfCall_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = assignExpr(b, l + 1);
+    if (!r) r = alignOfCall_2_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // TYPE dataType
+  private static boolean alignOfCall_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall_2_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TYPE);
+    r = r && dataType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // LBRACE stmtLst RBRACE
   public static boolean anonymousBlockStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "anonymousBlockStmt")) return false;
@@ -409,13 +445,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | lenCall | tidCall | joinCall
+  // printfCall | sizeOfCall | alignOfCall | lenCall | tidCall | joinCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BUILTIN_CALL, "<builtin call>");
     r = printfCall(b, l + 1);
     if (!r) r = sizeOfCall(b, l + 1);
+    if (!r) r = alignOfCall(b, l + 1);
     if (!r) r = lenCall(b, l + 1);
     if (!r) r = tidCall(b, l + 1);
     if (!r) r = joinCall(b, l + 1);

@@ -10,6 +10,7 @@ public interface SpiceTypes {
 
   IElementType ADDITIVE_EXPR = new SpiceElementType("ADDITIVE_EXPR");
   IElementType ALIAS_DEF = new SpiceElementType("ALIAS_DEF");
+  IElementType ALIGN_OF_CALL = new SpiceElementType("ALIGN_OF_CALL");
   IElementType ANONYMOUS_BLOCK_STMT = new SpiceElementType("ANONYMOUS_BLOCK_STMT");
   IElementType ARG_LST = new SpiceElementType("ARG_LST");
   IElementType ARRAY_INITIALIZATION = new SpiceElementType("ARRAY_INITIALIZATION");
@@ -87,6 +88,7 @@ public interface SpiceTypes {
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
 
   IElementType ALIAS = new SpiceTokenType("ALIAS");
+  IElementType ALIGNOF = new SpiceTokenType("ALIGNOF");
   IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
   IElementType AS = new SpiceTokenType("AS");
   IElementType ASSERT = new SpiceTokenType("ASSERT");
@@ -197,6 +199,9 @@ public interface SpiceTypes {
       }
       else if (type == ALIAS_DEF) {
         return new SpiceAliasDefImpl(node);
+      }
+      else if (type == ALIGN_OF_CALL) {
+        return new SpiceAlignOfCallImpl(node);
       }
       else if (type == ANONYMOUS_BLOCK_STMT) {
         return new SpiceAnonymousBlockStmtImpl(node);
