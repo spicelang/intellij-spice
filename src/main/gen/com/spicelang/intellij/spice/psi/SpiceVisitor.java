@@ -155,6 +155,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunctionDataType(@NotNull SpiceFunctionDataType o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunctionDef(@NotNull SpiceFunctionDef o) {
     visitPsiElement(o);
   }

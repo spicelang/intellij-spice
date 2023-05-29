@@ -291,7 +291,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
+  // TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType | functionDataType
   public static boolean baseDataType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "baseDataType")) return false;
     boolean r;
@@ -306,6 +306,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, TYPE_BOOL);
     if (!r) r = consumeToken(b, TYPE_DYN);
     if (!r) r = customDataType(b, l + 1);
+    if (!r) r = functionDataType(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1142,6 +1143,51 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   private static boolean functionCall_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionCall_4")) return false;
     argLst(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // (P | F LESS dataType GREATER) LPAREN typeLst? RPAREN
+  public static boolean functionDataType(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDataType")) return false;
+    if (!nextTokenIs(b, "<function data type>", F, P)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_DATA_TYPE, "<function data type>");
+    r = functionDataType_0(b, l + 1);
+    r = r && consumeToken(b, LPAREN);
+    r = r && functionDataType_2(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // P | F LESS dataType GREATER
+  private static boolean functionDataType_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDataType_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, P);
+    if (!r) r = functionDataType_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // F LESS dataType GREATER
+  private static boolean functionDataType_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDataType_0_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F, LESS);
+    r = r && dataType(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // typeLst?
+  private static boolean functionDataType_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionDataType_2")) return false;
+    typeLst(b, l + 1);
     return true;
   }
 

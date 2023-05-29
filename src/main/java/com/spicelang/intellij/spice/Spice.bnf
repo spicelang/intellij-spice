@@ -104,8 +104,9 @@ structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS type
 
 // Types
 dataType ::= specifierLst? baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET)*
-baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType
+baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType | functionDataType
 customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
+functionDataType ::= (P | F LESS dataType GREATER) LPAREN typeLst? RPAREN
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
