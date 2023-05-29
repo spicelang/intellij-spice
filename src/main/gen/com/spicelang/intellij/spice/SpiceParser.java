@@ -219,14 +219,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // prefixUnaryExpr assignOp assignExpr | ternaryExpr | threadDef
+  // prefixUnaryExpr assignOp assignExpr | ternaryExpr
   public static boolean assignExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ASSIGN_EXPR, "<assign expr>");
     r = assignExpr_0(b, l + 1);
     if (!r) r = ternaryExpr(b, l + 1);
-    if (!r) r = threadDef(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -446,7 +445,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | alignOfCall | lenCall | tidCall | joinCall
+  // printfCall | sizeOfCall | alignOfCall | lenCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
@@ -455,8 +454,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = sizeOfCall(b, l + 1);
     if (!r) r = alignOfCall(b, l + 1);
     if (!r) r = lenCall(b, l + 1);
-    if (!r) r = tidCall(b, l + 1);
-    if (!r) r = joinCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1478,43 +1475,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // JOIN LPAREN assignExpr (COMMA assignExpr)* RPAREN
-  public static boolean joinCall(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "joinCall")) return false;
-    if (!nextTokenIs(b, JOIN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, JOIN, LPAREN);
-    r = r && assignExpr(b, l + 1);
-    r = r && joinCall_3(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
-    exit_section_(b, m, JOIN_CALL, r);
-    return r;
-  }
-
-  // (COMMA assignExpr)*
-  private static boolean joinCall_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "joinCall_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!joinCall_3_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "joinCall_3", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA assignExpr
-  private static boolean joinCall_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "joinCall_3_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && assignExpr(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // LEN LPAREN assignExpr RPAREN
   public static boolean lenCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lenCall")) return false;
@@ -2230,7 +2190,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef | anonymousBlockStmt)*
+  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlockDef | anonymousBlockStmt)*
   public static boolean stmtLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst")) return false;
     Marker m = enter_section_(b, l, _NONE_, STMT_LST, "<stmt lst>");
@@ -2243,7 +2203,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | threadDef | unsafeBlockDef | anonymousBlockStmt
+  // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlockDef | anonymousBlockStmt
   private static boolean stmtLst_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst_0")) return false;
     boolean r;
@@ -2254,7 +2214,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = doWhileLoop(b, l + 1);
     if (!r) r = ifStmt(b, l + 1);
     if (!r) r = assertStmt(b, l + 1);
-    if (!r) r = threadDef(b, l + 1);
     if (!r) r = unsafeBlockDef(b, l + 1);
     if (!r) r = anonymousBlockStmt(b, l + 1);
     return r;
@@ -2435,32 +2394,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ternaryExpr_1_0_1")) return false;
     logicalOrExpr(b, l + 1);
     return true;
-  }
-
-  /* ********************************************************** */
-  // THREAD LBRACE stmtLst RBRACE
-  public static boolean threadDef(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "threadDef")) return false;
-    if (!nextTokenIs(b, THREAD)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, THREAD, LBRACE);
-    r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, THREAD_DEF, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // TID LPAREN RPAREN
-  public static boolean tidCall(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tidCall")) return false;
-    if (!nextTokenIs(b, TID)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, TID, LPAREN, RPAREN);
-    exit_section_(b, m, TID_CALL, r);
-    return r;
   }
 
   /* ********************************************************** */

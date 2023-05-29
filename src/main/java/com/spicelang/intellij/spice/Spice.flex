@@ -77,7 +77,6 @@ type                                              { return SpiceTypes.TYPE; }
 enum                                              { return SpiceTypes.ENUM; }
 operator                                          { return SpiceTypes.OPERATOR; }
 alias                                             { return SpiceTypes.ALIAS; }
-thread                                            { return SpiceTypes.THREAD; }
 unsafe                                            { return SpiceTypes.UNSAFE; }
 //new                                               { return SpiceTypes.NEW; }
 nil                                               { return SpiceTypes.NIL; }
@@ -86,8 +85,6 @@ printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
 alignof                                           { return SpiceTypes.ALIGNOF; }
 len                                               { return SpiceTypes.LEN; }
-tid                                               { return SpiceTypes.TID; }
-join                                              { return SpiceTypes.JOIN; }
 ext                                               { return SpiceTypes.EXT; }
 dll                                               { return SpiceTypes.DLL; }
 true                                              { return SpiceTypes.TRUE; }

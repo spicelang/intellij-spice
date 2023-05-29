@@ -71,12 +71,6 @@ public class SpiceStmtLstImpl extends ASTWrapperPsiElement implements SpiceStmtL
 
   @Override
   @NotNull
-  public List<SpiceThreadDef> getThreadDefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceThreadDef.class);
-  }
-
-  @Override
-  @NotNull
   public List<SpiceUnsafeBlockDef> getUnsafeBlockDefList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceUnsafeBlockDef.class);
   }
