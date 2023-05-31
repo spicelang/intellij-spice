@@ -19,7 +19,4 @@ public interface SpiceAssignExpr extends PsiElement {
   @Nullable
   SpiceTernaryExpr getTernaryExpr();
 
-  @Nullable
-  SpiceThreadDef getThreadDef();
-
 }

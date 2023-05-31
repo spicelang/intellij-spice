@@ -11,9 +11,6 @@ public interface SpiceBuiltinCall extends PsiElement {
   SpiceAlignOfCall getAlignOfCall();
 
   @Nullable
-  SpiceJoinCall getJoinCall();
-
-  @Nullable
   SpiceLenCall getLenCall();
 
   @Nullable
@@ -21,8 +18,5 @@ public interface SpiceBuiltinCall extends PsiElement {
 
   @Nullable
   SpiceSizeOfCall getSizeOfCall();
-
-  @Nullable
-  SpiceTidCall getTidCall();
 
 }
