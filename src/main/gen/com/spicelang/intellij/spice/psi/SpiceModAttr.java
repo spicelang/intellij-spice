@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceMainFunctionDef extends PsiElement {
-
-  @Nullable
-  SpiceFctAttr getFctAttr();
-
-  @Nullable
-  SpiceParamLst getParamLst();
+public interface SpiceModAttr extends PsiElement {
 
   @NotNull
-  SpiceStmtLst getStmtLst();
+  SpiceAttrLst getAttrLst();
 
 }

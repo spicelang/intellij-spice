@@ -36,6 +36,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     protected static final TextAttributesKey DOC_COMMENT = createTextAttributesKey("SPICE_DOC_COMMENT", DefaultLanguageHighlighterColors.DOC_COMMENT);
     protected static final TextAttributesKey NUMBER = createTextAttributesKey("SPICE_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     protected static final TextAttributesKey STRING = createTextAttributesKey("SPICE_STRING", DefaultLanguageHighlighterColors.STRING);
+    protected static final TextAttributesKey ATTR = createTextAttributesKey("SPICE_ATTR", DefaultLanguageHighlighterColors.METADATA);
     protected static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("SPICE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
     // Attribute key arrays
@@ -57,6 +58,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
     private final TextAttributesKey[] DOC_COMMENT_KEY = new TextAttributesKey[] { DOC_COMMENT };
     private final TextAttributesKey[] NUMBER_KEY = new TextAttributesKey[] { NUMBER };
     private final TextAttributesKey[] STRING_KEY = new TextAttributesKey[] { STRING };
+    private final TextAttributesKey[] ATTR_KEY = new TextAttributesKey[] { ATTR };
     private final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[] { BAD_CHARACTER };
     private final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
@@ -112,7 +114,6 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.ALIGNOF)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.LEN)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.EXT)) return KEYWORD_KEY;
-        if (tokenType.equals(SpiceTypes.DLL)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TRUE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.FALSE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.IDENTIFIER)) return IDENTIFIER_KEY;
@@ -165,6 +166,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.COMMA)) return COMMA_KEY;
         if (tokenType.equals(SpiceTypes.DOT)) return DOT_KEY;
         if (tokenType.equals(SpiceTypes.ELLIPSIS)) return SECONDARY_OPERATOR_KEY;
+        if (tokenType.equals(SpiceTypes.FCT_ATTR_PREAMBLE)) return ATTR_KEY;
+        if (tokenType.equals(SpiceTypes.MOD_ATTR_PREAMBLE)) return ATTR_KEY;
         if (tokenType.equals(SpiceTypes.LINE_COMMENT)) return LINE_COMMENT_KEY;
         if (tokenType.equals(SpiceTypes.BLOCK_COMMENT)) return BLOCK_COMMENT_KEY;
         if (tokenType.equals(SpiceTypes.DOC_COMMENT)) return DOC_COMMENT_KEY;

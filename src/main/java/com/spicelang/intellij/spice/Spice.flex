@@ -86,7 +86,6 @@ sizeof                                            { return SpiceTypes.SIZEOF; }
 alignof                                           { return SpiceTypes.ALIGNOF; }
 len                                               { return SpiceTypes.LEN; }
 ext                                               { return SpiceTypes.EXT; }
-dll                                               { return SpiceTypes.DLL; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }
@@ -140,6 +139,8 @@ false                                             { return SpiceTypes.FALSE; }
 "."                                               { return SpiceTypes.DOT; }
 "::"                                              { return SpiceTypes.SCOPE_ACCESS; }
 "..."                                             { return SpiceTypes.ELLIPSIS; }
+"#"                                               { return SpiceTypes.FCT_ATTR_PREAMBLE; }
+"#!"                                              { return SpiceTypes.MOD_ATTR_PREAMBLE; }
 {DOC_COMMENT}                                     { return SpiceTypes.DOC_COMMENT; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
 {BLOCK_COMMENT}                                   { return SpiceTypes.BLOCK_COMMENT; }

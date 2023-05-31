@@ -1,4 +1,5 @@
 // Inspired by: https://www.geeksforgeeks.org/program-for-conways-game-of-life
+#![core.linker.flag = "-pthread"]
 
 import "std/math/rand" as rand;
 
@@ -19,6 +20,7 @@ type AstNode interface {
 
 type T int|double|string;
 
+#[core.compiler.mangleName = false]
 f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
     /* Test
     */

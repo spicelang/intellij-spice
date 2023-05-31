@@ -19,13 +19,13 @@
 }
 
 // Top level definitions and declarations
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | docCom | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | modAttr | docCom | lineCom | blockCom)*
 docCom ::= DOC_COMMENT
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
-mainFunctionDef ::= F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
-functionDef ::= specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
-procedureDef ::= specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+mainFunctionDef ::= fctAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+functionDef ::= fctAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+procedureDef ::= fctAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 functionName ::= (identifierExpr DOT)? identifierExpr | OPERATOR overloadableOp;
 structDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
 interfaceDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
@@ -33,7 +33,7 @@ enumDef ::= specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
 genericTypeDef ::= TYPE IDENTIFIER typeAltsLst SEMICOLON
 aliasDef ::= specifierLst? TYPE IDENTIFIER ALIAS dataType SEMICOLON
 globalVarDef ::= dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
-extDecl ::= EXT (F LESS dataType GREATER | P) identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN DLL? SEMICOLON
+extDecl ::= fctAttr? EXT (F LESS dataType GREATER | P) identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
 
 // Control structures
 unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
@@ -61,6 +61,10 @@ stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOL
 declStmt ::= dataType identifierExpr (ASSIGN assignExpr)?
 specifierLst ::= specifier+
 specifier ::= CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP
+modAttr ::= MOD_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
+fctAttr ::= FCT_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
+attrLst ::= attr (COMMA attr)*
+attr ::= IDENTIFIER (DOT IDENTIFIER)* ASSIGN constant
 importStmt ::= IMPORT STRING_LIT (AS identifierExpr)? SEMICOLON
 returnStmt ::= RETURN assignExpr?
 breakStmt ::= BREAK INT_LIT?
