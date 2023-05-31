@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceProcedureDef extends PsiElement {
 
+  @Nullable
+  SpiceFctAttr getFctAttr();
+
   @NotNull
   SpiceFunctionName getFunctionName();
 

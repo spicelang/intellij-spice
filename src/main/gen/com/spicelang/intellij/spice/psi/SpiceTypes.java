@@ -18,6 +18,8 @@ public interface SpiceTypes {
   IElementType ASSIGN_EXPR = new SpiceElementType("ASSIGN_EXPR");
   IElementType ASSIGN_OP = new SpiceElementType("ASSIGN_OP");
   IElementType ATOMIC_EXPR = new SpiceElementType("ATOMIC_EXPR");
+  IElementType ATTR = new SpiceElementType("ATTR");
+  IElementType ATTR_LST = new SpiceElementType("ATTR_LST");
   IElementType BASE_DATA_TYPE = new SpiceElementType("BASE_DATA_TYPE");
   IElementType BITWISE_AND_EXPR = new SpiceElementType("BITWISE_AND_EXPR");
   IElementType BITWISE_OR_EXPR = new SpiceElementType("BITWISE_OR_EXPR");
@@ -39,6 +41,7 @@ public interface SpiceTypes {
   IElementType ENUM_ITEM_LST = new SpiceElementType("ENUM_ITEM_LST");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
+  IElementType FCT_ATTR = new SpiceElementType("FCT_ATTR");
   IElementType FIELD = new SpiceElementType("FIELD");
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
@@ -59,6 +62,7 @@ public interface SpiceTypes {
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
   IElementType LOGICAL_OR_EXPR = new SpiceElementType("LOGICAL_OR_EXPR");
   IElementType MAIN_FUNCTION_DEF = new SpiceElementType("MAIN_FUNCTION_DEF");
+  IElementType MOD_ATTR = new SpiceElementType("MOD_ATTR");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
   IElementType OVERLOADABLE_OP = new SpiceElementType("OVERLOADABLE_OP");
   IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
@@ -104,7 +108,6 @@ public interface SpiceTypes {
   IElementType CONTINUE = new SpiceTokenType("CONTINUE");
   IElementType DIV = new SpiceTokenType("DIV");
   IElementType DIV_EQUAL = new SpiceTokenType("DIV_EQUAL");
-  IElementType DLL = new SpiceTokenType("DLL");
   IElementType DO = new SpiceTokenType("DO");
   IElementType DOC_COMMENT = new SpiceTokenType("DOC_COMMENT");
   IElementType DOT = new SpiceTokenType("DOT");
@@ -116,6 +119,7 @@ public interface SpiceTypes {
   IElementType EXT = new SpiceTokenType("EXT");
   IElementType F = new SpiceTokenType("F");
   IElementType FALSE = new SpiceTokenType("FALSE");
+  IElementType FCT_ATTR_PREAMBLE = new SpiceTokenType("FCT_ATTR_PREAMBLE");
   IElementType FOR = new SpiceTokenType("FOR");
   IElementType FOREACH = new SpiceTokenType("FOREACH");
   IElementType GREATER = new SpiceTokenType("GREATER");
@@ -141,6 +145,7 @@ public interface SpiceTypes {
   IElementType MINUS = new SpiceTokenType("MINUS");
   IElementType MINUS_EQUAL = new SpiceTokenType("MINUS_EQUAL");
   IElementType MINUS_MINUS = new SpiceTokenType("MINUS_MINUS");
+  IElementType MOD_ATTR_PREAMBLE = new SpiceTokenType("MOD_ATTR_PREAMBLE");
   IElementType MUL = new SpiceTokenType("MUL");
   IElementType MUL_EQUAL = new SpiceTokenType("MUL_EQUAL");
   IElementType NIL = new SpiceTokenType("NIL");
@@ -219,6 +224,12 @@ public interface SpiceTypes {
       else if (type == ATOMIC_EXPR) {
         return new SpiceAtomicExprImpl(node);
       }
+      else if (type == ATTR) {
+        return new SpiceAttrImpl(node);
+      }
+      else if (type == ATTR_LST) {
+        return new SpiceAttrLstImpl(node);
+      }
       else if (type == BASE_DATA_TYPE) {
         return new SpiceBaseDataTypeImpl(node);
       }
@@ -282,6 +293,9 @@ public interface SpiceTypes {
       else if (type == EXT_DECL) {
         return new SpiceExtDeclImpl(node);
       }
+      else if (type == FCT_ATTR) {
+        return new SpiceFctAttrImpl(node);
+      }
       else if (type == FIELD) {
         return new SpiceFieldImpl(node);
       }
@@ -341,6 +355,9 @@ public interface SpiceTypes {
       }
       else if (type == MAIN_FUNCTION_DEF) {
         return new SpiceMainFunctionDefImpl(node);
+      }
+      else if (type == MOD_ATTR) {
+        return new SpiceModAttrImpl(node);
       }
       else if (type == MULTIPLICATIVE_EXPR) {
         return new SpiceMultiplicativeExprImpl(node);
