@@ -28,6 +28,12 @@ public class SpiceFieldImpl extends ASTWrapperPsiElement implements SpiceField {
   }
 
   @Override
+  @Nullable
+  public SpiceConstant getConstant() {
+    return findChildByClass(SpiceConstant.class);
+  }
+
+  @Override
   @NotNull
   public SpiceDataType getDataType() {
     return findNotNullChildByClass(SpiceDataType.class);
