@@ -1026,14 +1026,33 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // dataType IDENTIFIER
+  // dataType IDENTIFIER (ASSIGN constant)?
   public static boolean field(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FIELD, "<field>");
     r = dataType(b, l + 1);
     r = r && consumeToken(b, IDENTIFIER);
+    r = r && field_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (ASSIGN constant)?
+  private static boolean field_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_2")) return false;
+    field_2_0(b, l + 1);
+    return true;
+  }
+
+  // ASSIGN constant
+  private static boolean field_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "field_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ASSIGN);
+    r = r && constant(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
