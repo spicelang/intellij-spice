@@ -26,14 +26,14 @@ blockCom ::= BLOCK_COMMENT
 mainFunctionDef ::= fctAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 functionDef ::= fctAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 procedureDef ::= fctAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
-functionName ::= (identifierExpr DOT)? identifierExpr | OPERATOR overloadableOp;
-structDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
-interfaceDef ::= specifierLst? TYPE IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
-enumDef ::= specifierLst? TYPE IDENTIFIER ENUM LBRACE enumItemLst RBRACE
-genericTypeDef ::= TYPE IDENTIFIER typeAltsLst SEMICOLON
-aliasDef ::= specifierLst? TYPE IDENTIFIER ALIAS dataType SEMICOLON
-globalVarDef ::= dataType identifierExpr (ASSIGN MINUS? value)? SEMICOLON
-extDecl ::= fctAttr? EXT (F LESS dataType GREATER | P) identifierExpr LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
+functionName ::= (TYPE_IDENTIFIER DOT)? IDENTIFIER | OPERATOR overloadableOp;
+structDef ::= specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
+interfaceDef ::= specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
+enumDef ::= specifierLst? TYPE TYPE_IDENTIFIER ENUM LBRACE enumItemLst RBRACE
+genericTypeDef ::= TYPE TYPE_IDENTIFIER typeAltsLst SEMICOLON
+aliasDef ::= specifierLst? TYPE TYPE_IDENTIFIER ALIAS dataType SEMICOLON
+globalVarDef ::= dataType TYPE_IDENTIFIER (ASSIGN MINUS? value)? SEMICOLON
+extDecl ::= fctAttr? EXT (F LESS dataType GREATER | P) IDENTIFIER LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
 
 // Control structures
 unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
@@ -54,18 +54,18 @@ typeAltsLst ::= dataType (BITWISE_OR dataType)*;
 paramLst ::= declStmt (COMMA declStmt)*
 argLst ::= assignExpr (COMMA assignExpr)*
 enumItemLst ::= enumItem (COMMA enumItem)*
-enumItem ::= IDENTIFIER (ASSIGN INT_LIT)?
+enumItem ::= TYPE_IDENTIFIER (ASSIGN INT_LIT)?
 field ::= dataType IDENTIFIER (ASSIGN constant)?
 signature ::= specifierLst? (F LESS dataType GREATER | P) IDENTIFIER (LESS typeLst GREATER)? LPAREN typeLst? RPAREN SEMICOLON
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
-declStmt ::= dataType identifierExpr (ASSIGN assignExpr)?
+declStmt ::= dataType IDENTIFIER (ASSIGN assignExpr)?
 specifierLst ::= specifier+
 specifier ::= CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP
 modAttr ::= MOD_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
 fctAttr ::= FCT_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
 attrLst ::= attr (COMMA attr)*
 attr ::= IDENTIFIER (DOT IDENTIFIER)* ASSIGN constant
-importStmt ::= IMPORT STRING_LIT (AS identifierExpr)? SEMICOLON
+importStmt ::= IMPORT STRING_LIT (AS IDENTIFIER)? SEMICOLON
 returnStmt ::= RETURN assignExpr?
 breakStmt ::= BREAK INT_LIT?
 continueStmt ::= CONTINUE INT_LIT?
@@ -94,19 +94,19 @@ multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= LPAREN dataType RPAREN prefixUnaryExpr | prefixUnaryExpr
 prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
 postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
-atomicExpr ::= value | identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
+atomicExpr ::= value | (identifierExpr SCOPE_ACCESS)* identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values
 value ::= constant | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
 constant ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
-functionCall ::= identifierExpr (DOT identifierExpr)* (LESS typeLst GREATER)? LPAREN argLst? RPAREN
+functionCall ::= (IDENTIFIER SCOPE_ACCESS)* (IDENTIFIER DOT)* identifierExpr (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
-structInstantiation ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+structInstantiation ::= (IDENTIFIER SCOPE_ACCESS)* TYPE_IDENTIFIER (LESS typeLst GREATER)? LBRACE argLst? RBRACE
 
 // Types
-dataType ::= specifierLst? baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | IDENTIFIER)? RBRACKET)*
+dataType ::= specifierLst? baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | TYPE_IDENTIFIER)? RBRACKET)*
 baseDataType ::= TYPE_DOUBLE | TYPE_INT | TYPE_SHORT | TYPE_LONG | TYPE_BYTE | TYPE_CHAR | TYPE_STRING | TYPE_BOOL | TYPE_DYN | customDataType | functionDataType
-customDataType ::= identifierExpr (SCOPE_ACCESS identifierExpr)* (LESS typeLst GREATER)?
+customDataType ::= (IDENTIFIER SCOPE_ACCESS)* TYPE_IDENTIFIER (LESS typeLst GREATER)?
 functionDataType ::= (P | F LESS dataType GREATER) LPAREN typeLst? RPAREN
 
 // Shorthands
@@ -114,7 +114,7 @@ assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQU
 prefixUnaryOp ::= MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND // Here, '&&' means the same as two times '&'
 overloadableOp ::= PLUS | MINUS | MUL | DIV | EQUAL | NOT_EQUAL | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL;
 
-identifierExpr ::= IDENTIFIER {
+identifierExpr ::= IDENTIFIER | TYPE_IDENTIFIER {
     mixin="com.spicelang.intellij.spice.psi.impl.SpiceNamedElementImpl"
     implements="com.spicelang.intellij.spice.psi.SpiceNamedElement"
     methods=[getIdentifier getName setName getNameIdentifier]

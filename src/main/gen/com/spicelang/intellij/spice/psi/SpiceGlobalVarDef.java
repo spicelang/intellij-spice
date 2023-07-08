@@ -10,9 +10,6 @@ public interface SpiceGlobalVarDef extends PsiElement {
   @NotNull
   SpiceDataType getDataType();
 
-  @NotNull
-  SpiceIdentifierExpr getIdentifierExpr();
-
   @Nullable
   SpiceValue getValue();
 

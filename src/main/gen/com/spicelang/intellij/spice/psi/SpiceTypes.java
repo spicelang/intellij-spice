@@ -182,6 +182,7 @@ public interface SpiceTypes {
   IElementType TYPE_CHAR = new SpiceTokenType("TYPE_CHAR");
   IElementType TYPE_DOUBLE = new SpiceTokenType("TYPE_DOUBLE");
   IElementType TYPE_DYN = new SpiceTokenType("TYPE_DYN");
+  IElementType TYPE_IDENTIFIER = new SpiceTokenType("TYPE_IDENTIFIER");
   IElementType TYPE_INT = new SpiceTokenType("TYPE_INT");
   IElementType TYPE_LONG = new SpiceTokenType("TYPE_LONG");
   IElementType TYPE_SHORT = new SpiceTokenType("TYPE_SHORT");

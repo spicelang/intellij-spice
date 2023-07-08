@@ -28,12 +28,6 @@ public class SpiceCustomDataTypeImpl extends ASTWrapperPsiElement implements Spi
   }
 
   @Override
-  @NotNull
-  public List<SpiceIdentifierExpr> getIdentifierExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
-  }
-
-  @Override
   @Nullable
   public SpiceTypeLst getTypeLst() {
     return findChildByClass(SpiceTypeLst.class);

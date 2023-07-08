@@ -40,9 +40,9 @@ public class SpiceAtomicExprImpl extends ASTWrapperPsiElement implements SpiceAt
   }
 
   @Override
-  @Nullable
-  public SpiceIdentifierExpr getIdentifierExpr() {
-    return findChildByClass(SpiceIdentifierExpr.class);
+  @NotNull
+  public List<SpiceIdentifierExpr> getIdentifierExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceIdentifierExpr.class);
   }
 
   @Override

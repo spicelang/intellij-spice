@@ -27,10 +27,4 @@ public class SpiceImportStmtImpl extends ASTWrapperPsiElement implements SpiceIm
     else super.accept(visitor);
   }
 
-  @Override
-  @Nullable
-  public SpiceIdentifierExpr getIdentifierExpr() {
-    return findChildByClass(SpiceIdentifierExpr.class);
-  }
-
 }
