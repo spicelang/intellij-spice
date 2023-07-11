@@ -13,8 +13,8 @@ public interface SpiceAtomicExpr extends PsiElement {
   @Nullable
   SpiceBuiltinCall getBuiltinCall();
 
-  @Nullable
-  SpiceIdentifierExpr getIdentifierExpr();
+  @NotNull
+  List<SpiceIdentifierExpr> getIdentifierExprList();
 
   @Nullable
   SpiceValue getValue();

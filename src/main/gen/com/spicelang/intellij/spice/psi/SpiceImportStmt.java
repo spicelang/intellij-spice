@@ -7,7 +7,4 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceImportStmt extends PsiElement {
 
-  @Nullable
-  SpiceIdentifierExpr getIdentifierExpr();
-
 }

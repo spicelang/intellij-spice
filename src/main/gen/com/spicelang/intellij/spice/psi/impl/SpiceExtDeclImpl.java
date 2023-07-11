@@ -40,12 +40,6 @@ public class SpiceExtDeclImpl extends ASTWrapperPsiElement implements SpiceExtDe
   }
 
   @Override
-  @NotNull
-  public SpiceIdentifierExpr getIdentifierExpr() {
-    return findNotNullChildByClass(SpiceIdentifierExpr.class);
-  }
-
-  @Override
   @Nullable
   public SpiceTypeLst getTypeLst() {
     return findChildByClass(SpiceTypeLst.class);

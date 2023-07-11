@@ -10,9 +10,6 @@ public interface SpiceStructInstantiation extends PsiElement {
   @Nullable
   SpiceArgLst getArgLst();
 
-  @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
-
   @Nullable
   SpiceTypeLst getTypeLst();
 

@@ -7,9 +7,6 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceFunctionName extends PsiElement {
 
-  @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
-
   @Nullable
   SpiceOverloadableOp getOverloadableOp();
 

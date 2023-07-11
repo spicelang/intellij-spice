@@ -11,7 +11,7 @@ public interface SpiceFunctionCall extends PsiElement {
   SpiceArgLst getArgLst();
 
   @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
+  SpiceIdentifierExpr getIdentifierExpr();
 
   @Nullable
   SpiceTypeLst getTypeLst();

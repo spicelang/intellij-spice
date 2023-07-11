@@ -3,19 +3,19 @@
 
 import "std/math/rand" as rand;
 
-const int row = 10us;
-const int col = 10;
-const int generationsToCalculate = 5;
+const int ROW = 10us;
+const int COL = 10;
+const int GENERATIONS_TO_CALCULATE = 5;
 
 p rowLine() {
     printf("\n");
-    for int i = 0; i < col; i++ { printf(" -----"); }
+    for int i = 0; i < COL; i++ { printf(" -----"); }
     printf("\n");
 }
 
 type AstNode interface {
-    f<bool> accept(Visitor*)
-    p dump()
+    f<bool> accept(Visitor*);
+    p dump();
 }
 
 type T int|double|string;
@@ -41,16 +41,12 @@ public f<Number> cos<Number>(Number input, bool precise = false) {
 p printGeneration(string name, int[10][10] matrix) {
     printf("%s:\n", name);
     rowLine();
-    for int i = 0; i < row; i++ {
+    for int i = 0; i < ROW; i++ {
         printf(":");
-        for int j = 0; j < col; j++ {
+        for int j = 0; j < COL; j++ {
             printf("  %d  :", matrix[i][j]);
         }
         rowLine();
-        byte* t1 = thread {
-            printf("test");
-            join(t1);
-        };
     }
 }
 
@@ -58,7 +54,7 @@ f<int> countLiveNeighbourCell(int[10][10] matrix, int r, int c) {
     int count = 0;
     for int i = r - 1; i <= r + 1; i++ {
         for int j = c - 1; j <= c + 1; j++ {
-            if (i == r && j == c) || (i < 0 || j < 0) || (i >= row || j >= col) {
+            if (i == r && j == c) || (i < 0 || j < 0) || (i >= ROW || j >= COL) {
                 continue;
             }
             if matrix[i][j] == 1 {
@@ -74,8 +70,8 @@ f<int> main() {
     int[10][10] b;
 
     // Generate matrix canvas with random values (live and dead cells)
-    for int i = 0; i < row; i++ {
-        for int j = 0; j < col; j++ {
+    for int i = 0; i < ROW; i++ {
+        for int j = 0; j < COL; j++ {
             a[i][j] = rand.randInt(0, 1);
         }
     }
@@ -83,8 +79,8 @@ f<int> main() {
 
     for int generation = 1; generation < generationsToCalculate; generation++ {
         // Calculate next generation
-        for int i = 0; i < row; i++ {
-            for int j = 0; j < col; j++ {
+        for int i = 0; i < ROW; i++ {
+            for int j = 0; j < COL; j++ {
                 int neighbour_live_cell = countLiveNeighbourCell(a, i, j);
                 if a[i][j] == 1 && (neighbour_live_cell == 2 || neighbour_live_cell == 3) {
                     b[i][j] = 1;
@@ -147,15 +143,15 @@ type File struct {
 }
 
 // Link external functions
-ext<int> open(string, int...);
-ext<FilePtr*> fopen(string, string);
-ext<int> fclose(FilePtr*);
-ext<int> fgetc(FilePtr*);
-ext<int> fputc(int, FilePtr*);
-ext<int> fputs(string, FilePtr*);
-ext<int> access(string, int);
-ext<int> fseek(FilePtr*, long, int);
-ext<long> ftell(FilePtr*);
+ext f<int> open(string, int...);
+ext f<FilePtr*> fopen(string, string);
+ext f<int> fclose(FilePtr*);
+ext f<int> fgetc(FilePtr*);
+ext f<int> fputc(int, FilePtr*);
+ext f<int> fputs(string, FilePtr*);
+ext f<int> access(string, int);
+ext f<int> fseek(FilePtr*, long, int);
+ext f<long> ftell(FilePtr*);
 
 /**
  * Creates an empty file on disk similar to the 'touch' command on Linux.

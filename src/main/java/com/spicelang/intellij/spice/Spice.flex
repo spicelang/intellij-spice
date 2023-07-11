@@ -33,7 +33,8 @@ SHORT_LIT = {NUM_LIT}s
 LONG_LIT = {NUM_LIT}l
 CHAR_LIT = '(\\.|[^'\\])*'
 STRING_LIT = \"(\\.|[^\"\\])*\"
-IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER = [a-z_][a-zA-Z0-9_]*
+TYPE_IDENTIFIER = [A-Z][a-zA-Z0-9_]*
 
 DOC_COMMENT = "/**"([^*] | (\*+[^*/]))*\*+\/
 LINE_COMMENT = "//".*
@@ -89,6 +90,7 @@ ext                                               { return SpiceTypes.EXT; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }
+{TYPE_IDENTIFIER}                                 { return SpiceTypes.TYPE_IDENTIFIER; }
 {CHAR_LIT}                                        { return SpiceTypes.CHAR_LIT; }
 {STRING_LIT}                                      { return SpiceTypes.STRING_LIT; }
 {INT_LIT}                                         { return SpiceTypes.INT_LIT; }

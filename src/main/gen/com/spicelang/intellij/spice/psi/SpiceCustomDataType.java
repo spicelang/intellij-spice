@@ -7,9 +7,6 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceCustomDataType extends PsiElement {
 
-  @NotNull
-  List<SpiceIdentifierExpr> getIdentifierExprList();
-
   @Nullable
   SpiceTypeLst getTypeLst();
 
