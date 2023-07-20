@@ -1636,7 +1636,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LPAREN paramLst? RPAREN ARROW (assignExpr | LBRACE stmtLst RBRACE)
+  // LPAREN paramLst? RPAREN ARROW (assignExpr | dataType? LBRACE stmtLst RBRACE)
   public static boolean lambda(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambda")) return false;
     if (!nextTokenIs(b, LPAREN)) return false;
@@ -1657,7 +1657,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // assignExpr | LBRACE stmtLst RBRACE
+  // assignExpr | dataType? LBRACE stmtLst RBRACE
   private static boolean lambda_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambda_4")) return false;
     boolean r;
@@ -1668,16 +1668,24 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // LBRACE stmtLst RBRACE
+  // dataType? LBRACE stmtLst RBRACE
   private static boolean lambda_4_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambda_4_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LBRACE);
+    r = lambda_4_1_0(b, l + 1);
+    r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // dataType?
+  private static boolean lambda_4_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda_4_1_0")) return false;
+    dataType(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

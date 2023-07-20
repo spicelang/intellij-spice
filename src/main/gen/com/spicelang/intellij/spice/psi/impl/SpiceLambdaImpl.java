@@ -35,6 +35,12 @@ public class SpiceLambdaImpl extends ASTWrapperPsiElement implements SpiceLambda
 
   @Override
   @Nullable
+  public SpiceDataType getDataType() {
+    return findChildByClass(SpiceDataType.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceParamLst getParamLst() {
     return findChildByClass(SpiceParamLst.class);
   }
