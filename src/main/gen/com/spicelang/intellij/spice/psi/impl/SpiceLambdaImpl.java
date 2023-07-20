@@ -11,20 +11,38 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpicePrefixUnaryOpImpl extends ASTWrapperPsiElement implements SpicePrefixUnaryOp {
+public class SpiceLambdaImpl extends ASTWrapperPsiElement implements SpiceLambda {
 
-  public SpicePrefixUnaryOpImpl(@NotNull ASTNode node) {
+  public SpiceLambdaImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitPrefixUnaryOp(this);
+    visitor.visitLambda(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SpiceVisitor) accept((SpiceVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public SpiceAssignExpr getAssignExpr() {
+    return findChildByClass(SpiceAssignExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceParamLst getParamLst() {
+    return findChildByClass(SpiceParamLst.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceStmtLst getStmtLst() {
+    return findChildByClass(SpiceStmtLst.class);
   }
 
 }

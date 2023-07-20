@@ -28,15 +28,15 @@ public class SpicePrefixUnaryExprImpl extends ASTWrapperPsiElement implements Sp
   }
 
   @Override
-  @NotNull
+  @Nullable
   public SpicePostfixUnaryExpr getPostfixUnaryExpr() {
-    return findNotNullChildByClass(SpicePostfixUnaryExpr.class);
+    return findChildByClass(SpicePostfixUnaryExpr.class);
   }
 
   @Override
-  @NotNull
-  public List<SpicePrefixUnaryOp> getPrefixUnaryOpList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpicePrefixUnaryOp.class);
+  @Nullable
+  public SpicePrefixUnaryExpr getPrefixUnaryExpr() {
+    return findChildByClass(SpicePrefixUnaryExpr.class);
   }
 
 }

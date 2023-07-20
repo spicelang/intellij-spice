@@ -139,6 +139,7 @@ false                                             { return SpiceTypes.FALSE; }
 ":"                                               { return SpiceTypes.COLON; }
 ","                                               { return SpiceTypes.COMMA; }
 "."                                               { return SpiceTypes.DOT; }
+"->"                                              { return SpiceTypes.ARROW; }
 "::"                                              { return SpiceTypes.SCOPE_ACCESS; }
 "..."                                             { return SpiceTypes.ELLIPSIS; }
 "#"                                               { return SpiceTypes.FCT_ATTR_PREAMBLE; }

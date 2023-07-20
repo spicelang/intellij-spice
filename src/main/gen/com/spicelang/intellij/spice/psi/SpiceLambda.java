@@ -5,6 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpicePrefixUnaryOp extends PsiElement {
+public interface SpiceLambda extends PsiElement {
+
+  @Nullable
+  SpiceAssignExpr getAssignExpr();
+
+  @Nullable
+  SpiceParamLst getParamLst();
+
+  @Nullable
+  SpiceStmtLst getStmtLst();
 
 }

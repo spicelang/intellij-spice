@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface SpicePrefixUnaryExpr extends PsiElement {
 
-  @NotNull
+  @Nullable
   SpicePostfixUnaryExpr getPostfixUnaryExpr();
 
-  @NotNull
-  List<SpicePrefixUnaryOp> getPrefixUnaryOpList();
+  @Nullable
+  SpicePrefixUnaryExpr getPrefixUnaryExpr();
 
 }
