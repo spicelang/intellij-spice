@@ -1636,55 +1636,72 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LPAREN paramLst? RPAREN ARROW (assignExpr | dataType? LBRACE stmtLst RBRACE)
-  public static boolean lambda(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lambda")) return false;
+  // LPAREN paramLst? RPAREN ARROW assignExpr
+  public static boolean lambdaExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaExpr")) return false;
     if (!nextTokenIs(b, LPAREN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LPAREN);
-    r = r && lambda_1(b, l + 1);
+    r = r && lambdaExpr_1(b, l + 1);
     r = r && consumeTokens(b, 0, RPAREN, ARROW);
-    r = r && lambda_4(b, l + 1);
-    exit_section_(b, m, LAMBDA, r);
+    r = r && assignExpr(b, l + 1);
+    exit_section_(b, m, LAMBDA_EXPR, r);
     return r;
   }
 
   // paramLst?
-  private static boolean lambda_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lambda_1")) return false;
+  private static boolean lambdaExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaExpr_1")) return false;
     paramLst(b, l + 1);
     return true;
   }
 
-  // assignExpr | dataType? LBRACE stmtLst RBRACE
-  private static boolean lambda_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lambda_4")) return false;
+  /* ********************************************************** */
+  // F LESS dataType GREATER LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  public static boolean lambdaFunc(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaFunc")) return false;
+    if (!nextTokenIs(b, F)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = assignExpr(b, l + 1);
-    if (!r) r = lambda_4_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // dataType? LBRACE stmtLst RBRACE
-  private static boolean lambda_4_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lambda_4_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = lambda_4_1_0(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
+    r = consumeTokens(b, 0, F, LESS);
+    r = r && dataType(b, l + 1);
+    r = r && consumeTokens(b, 0, GREATER, LPAREN);
+    r = r && lambdaFunc_5(b, l + 1);
+    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, LAMBDA_FUNC, r);
     return r;
   }
 
-  // dataType?
-  private static boolean lambda_4_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lambda_4_1_0")) return false;
-    dataType(b, l + 1);
+  // paramLst?
+  private static boolean lambdaFunc_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaFunc_5")) return false;
+    paramLst(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // P LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  public static boolean lambdaProc(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaProc")) return false;
+    if (!nextTokenIs(b, P)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, P, LPAREN);
+    r = r && lambdaProc_2(b, l + 1);
+    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && stmtLst(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, LAMBDA_PROC, r);
+    return r;
+  }
+
+  // paramLst?
+  private static boolean lambdaProc_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaProc_2")) return false;
+    paramLst(b, l + 1);
     return true;
   }
 
@@ -2723,7 +2740,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // constant | functionCall | arrayInitialization | structInstantiation | lambda | NIL LESS dataType GREATER
+  // constant | functionCall | arrayInitialization | structInstantiation | lambdaFunc | lambdaProc | lambdaExpr | NIL LESS dataType GREATER
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
@@ -2732,15 +2749,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = functionCall(b, l + 1);
     if (!r) r = arrayInitialization(b, l + 1);
     if (!r) r = structInstantiation(b, l + 1);
-    if (!r) r = lambda(b, l + 1);
-    if (!r) r = value_5(b, l + 1);
+    if (!r) r = lambdaFunc(b, l + 1);
+    if (!r) r = lambdaProc(b, l + 1);
+    if (!r) r = lambdaExpr(b, l + 1);
+    if (!r) r = value_7(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // NIL LESS dataType GREATER
-  private static boolean value_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "value_5")) return false;
+  private static boolean value_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, NIL, LESS);
