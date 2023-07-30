@@ -1636,6 +1636,59 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // LPAREN paramLst? RPAREN ARROW (assignExpr | dataType? LBRACE stmtLst RBRACE)
+  public static boolean lambda(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda")) return false;
+    if (!nextTokenIs(b, LPAREN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && lambda_1(b, l + 1);
+    r = r && consumeTokens(b, 0, RPAREN, ARROW);
+    r = r && lambda_4(b, l + 1);
+    exit_section_(b, m, LAMBDA, r);
+    return r;
+  }
+
+  // paramLst?
+  private static boolean lambda_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda_1")) return false;
+    paramLst(b, l + 1);
+    return true;
+  }
+
+  // assignExpr | dataType? LBRACE stmtLst RBRACE
+  private static boolean lambda_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda_4")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = assignExpr(b, l + 1);
+    if (!r) r = lambda_4_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // dataType? LBRACE stmtLst RBRACE
+  private static boolean lambda_4_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda_4_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = lambda_4_1_0(b, l + 1);
+    r = r && consumeToken(b, LBRACE);
+    r = r && stmtLst(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // dataType?
+  private static boolean lambda_4_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambda_4_1_0")) return false;
+    dataType(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
   // LEN LPAREN assignExpr RPAREN
   public static boolean lenCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lenCall")) return false;
@@ -1948,34 +2001,32 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // prefixUnaryOp* postfixUnaryExpr
+  // postfixUnaryExpr | (MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND) prefixUnaryExpr
   public static boolean prefixUnaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "prefixUnaryExpr")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PREFIX_UNARY_EXPR, "<prefix unary expr>");
-    r = prefixUnaryExpr_0(b, l + 1);
-    r = r && postfixUnaryExpr(b, l + 1);
+    Marker m = enter_section_(b, l, _COLLAPSE_, PREFIX_UNARY_EXPR, "<prefix unary expr>");
+    r = postfixUnaryExpr(b, l + 1);
+    if (!r) r = prefixUnaryExpr_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // prefixUnaryOp*
-  private static boolean prefixUnaryExpr_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "prefixUnaryExpr_0")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!prefixUnaryOp(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "prefixUnaryExpr_0", c)) break;
-    }
-    return true;
+  // (MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND) prefixUnaryExpr
+  private static boolean prefixUnaryExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "prefixUnaryExpr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = prefixUnaryExpr_1_0(b, l + 1);
+    r = r && prefixUnaryExpr(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
-  /* ********************************************************** */
-  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND
-  public static boolean prefixUnaryOp(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "prefixUnaryOp")) return false;
+  // MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND
+  private static boolean prefixUnaryExpr_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "prefixUnaryExpr_1_0")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PREFIX_UNARY_OP, "<prefix unary op>");
     r = consumeToken(b, MINUS);
     if (!r) r = consumeToken(b, PLUS_PLUS);
     if (!r) r = consumeToken(b, MINUS_MINUS);
@@ -1983,8 +2034,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, BITWISE_NOT);
     if (!r) r = consumeToken(b, MUL);
     if (!r) r = consumeToken(b, BITWISE_AND);
-    if (!r) r = consumeToken(b, LOGICAL_AND);
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2674,7 +2723,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // constant | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+  // constant | functionCall | arrayInitialization | structInstantiation | lambda | NIL LESS dataType GREATER
   public static boolean value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value")) return false;
     boolean r;
@@ -2683,14 +2732,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = functionCall(b, l + 1);
     if (!r) r = arrayInitialization(b, l + 1);
     if (!r) r = structInstantiation(b, l + 1);
-    if (!r) r = value_4(b, l + 1);
+    if (!r) r = lambda(b, l + 1);
+    if (!r) r = value_5(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // NIL LESS dataType GREATER
-  private static boolean value_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "value_4")) return false;
+  private static boolean value_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "value_5")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, NIL, LESS);

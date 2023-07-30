@@ -203,6 +203,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLambda(@NotNull SpiceLambda o) {
+    visitPsiElement(o);
+  }
+
   public void visitLenCall(@NotNull SpiceLenCall o) {
     visitPsiElement(o);
   }
@@ -244,10 +248,6 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitPrefixUnaryExpr(@NotNull SpicePrefixUnaryExpr o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPrefixUnaryOp(@NotNull SpicePrefixUnaryOp o) {
     visitPsiElement(o);
   }
 

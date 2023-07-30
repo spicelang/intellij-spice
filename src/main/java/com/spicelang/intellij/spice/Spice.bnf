@@ -92,16 +92,17 @@ shiftExpr ::= additiveExpr ((LESS LESS | GREATER GREATER) additiveExpr)?
 additiveExpr ::= multiplicativeExpr ((PLUS | MINUS) multiplicativeExpr)*
 multiplicativeExpr ::= castExpr ((MUL | DIV | REM) castExpr)*
 castExpr ::= LPAREN dataType RPAREN prefixUnaryExpr | prefixUnaryExpr
-prefixUnaryExpr ::= prefixUnaryOp* postfixUnaryExpr
+prefixUnaryExpr ::= postfixUnaryExpr | (MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND) prefixUnaryExpr
 postfixUnaryExpr ::= atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
 atomicExpr ::= value | (identifierExpr SCOPE_ACCESS)* identifierExpr | builtinCall | LPAREN assignExpr RPAREN {methods=[getIdentifier]}
 
 // Values
-value ::= constant | functionCall | arrayInitialization | structInstantiation | NIL LESS dataType GREATER
+value ::= constant | functionCall | arrayInitialization | structInstantiation | lambda | NIL LESS dataType GREATER
 constant ::= DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
 functionCall ::= (IDENTIFIER SCOPE_ACCESS)* (IDENTIFIER DOT)* identifierExpr (LESS typeLst GREATER)? LPAREN argLst? RPAREN
 arrayInitialization ::= LBRACE argLst? RBRACE
 structInstantiation ::= (IDENTIFIER SCOPE_ACCESS)* TYPE_IDENTIFIER (LESS typeLst GREATER)? LBRACE argLst? RBRACE
+lambda ::= LPAREN paramLst? RPAREN ARROW (assignExpr | dataType? LBRACE stmtLst RBRACE)
 
 // Types
 dataType ::= specifierLst? baseDataType (MUL | BITWISE_AND | LBRACKET (INT_LIT | TYPE_IDENTIFIER)? RBRACKET)*
@@ -111,7 +112,6 @@ functionDataType ::= (P | F LESS dataType GREATER) LPAREN typeLst? RPAREN
 
 // Shorthands
 assignOp ::= ASSIGN | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | REM_EQUAL | SHL_EQUAL | SHR_EQUAL | AND_EQUAL | OR_EQUAL | XOR_EQUAL
-prefixUnaryOp ::= MINUS | PLUS_PLUS | MINUS_MINUS | NOT | BITWISE_NOT | MUL | BITWISE_AND | LOGICAL_AND // Here, '&&' means the same as two times '&'
 overloadableOp ::= PLUS | MINUS | MUL | DIV | EQUAL | NOT_EQUAL | LESS LESS | GREATER GREATER | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | PLUS_PLUS | MINUS_MINUS;
 
 identifierExpr ::= IDENTIFIER | TYPE_IDENTIFIER {

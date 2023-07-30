@@ -57,6 +57,7 @@ public interface SpiceTypes {
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType INTERFACE_DEF = new SpiceElementType("INTERFACE_DEF");
+  IElementType LAMBDA = new SpiceElementType("LAMBDA");
   IElementType LEN_CALL = new SpiceElementType("LEN_CALL");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
@@ -68,7 +69,6 @@ public interface SpiceTypes {
   IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
-  IElementType PREFIX_UNARY_OP = new SpiceElementType("PREFIX_UNARY_OP");
   IElementType PRINTF_CALL = new SpiceElementType("PRINTF_CALL");
   IElementType PROCEDURE_DEF = new SpiceElementType("PROCEDURE_DEF");
   IElementType RELATIONAL_EXPR = new SpiceElementType("RELATIONAL_EXPR");
@@ -92,6 +92,7 @@ public interface SpiceTypes {
   IElementType ALIAS = new SpiceTokenType("ALIAS");
   IElementType ALIGNOF = new SpiceTokenType("ALIGNOF");
   IElementType AND_EQUAL = new SpiceTokenType("AND_EQUAL");
+  IElementType ARROW = new SpiceTokenType("ARROW");
   IElementType AS = new SpiceTokenType("AS");
   IElementType ASSERT = new SpiceTokenType("ASSERT");
   IElementType ASSIGN = new SpiceTokenType("ASSIGN");
@@ -342,6 +343,9 @@ public interface SpiceTypes {
       else if (type == INTERFACE_DEF) {
         return new SpiceInterfaceDefImpl(node);
       }
+      else if (type == LAMBDA) {
+        return new SpiceLambdaImpl(node);
+      }
       else if (type == LEN_CALL) {
         return new SpiceLenCallImpl(node);
       }
@@ -374,9 +378,6 @@ public interface SpiceTypes {
       }
       else if (type == PREFIX_UNARY_EXPR) {
         return new SpicePrefixUnaryExprImpl(node);
-      }
-      else if (type == PREFIX_UNARY_OP) {
-        return new SpicePrefixUnaryOpImpl(node);
       }
       else if (type == PRINTF_CALL) {
         return new SpicePrintfCallImpl(node);
