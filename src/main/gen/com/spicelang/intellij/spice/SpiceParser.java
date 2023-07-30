@@ -184,15 +184,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LBRACE argLst? RBRACE
+  // LBRACKET argLst? RBRACKET
   public static boolean arrayInitialization(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "arrayInitialization")) return false;
-    if (!nextTokenIs(b, LBRACE)) return false;
+    if (!nextTokenIs(b, LBRACKET)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LBRACE);
+    r = consumeToken(b, LBRACKET);
     r = r && arrayInitialization_1(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
+    r = r && consumeToken(b, RBRACKET);
     exit_section_(b, m, ARRAY_INITIALIZATION, r);
     return r;
   }
