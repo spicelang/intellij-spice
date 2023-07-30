@@ -203,7 +203,15 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLambda(@NotNull SpiceLambda o) {
+  public void visitLambdaExpr(@NotNull SpiceLambdaExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLambdaFunc(@NotNull SpiceLambdaFunc o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLambdaProc(@NotNull SpiceLambdaProc o) {
     visitPsiElement(o);
   }
 

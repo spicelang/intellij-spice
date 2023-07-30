@@ -20,7 +20,13 @@ public interface SpiceValue extends PsiElement {
   SpiceFunctionCall getFunctionCall();
 
   @Nullable
-  SpiceLambda getLambda();
+  SpiceLambdaExpr getLambdaExpr();
+
+  @Nullable
+  SpiceLambdaFunc getLambdaFunc();
+
+  @Nullable
+  SpiceLambdaProc getLambdaProc();
 
   @Nullable
   SpiceStructInstantiation getStructInstantiation();

@@ -57,7 +57,9 @@ public interface SpiceTypes {
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_STMT = new SpiceElementType("IMPORT_STMT");
   IElementType INTERFACE_DEF = new SpiceElementType("INTERFACE_DEF");
-  IElementType LAMBDA = new SpiceElementType("LAMBDA");
+  IElementType LAMBDA_EXPR = new SpiceElementType("LAMBDA_EXPR");
+  IElementType LAMBDA_FUNC = new SpiceElementType("LAMBDA_FUNC");
+  IElementType LAMBDA_PROC = new SpiceElementType("LAMBDA_PROC");
   IElementType LEN_CALL = new SpiceElementType("LEN_CALL");
   IElementType LINE_COM = new SpiceElementType("LINE_COM");
   IElementType LOGICAL_AND_EXPR = new SpiceElementType("LOGICAL_AND_EXPR");
@@ -343,8 +345,14 @@ public interface SpiceTypes {
       else if (type == INTERFACE_DEF) {
         return new SpiceInterfaceDefImpl(node);
       }
-      else if (type == LAMBDA) {
-        return new SpiceLambdaImpl(node);
+      else if (type == LAMBDA_EXPR) {
+        return new SpiceLambdaExprImpl(node);
+      }
+      else if (type == LAMBDA_FUNC) {
+        return new SpiceLambdaFuncImpl(node);
+      }
+      else if (type == LAMBDA_PROC) {
+        return new SpiceLambdaProcImpl(node);
       }
       else if (type == LEN_CALL) {
         return new SpiceLenCallImpl(node);
