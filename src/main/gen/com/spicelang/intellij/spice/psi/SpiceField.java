@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceField extends PsiElement {
 
   @Nullable
-  SpiceConstant getConstant();
+  SpiceAssignExpr getAssignExpr();
 
   @NotNull
   SpiceDataType getDataType();

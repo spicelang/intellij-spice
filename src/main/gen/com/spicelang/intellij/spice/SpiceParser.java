@@ -1057,7 +1057,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // dataType IDENTIFIER (ASSIGN constant)?
+  // dataType IDENTIFIER (ASSIGN assignExpr)?
   public static boolean field(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field")) return false;
     boolean r;
@@ -1069,20 +1069,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (ASSIGN constant)?
+  // (ASSIGN assignExpr)?
   private static boolean field_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_2")) return false;
     field_2_0(b, l + 1);
     return true;
   }
 
-  // ASSIGN constant
+  // ASSIGN assignExpr
   private static boolean field_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "field_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ASSIGN);
-    r = r && constant(b, l + 1);
+    r = r && assignExpr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
