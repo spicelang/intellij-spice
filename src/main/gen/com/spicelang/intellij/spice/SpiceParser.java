@@ -971,7 +971,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fctAttr? EXT (F LESS dataType GREATER | P) IDENTIFIER LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
+  // fctAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
     if (!nextTokenIs(b, "<ext decl>", EXT, FCT_ATTR_PREAMBLE)) return false;
@@ -980,7 +980,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = extDecl_0(b, l + 1);
     r = r && consumeToken(b, EXT);
     r = r && extDecl_2(b, l + 1);
-    r = r && consumeTokens(b, 0, IDENTIFIER, LPAREN);
+    r = r && extDecl_3(b, l + 1);
+    r = r && consumeToken(b, LPAREN);
     r = r && extDecl_5(b, l + 1);
     r = r && consumeTokens(b, 0, RPAREN, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
@@ -1014,6 +1015,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && dataType(b, l + 1);
     r = r && consumeToken(b, GREATER);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // IDENTIFIER | TYPE_IDENTIFIER
+  private static boolean extDecl_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "extDecl_3")) return false;
+    boolean r;
+    r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, TYPE_IDENTIFIER);
     return r;
   }
 
