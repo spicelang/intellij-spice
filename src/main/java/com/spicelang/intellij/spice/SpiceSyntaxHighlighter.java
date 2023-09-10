@@ -84,6 +84,8 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.UNSIGNED)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.INLINE)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.PUBLIC)) return TYPE_MODIFIER_KEY;
+        if (tokenType.equals(SpiceTypes.CONST)) return TYPE_MODIFIER_KEY;
+        if (tokenType.equals(SpiceTypes.HEAP)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.F)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.P)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.IF)) return KEYWORD_KEY;
@@ -93,7 +95,6 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.FOREACH)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.DO)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.WHILE)) return KEYWORD_KEY;
-        if (tokenType.equals(SpiceTypes.CONST)) return TYPE_MODIFIER_KEY;
         if (tokenType.equals(SpiceTypes.IMPORT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.BREAK)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.CONTINUE)) return KEYWORD_KEY;
