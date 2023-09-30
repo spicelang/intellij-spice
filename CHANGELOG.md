@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.0.5]
+- Add new logo
+- Introduce new keywords
+
 ## [1.0.4]
 - Support IntelliJ 2023.2
 
