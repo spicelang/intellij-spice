@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceUnsafeBlockDefImpl extends ASTWrapperPsiElement implements SpiceUnsafeBlockDef {
+public class SpiceUnsafeBlockImpl extends ASTWrapperPsiElement implements SpiceUnsafeBlock {
 
-  public SpiceUnsafeBlockDefImpl(@NotNull ASTNode node) {
+  public SpiceUnsafeBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitUnsafeBlockDef(this);
+    visitor.visitUnsafeBlock(this);
   }
 
   @Override

@@ -29,7 +29,7 @@ public interface SpiceStmtLst extends PsiElement {
   List<SpiceStmt> getStmtList();
 
   @NotNull
-  List<SpiceUnsafeBlockDef> getUnsafeBlockDefList();
+  List<SpiceUnsafeBlock> getUnsafeBlockList();
 
   @NotNull
   List<SpiceWhileLoop> getWhileLoopList();

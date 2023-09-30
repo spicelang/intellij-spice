@@ -2372,7 +2372,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP
+  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP | COMPOSE
   public static boolean specifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "specifier")) return false;
     boolean r;
@@ -2383,6 +2383,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, INLINE);
     if (!r) r = consumeToken(b, PUBLIC);
     if (!r) r = consumeToken(b, HEAP);
+    if (!r) r = consumeToken(b, COMPOSE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2462,7 +2463,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlockDef | anonymousBlockStmt)*
+  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
   public static boolean stmtLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst")) return false;
     Marker m = enter_section_(b, l, _NONE_, STMT_LST, "<stmt lst>");
@@ -2475,7 +2476,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlockDef | anonymousBlockStmt
+  // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlock | anonymousBlockStmt
   private static boolean stmtLst_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst_0")) return false;
     boolean r;
@@ -2486,7 +2487,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = doWhileLoop(b, l + 1);
     if (!r) r = ifStmt(b, l + 1);
     if (!r) r = assertStmt(b, l + 1);
-    if (!r) r = unsafeBlockDef(b, l + 1);
+    if (!r) r = unsafeBlock(b, l + 1);
     if (!r) r = anonymousBlockStmt(b, l + 1);
     return r;
   }
@@ -2737,15 +2738,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // UNSAFE LBRACE stmtLst RBRACE
-  public static boolean unsafeBlockDef(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "unsafeBlockDef")) return false;
+  public static boolean unsafeBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unsafeBlock")) return false;
     if (!nextTokenIs(b, UNSAFE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, UNSAFE, LBRACE);
     r = r && stmtLst(b, l + 1);
     r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, UNSAFE_BLOCK_DEF, r);
+    exit_section_(b, m, UNSAFE_BLOCK, r);
     return r;
   }
 

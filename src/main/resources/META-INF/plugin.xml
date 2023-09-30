@@ -5,7 +5,7 @@
 <idea-plugin>
     <id>com.spicelang.intellij-spice</id>
     <name>Spice</name>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <vendor url="https://www.chillibits.com" email="support@chillibits.com">ChilliBits</vendor>
     <description>
         <![CDATA[
@@ -30,19 +30,20 @@
                 name="Spice File"
                 implementationClass="com.spicelang.intellij.spice.SpiceFileType"
                 fieldName="INSTANCE"
-                extensions="spice" />
+                extensions="spice"/>
         <lang.parserDefinition
                 language="Spice"
-                implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition" />
+                implementationClass="com.spicelang.intellij.spice.SpiceParserDefinition"/>
         <lang.syntaxHighlighterFactory
                 language="Spice"
-                implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory" />
+                implementationClass="com.spicelang.intellij.spice.SpiceSyntaxHighlighterFactory"/>
         <colorSettingsPage
-                implementation="com.spicelang.intellij.spice.SpiceColorSettingsPage" />
+                implementation="com.spicelang.intellij.spice.SpiceColorSettingsPage"/>
         <completion.contributor
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceCompletionContributor"/>
         <psi.referenceContributor
+                language="Spice"
                 implementation="com.spicelang.intellij.spice.SpiceReferenceContributor"/>
         <lang.refactoringSupport
                 language="Spice"

@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceUnsafeBlockDef extends PsiElement {
+public interface SpiceUnsafeBlock extends PsiElement {
 
   @NotNull
   SpiceStmtLst getStmtLst();

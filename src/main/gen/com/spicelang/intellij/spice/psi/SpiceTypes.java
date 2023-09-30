@@ -87,7 +87,7 @@ public interface SpiceTypes {
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
-  IElementType UNSAFE_BLOCK_DEF = new SpiceElementType("UNSAFE_BLOCK_DEF");
+  IElementType UNSAFE_BLOCK = new SpiceElementType("UNSAFE_BLOCK");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
 
@@ -107,6 +107,7 @@ public interface SpiceTypes {
   IElementType CHAR_LIT = new SpiceTokenType("CHAR_LIT");
   IElementType COLON = new SpiceTokenType("COLON");
   IElementType COMMA = new SpiceTokenType("COMMA");
+  IElementType COMPOSE = new SpiceTokenType("COMPOSE");
   IElementType CONST = new SpiceTokenType("CONST");
   IElementType CONTINUE = new SpiceTokenType("CONTINUE");
   IElementType DIV = new SpiceTokenType("DIV");
@@ -435,8 +436,8 @@ public interface SpiceTypes {
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
       }
-      else if (type == UNSAFE_BLOCK_DEF) {
-        return new SpiceUnsafeBlockDefImpl(node);
+      else if (type == UNSAFE_BLOCK) {
+        return new SpiceUnsafeBlockImpl(node);
       }
       else if (type == VALUE) {
         return new SpiceValueImpl(node);
