@@ -27,7 +27,7 @@ mainFunctionDef ::= fctAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPARE
 functionDef ::= fctAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 procedureDef ::= fctAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
 functionName ::= (TYPE_IDENTIFIER DOT)? IDENTIFIER | OPERATOR overloadableOp;
-structDef ::= specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
+structDef ::= specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE composition* field* RBRACE
 interfaceDef ::= specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
 enumDef ::= specifierLst? TYPE TYPE_IDENTIFIER ENUM LBRACE enumItemLst RBRACE
 genericTypeDef ::= TYPE TYPE_IDENTIFIER typeAltsLst SEMICOLON
@@ -36,7 +36,7 @@ globalVarDef ::= dataType TYPE_IDENTIFIER (ASSIGN MINUS? value)? SEMICOLON
 extDecl ::= fctAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
 
 // Control structures
-unsafeBlockDef ::= UNSAFE LBRACE stmtLst RBRACE
+unsafeBlock ::= UNSAFE LBRACE stmtLst RBRACE
 forLoop ::= FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
 forHead ::= declStmt SEMICOLON assignExpr SEMICOLON assignExpr
 foreachLoop ::= FOREACH (foreachHead | LPAREN foreachHead RPAREN) LBRACE stmtLst RBRACE
@@ -48,13 +48,14 @@ elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
 anonymousBlockStmt ::= LBRACE stmtLst RBRACE;
 
 // Statements, declarations, definitions and lists
-stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlockDef | anonymousBlockStmt)*
+stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
 typeLst ::= dataType (COMMA dataType)*
 typeAltsLst ::= dataType (BITWISE_OR dataType)*;
 paramLst ::= declStmt (COMMA declStmt)*
 argLst ::= assignExpr (COMMA assignExpr)*
 enumItemLst ::= enumItem (COMMA enumItem)*
 enumItem ::= TYPE_IDENTIFIER (ASSIGN INT_LIT)?
+composition ::= COMPOSE TYPE_IDENTIFIER (LESS typeLst GREATER)?
 field ::= dataType IDENTIFIER (ASSIGN assignExpr)?
 signature ::= specifierLst? (F LESS dataType GREATER | P) IDENTIFIER (LESS typeLst GREATER)? LPAREN typeLst? RPAREN SEMICOLON
 stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON

@@ -58,6 +58,7 @@ unsigned                                          { return SpiceTypes.UNSIGNED; 
 inline                                            { return SpiceTypes.INLINE; }
 public                                            { return SpiceTypes.PUBLIC; }
 heap                                              { return SpiceTypes.HEAP; }
+compose                                           { return SpiceTypes.COMPOSE; }
 f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }

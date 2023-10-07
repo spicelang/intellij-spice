@@ -323,7 +323,7 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitUnsafeBlockDef(@NotNull SpiceUnsafeBlockDef o) {
+  public void visitUnsafeBlock(@NotNull SpiceUnsafeBlock o) {
     visitPsiElement(o);
   }
 
