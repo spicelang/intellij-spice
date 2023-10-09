@@ -29,6 +29,12 @@ public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStr
 
   @Override
   @NotNull
+  public List<SpiceComposition> getCompositionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceComposition.class);
+  }
+
+  @Override
+  @NotNull
   public List<SpiceField> getFieldList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceField.class);
   }
@@ -37,6 +43,12 @@ public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStr
   @Nullable
   public SpiceSpecifierLst getSpecifierLst() {
     return findChildByClass(SpiceSpecifierLst.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceTopLevelDefAttr getTopLevelDefAttr() {
+    return findChildByClass(SpiceTopLevelDefAttr.class);
   }
 
   @Override
