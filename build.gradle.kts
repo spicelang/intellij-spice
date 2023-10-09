@@ -6,7 +6,7 @@ plugins {
     id("java")
     kotlin("jvm") version "1.9.10"
     id("org.jetbrains.intellij") version "1.15.0"
-    id("org.jetbrains.changelog") version "1.3.1"
+    id("org.jetbrains.changelog") version "2.2.0"
 }
 
 group = properties("pluginGroup")
