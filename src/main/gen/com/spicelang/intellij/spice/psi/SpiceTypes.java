@@ -28,6 +28,7 @@ public interface SpiceTypes {
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
+  IElementType COMPOSITION = new SpiceElementType("COMPOSITION");
   IElementType CONSTANT = new SpiceElementType("CONSTANT");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
@@ -41,7 +42,6 @@ public interface SpiceTypes {
   IElementType ENUM_ITEM_LST = new SpiceElementType("ENUM_ITEM_LST");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
-  IElementType FCT_ATTR = new SpiceElementType("FCT_ATTR");
   IElementType FIELD = new SpiceElementType("FIELD");
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
@@ -85,6 +85,7 @@ public interface SpiceTypes {
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
   IElementType STRUCT_INSTANTIATION = new SpiceElementType("STRUCT_INSTANTIATION");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
+  IElementType TOP_LEVEL_DEF_ATTR = new SpiceElementType("TOP_LEVEL_DEF_ATTR");
   IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType UNSAFE_BLOCK = new SpiceElementType("UNSAFE_BLOCK");
@@ -259,6 +260,9 @@ public interface SpiceTypes {
       else if (type == CAST_EXPR) {
         return new SpiceCastExprImpl(node);
       }
+      else if (type == COMPOSITION) {
+        return new SpiceCompositionImpl(node);
+      }
       else if (type == CONSTANT) {
         return new SpiceConstantImpl(node);
       }
@@ -297,9 +301,6 @@ public interface SpiceTypes {
       }
       else if (type == EXT_DECL) {
         return new SpiceExtDeclImpl(node);
-      }
-      else if (type == FCT_ATTR) {
-        return new SpiceFctAttrImpl(node);
       }
       else if (type == FIELD) {
         return new SpiceFieldImpl(node);
@@ -429,6 +430,9 @@ public interface SpiceTypes {
       }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
+      }
+      else if (type == TOP_LEVEL_DEF_ATTR) {
+        return new SpiceTopLevelDefAttrImpl(node);
       }
       else if (type == TYPE_ALTS_LST) {
         return new SpiceTypeAltsLstImpl(node);

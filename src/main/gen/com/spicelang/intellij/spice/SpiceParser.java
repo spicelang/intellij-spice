@@ -588,6 +588,38 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // COMPOSE TYPE_IDENTIFIER (LESS typeLst GREATER)?
+  public static boolean composition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "composition")) return false;
+    if (!nextTokenIs(b, COMPOSE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COMPOSE, TYPE_IDENTIFIER);
+    r = r && composition_2(b, l + 1);
+    exit_section_(b, m, COMPOSITION, r);
+    return r;
+  }
+
+  // (LESS typeLst GREATER)?
+  private static boolean composition_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "composition_2")) return false;
+    composition_2_0(b, l + 1);
+    return true;
+  }
+
+  // LESS typeLst GREATER
+  private static boolean composition_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "composition_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
+    r = r && typeLst(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // DOUBLE_LIT | INT_LIT | SHORT_LIT | LONG_LIT | CHAR_LIT | STRING_LIT | TRUE | FALSE
   public static boolean constant(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "constant")) return false;
@@ -971,7 +1003,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fctAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
+  // topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
     if (!nextTokenIs(b, "<ext decl>", EXT, FCT_ATTR_PREAMBLE)) return false;
@@ -988,10 +1020,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // fctAttr?
+  // topLevelDefAttr?
   private static boolean extDecl_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl_0")) return false;
-    fctAttr(b, l + 1);
+    topLevelDefAttr(b, l + 1);
     return true;
   }
 
@@ -1050,20 +1082,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "extDecl_5_0_1")) return false;
     consumeToken(b, ELLIPSIS);
     return true;
-  }
-
-  /* ********************************************************** */
-  // FCT_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
-  public static boolean fctAttr(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "fctAttr")) return false;
-    if (!nextTokenIs(b, FCT_ATTR_PREAMBLE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, FCT_ATTR_PREAMBLE, LBRACKET);
-    r = r && attrLst(b, l + 1);
-    r = r && consumeToken(b, RBRACKET);
-    exit_section_(b, m, FCT_ATTR, r);
-    return r;
   }
 
   /* ********************************************************** */
@@ -1354,7 +1372,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fctAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
   public static boolean functionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionDef")) return false;
     boolean r;
@@ -1375,10 +1393,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // fctAttr?
+  // topLevelDefAttr?
   private static boolean functionDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionDef_0")) return false;
-    fctAttr(b, l + 1);
+    topLevelDefAttr(b, l + 1);
     return true;
   }
 
@@ -1810,7 +1828,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fctAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
   public static boolean mainFunctionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mainFunctionDef")) return false;
     if (!nextTokenIs(b, "<main function def>", F, FCT_ATTR_PREAMBLE)) return false;
@@ -1826,10 +1844,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // fctAttr?
+  // topLevelDefAttr?
   private static boolean mainFunctionDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mainFunctionDef_0")) return false;
-    fctAttr(b, l + 1);
+    topLevelDefAttr(b, l + 1);
     return true;
   }
 
@@ -2101,7 +2119,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fctAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
   public static boolean procedureDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef")) return false;
     boolean r;
@@ -2120,10 +2138,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // fctAttr?
+  // topLevelDefAttr?
   private static boolean procedureDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef_0")) return false;
-    fctAttr(b, l + 1);
+    topLevelDefAttr(b, l + 1);
     return true;
   }
 
@@ -2372,7 +2390,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP | COMPOSE
+  // CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP
   public static boolean specifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "specifier")) return false;
     boolean r;
@@ -2383,7 +2401,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, INLINE);
     if (!r) r = consumeToken(b, PUBLIC);
     if (!r) r = consumeToken(b, HEAP);
-    if (!r) r = consumeToken(b, COMPOSE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2493,40 +2510,49 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
+  // topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE composition* field* RBRACE
   public static boolean structDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STRUCT_DEF, "<struct def>");
     r = structDef_0(b, l + 1);
+    r = r && structDef_1(b, l + 1);
     r = r && consumeTokens(b, 0, TYPE, TYPE_IDENTIFIER);
-    r = r && structDef_3(b, l + 1);
+    r = r && structDef_4(b, l + 1);
     r = r && consumeToken(b, STRUCT);
-    r = r && structDef_5(b, l + 1);
+    r = r && structDef_6(b, l + 1);
     r = r && consumeToken(b, LBRACE);
-    r = r && structDef_7(b, l + 1);
+    r = r && structDef_8(b, l + 1);
+    r = r && structDef_9(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // specifierLst?
+  // topLevelDefAttr?
   private static boolean structDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structDef_0")) return false;
+    topLevelDefAttr(b, l + 1);
+    return true;
+  }
+
+  // specifierLst?
+  private static boolean structDef_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_1")) return false;
     specifierLst(b, l + 1);
     return true;
   }
 
   // (LESS typeLst GREATER)?
-  private static boolean structDef_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "structDef_3")) return false;
-    structDef_3_0(b, l + 1);
+  private static boolean structDef_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_4")) return false;
+    structDef_4_0(b, l + 1);
     return true;
   }
 
   // LESS typeLst GREATER
-  private static boolean structDef_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "structDef_3_0")) return false;
+  private static boolean structDef_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_4_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LESS);
@@ -2537,15 +2563,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   // (COLON typeLst)?
-  private static boolean structDef_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "structDef_5")) return false;
-    structDef_5_0(b, l + 1);
+  private static boolean structDef_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_6")) return false;
+    structDef_6_0(b, l + 1);
     return true;
   }
 
   // COLON typeLst
-  private static boolean structDef_5_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "structDef_5_0")) return false;
+  private static boolean structDef_6_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_6_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COLON);
@@ -2554,13 +2580,24 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // composition*
+  private static boolean structDef_8(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_8")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!composition(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "structDef_8", c)) break;
+    }
+    return true;
+  }
+
   // field*
-  private static boolean structDef_7(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "structDef_7")) return false;
+  private static boolean structDef_9(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "structDef_9")) return false;
     while (true) {
       int c = current_position_(b);
       if (!field(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "structDef_7", c)) break;
+      if (!empty_element_parsed_guard_(b, "structDef_9", c)) break;
     }
     return true;
   }
@@ -2666,6 +2703,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ternaryExpr_1_0_1")) return false;
     logicalOrExpr(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // FCT_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
+  public static boolean topLevelDefAttr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "topLevelDefAttr")) return false;
+    if (!nextTokenIs(b, FCT_ATTR_PREAMBLE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, FCT_ATTR_PREAMBLE, LBRACKET);
+    r = r && attrLst(b, l + 1);
+    r = r && consumeToken(b, RBRACKET);
+    exit_section_(b, m, TOP_LEVEL_DEF_ATTR, r);
+    return r;
   }
 
   /* ********************************************************** */

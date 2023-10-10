@@ -34,12 +34,6 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
   }
 
   @Override
-  @Nullable
-  public SpiceFctAttr getFctAttr() {
-    return findChildByClass(SpiceFctAttr.class);
-  }
-
-  @Override
   @NotNull
   public SpiceFunctionName getFunctionName() {
     return findNotNullChildByClass(SpiceFunctionName.class);
@@ -61,6 +55,12 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
   @NotNull
   public SpiceStmtLst getStmtLst() {
     return findNotNullChildByClass(SpiceStmtLst.class);
+  }
+
+  @Override
+  @Nullable
+  public SpiceTopLevelDefAttr getTopLevelDefAttr() {
+    return findChildByClass(SpiceTopLevelDefAttr.class);
   }
 
   @Override
