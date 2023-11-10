@@ -28,9 +28,9 @@ public class SpiceAttrImpl extends ASTWrapperPsiElement implements SpiceAttr {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public SpiceConstant getConstant() {
-    return findNotNullChildByClass(SpiceConstant.class);
+    return findChildByClass(SpiceConstant.class);
   }
 
 }

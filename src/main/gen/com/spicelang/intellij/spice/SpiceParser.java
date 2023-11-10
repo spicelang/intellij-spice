@@ -323,7 +323,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IDENTIFIER (DOT IDENTIFIER)* ASSIGN constant
+  // IDENTIFIER (DOT IDENTIFIER)* (ASSIGN constant)?
   public static boolean attr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attr")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -331,8 +331,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     r = r && attr_1(b, l + 1);
-    r = r && consumeToken(b, ASSIGN);
-    r = r && constant(b, l + 1);
+    r = r && attr_2(b, l + 1);
     exit_section_(b, m, ATTR, r);
     return r;
   }
@@ -354,6 +353,24 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, DOT, IDENTIFIER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (ASSIGN constant)?
+  private static boolean attr_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attr_2")) return false;
+    attr_2_0(b, l + 1);
+    return true;
+  }
+
+  // ASSIGN constant
+  private static boolean attr_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attr_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ASSIGN);
+    r = r && constant(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
