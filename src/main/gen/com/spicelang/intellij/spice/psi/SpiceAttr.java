@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceAttr extends PsiElement {
 
-  @NotNull
+  @Nullable
   SpiceConstant getConstant();
 
 }
