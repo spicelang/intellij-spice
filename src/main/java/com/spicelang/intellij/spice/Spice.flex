@@ -1,10 +1,8 @@
 package com.spicelang.intellij.spice;
 
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.tree.IElementType;
-import com.spicelang.intellij.spice.psi.SpiceTokenType;
-import com.spicelang.intellij.spice.psi.SpiceTypes;
 import com.intellij.psi.TokenType;
+import com.intellij.psi.tree.IElementType;
+import com.spicelang.intellij.spice.psi.SpiceTypes;
 
 %%
 
@@ -87,6 +85,7 @@ printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
 alignof                                           { return SpiceTypes.ALIGNOF; }
 len                                               { return SpiceTypes.LEN; }
+panic                                             { return SpiceTypes.PANIC; }
 ext                                               { return SpiceTypes.EXT; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
