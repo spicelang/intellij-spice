@@ -247,6 +247,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPanicCall(@NotNull SpicePanicCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitParamLst(@NotNull SpiceParamLst o) {
     visitPsiElement(o);
   }

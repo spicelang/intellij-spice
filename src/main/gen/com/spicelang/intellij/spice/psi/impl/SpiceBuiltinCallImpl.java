@@ -41,6 +41,12 @@ public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceB
 
   @Override
   @Nullable
+  public SpicePanicCall getPanicCall() {
+    return findChildByClass(SpicePanicCall.class);
+  }
+
+  @Override
+  @Nullable
   public SpicePrintfCall getPrintfCall() {
     return findChildByClass(SpicePrintfCall.class);
   }

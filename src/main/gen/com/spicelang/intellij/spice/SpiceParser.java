@@ -566,7 +566,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | alignOfCall | lenCall
+  // printfCall | sizeOfCall | alignOfCall | lenCall | panicCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
@@ -575,6 +575,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = sizeOfCall(b, l + 1);
     if (!r) r = alignOfCall(b, l + 1);
     if (!r) r = lenCall(b, l + 1);
+    if (!r) r = panicCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1954,6 +1955,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, PLUS_PLUS);
     if (!r) r = consumeToken(b, MINUS_MINUS);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // PANIC LPAREN assignExpr RPAREN
+  public static boolean panicCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "panicCall")) return false;
+    if (!nextTokenIs(b, PANIC)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, PANIC, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, PANIC_CALL, r);
     return r;
   }
 

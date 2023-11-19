@@ -68,6 +68,7 @@ public interface SpiceTypes {
   IElementType MOD_ATTR = new SpiceElementType("MOD_ATTR");
   IElementType MULTIPLICATIVE_EXPR = new SpiceElementType("MULTIPLICATIVE_EXPR");
   IElementType OVERLOADABLE_OP = new SpiceElementType("OVERLOADABLE_OP");
+  IElementType PANIC_CALL = new SpiceElementType("PANIC_CALL");
   IElementType PARAM_LST = new SpiceElementType("PARAM_LST");
   IElementType POSTFIX_UNARY_EXPR = new SpiceElementType("POSTFIX_UNARY_EXPR");
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
@@ -159,6 +160,7 @@ public interface SpiceTypes {
   IElementType OPERATOR = new SpiceTokenType("OPERATOR");
   IElementType OR_EQUAL = new SpiceTokenType("OR_EQUAL");
   IElementType P = new SpiceTokenType("P");
+  IElementType PANIC = new SpiceTokenType("PANIC");
   IElementType PLUS = new SpiceTokenType("PLUS");
   IElementType PLUS_EQUAL = new SpiceTokenType("PLUS_EQUAL");
   IElementType PLUS_PLUS = new SpiceTokenType("PLUS_PLUS");
@@ -379,6 +381,9 @@ public interface SpiceTypes {
       }
       else if (type == OVERLOADABLE_OP) {
         return new SpiceOverloadableOpImpl(node);
+      }
+      else if (type == PANIC_CALL) {
+        return new SpicePanicCallImpl(node);
       }
       else if (type == PARAM_LST) {
         return new SpiceParamLstImpl(node);
