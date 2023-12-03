@@ -1625,38 +1625,46 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
+  // topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
   public static boolean interfaceDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "interfaceDef")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, INTERFACE_DEF, "<interface def>");
     r = interfaceDef_0(b, l + 1);
+    r = r && interfaceDef_1(b, l + 1);
     r = r && consumeTokens(b, 0, TYPE, TYPE_IDENTIFIER);
-    r = r && interfaceDef_3(b, l + 1);
+    r = r && interfaceDef_4(b, l + 1);
     r = r && consumeTokens(b, 0, INTERFACE, LBRACE);
-    r = r && interfaceDef_6(b, l + 1);
+    r = r && interfaceDef_7(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // specifierLst?
+  // topLevelDefAttr?
   private static boolean interfaceDef_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "interfaceDef_0")) return false;
+    topLevelDefAttr(b, l + 1);
+    return true;
+  }
+
+  // specifierLst?
+  private static boolean interfaceDef_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_1")) return false;
     specifierLst(b, l + 1);
     return true;
   }
 
   // (LESS typeLst GREATER)?
-  private static boolean interfaceDef_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interfaceDef_3")) return false;
-    interfaceDef_3_0(b, l + 1);
+  private static boolean interfaceDef_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_4")) return false;
+    interfaceDef_4_0(b, l + 1);
     return true;
   }
 
   // LESS typeLst GREATER
-  private static boolean interfaceDef_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interfaceDef_3_0")) return false;
+  private static boolean interfaceDef_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_4_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LESS);
@@ -1667,15 +1675,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   // signature+
-  private static boolean interfaceDef_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "interfaceDef_6")) return false;
+  private static boolean interfaceDef_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "interfaceDef_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = signature(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!signature(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "interfaceDef_6", c)) break;
+      if (!empty_element_parsed_guard_(b, "interfaceDef_7", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
