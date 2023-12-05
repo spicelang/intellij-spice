@@ -41,6 +41,12 @@ public class SpiceInterfaceDefImpl extends ASTWrapperPsiElement implements Spice
 
   @Override
   @Nullable
+  public SpiceTopLevelDefAttr getTopLevelDefAttr() {
+    return findChildByClass(SpiceTopLevelDefAttr.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceTypeLst getTypeLst() {
     return findChildByClass(SpiceTypeLst.class);
   }
