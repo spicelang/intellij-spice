@@ -142,7 +142,7 @@ false                                             { return SpiceTypes.FALSE; }
 "->"                                              { return SpiceTypes.ARROW; }
 "::"                                              { return SpiceTypes.SCOPE_ACCESS; }
 "..."                                             { return SpiceTypes.ELLIPSIS; }
-"#"                                               { return SpiceTypes.FCT_ATTR_PREAMBLE; }
+"#"                                               { return SpiceTypes.TOPLEVEL_ATTR_PREAMBLE; }
 "#!"                                              { return SpiceTypes.MOD_ATTR_PREAMBLE; }
 {DOC_COMMENT}                                     { return SpiceTypes.DOC_COMMENT; }
 {LINE_COMMENT}                                    { return SpiceTypes.LINE_COMMENT; }
