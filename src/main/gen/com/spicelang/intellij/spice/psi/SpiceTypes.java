@@ -124,7 +124,6 @@ public interface SpiceTypes {
   IElementType EXT = new SpiceTokenType("EXT");
   IElementType F = new SpiceTokenType("F");
   IElementType FALSE = new SpiceTokenType("FALSE");
-  IElementType FCT_ATTR_PREAMBLE = new SpiceTokenType("FCT_ATTR_PREAMBLE");
   IElementType FOR = new SpiceTokenType("FOR");
   IElementType FOREACH = new SpiceTokenType("FOREACH");
   IElementType GREATER = new SpiceTokenType("GREATER");
@@ -181,6 +180,7 @@ public interface SpiceTypes {
   IElementType SIZEOF = new SpiceTokenType("SIZEOF");
   IElementType STRING_LIT = new SpiceTokenType("STRING_LIT");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
+  IElementType TOPLEVEL_ATTR_PREAMBLE = new SpiceTokenType("TOPLEVEL_ATTR_PREAMBLE");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
   IElementType TYPE_BOOL = new SpiceTokenType("TYPE_BOOL");

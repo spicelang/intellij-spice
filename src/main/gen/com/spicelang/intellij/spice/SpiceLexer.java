@@ -787,7 +787,7 @@ class SpiceLexer implements FlexLexer {
           // fall through
           case 110: break;
           case 4:
-            { return SpiceTypes.FCT_ATTR_PREAMBLE;
+            { return SpiceTypes.TOPLEVEL_ATTR_PREAMBLE;
             }
           // fall through
           case 111: break;

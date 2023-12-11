@@ -169,7 +169,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.COMMA)) return COMMA_KEY;
         if (tokenType.equals(SpiceTypes.DOT)) return DOT_KEY;
         if (tokenType.equals(SpiceTypes.ELLIPSIS)) return SECONDARY_OPERATOR_KEY;
-        if (tokenType.equals(SpiceTypes.FCT_ATTR_PREAMBLE)) return ATTR_KEY;
+        if (tokenType.equals(SpiceTypes.TOPLEVEL_ATTR_PREAMBLE)) return ATTR_KEY;
         if (tokenType.equals(SpiceTypes.MOD_ATTR_PREAMBLE)) return ATTR_KEY;
         if (tokenType.equals(SpiceTypes.LINE_COMMENT)) return LINE_COMMENT_KEY;
         if (tokenType.equals(SpiceTypes.BLOCK_COMMENT)) return BLOCK_COMMENT_KEY;

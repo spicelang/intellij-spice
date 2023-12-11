@@ -992,7 +992,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   // topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
-    if (!nextTokenIs(b, "<ext decl>", EXT, FCT_ATTR_PREAMBLE)) return false;
+    if (!nextTokenIs(b, "<ext decl>", EXT, TOPLEVEL_ATTR_PREAMBLE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXT_DECL, "<ext decl>");
     r = extDecl_0(b, l + 1);
@@ -1825,7 +1825,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   // topLevelDefAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
   public static boolean mainFunctionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mainFunctionDef")) return false;
-    if (!nextTokenIs(b, "<main function def>", F, FCT_ATTR_PREAMBLE)) return false;
+    if (!nextTokenIs(b, "<main function def>", F, TOPLEVEL_ATTR_PREAMBLE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, MAIN_FUNCTION_DEF, "<main function def>");
     r = mainFunctionDef_0(b, l + 1);
@@ -2703,13 +2703,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FCT_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
+  // TOPLEVEL_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
   public static boolean topLevelDefAttr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "topLevelDefAttr")) return false;
-    if (!nextTokenIs(b, FCT_ATTR_PREAMBLE)) return false;
+    if (!nextTokenIs(b, TOPLEVEL_ATTR_PREAMBLE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, FCT_ATTR_PREAMBLE, LBRACKET);
+    r = consumeTokens(b, 0, TOPLEVEL_ATTR_PREAMBLE, LBRACKET);
     r = r && attrLst(b, l + 1);
     r = r && consumeToken(b, RBRACKET);
     exit_section_(b, m, TOP_LEVEL_DEF_ATTR, r);
