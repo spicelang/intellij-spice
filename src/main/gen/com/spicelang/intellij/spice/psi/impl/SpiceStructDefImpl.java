@@ -29,12 +29,6 @@ public class SpiceStructDefImpl extends ASTWrapperPsiElement implements SpiceStr
 
   @Override
   @NotNull
-  public List<SpiceComposition> getCompositionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceComposition.class);
-  }
-
-  @Override
-  @NotNull
   public List<SpiceField> getFieldList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceField.class);
   }

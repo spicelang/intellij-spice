@@ -3,10 +3,11 @@
 
 package com.spicelang.intellij.spice;
 
+import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.spicelang.intellij.spice.psi.SpiceTypes;
-import com.intellij.lexer.FlexLexer;
+
 
 class SpiceLexer implements FlexLexer {
 

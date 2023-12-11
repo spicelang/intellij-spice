@@ -28,7 +28,6 @@ public interface SpiceTypes {
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
-  IElementType COMPOSITION = new SpiceElementType("COMPOSITION");
   IElementType CONSTANT = new SpiceElementType("CONSTANT");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
@@ -261,9 +260,6 @@ public interface SpiceTypes {
       }
       else if (type == CAST_EXPR) {
         return new SpiceCastExprImpl(node);
-      }
-      else if (type == COMPOSITION) {
-        return new SpiceCompositionImpl(node);
       }
       else if (type == CONSTANT) {
         return new SpiceConstantImpl(node);
