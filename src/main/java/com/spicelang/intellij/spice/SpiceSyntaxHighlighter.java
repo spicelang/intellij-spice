@@ -91,6 +91,9 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.P)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.IF)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.ELSE)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.SWITCH)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.CASE)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.DEFAULT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.ASSERT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.FOR)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.FOREACH)) return KEYWORD_KEY;
@@ -99,6 +102,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.IMPORT)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.BREAK)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.CONTINUE)) return KEYWORD_KEY;
+        if (tokenType.equals(SpiceTypes.FALLTHROUGH)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.RETURN)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.AS)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.STRUCT)) return KEYWORD_KEY;

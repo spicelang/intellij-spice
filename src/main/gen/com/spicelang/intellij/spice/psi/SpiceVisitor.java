@@ -83,11 +83,19 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCaseBranch(@NotNull SpiceCaseBranch o) {
+    visitPsiElement(o);
+  }
+
   public void visitCastExpr(@NotNull SpiceCastExpr o) {
     visitPsiElement(o);
   }
 
   public void visitConstant(@NotNull SpiceConstant o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConstantLst(@NotNull SpiceConstantLst o) {
     visitPsiElement(o);
   }
 
@@ -104,6 +112,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitDeclStmt(@NotNull SpiceDeclStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDefaultBranch(@NotNull SpiceDefaultBranch o) {
     visitPsiElement(o);
   }
 
@@ -135,7 +147,15 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitExprStmt(@NotNull SpiceExprStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitExtDecl(@NotNull SpiceExtDecl o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFallthroughStmt(@NotNull SpiceFallthroughStmt o) {
     visitPsiElement(o);
   }
 
@@ -191,7 +211,7 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitImportStmt(@NotNull SpiceImportStmt o) {
+  public void visitImportDef(@NotNull SpiceImportDef o) {
     visitPsiElement(o);
   }
 
@@ -308,6 +328,10 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitStructInstantiation(@NotNull SpiceStructInstantiation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSwitchStmt(@NotNull SpiceSwitchStmt o) {
     visitPsiElement(o);
   }
 

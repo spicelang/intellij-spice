@@ -19,7 +19,7 @@
 }
 
 // Top level definitions and declarations
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importStmt | extDecl | modAttr | docCom | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom)*
 docCom ::= DOC_COMMENT
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
@@ -34,6 +34,7 @@ genericTypeDef ::= TYPE TYPE_IDENTIFIER typeAltsLst SEMICOLON
 aliasDef ::= specifierLst? TYPE TYPE_IDENTIFIER ALIAS dataType SEMICOLON
 globalVarDef ::= dataType TYPE_IDENTIFIER (ASSIGN MINUS? value)? SEMICOLON
 extDecl ::= topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
+importDef ::= IMPORT STRING_LIT (AS IDENTIFIER)? SEMICOLON
 
 // Control structures
 unsafeBlock ::= UNSAFE LBRACE stmtLst RBRACE
@@ -45,10 +46,13 @@ whileLoop ::= WHILE assignExpr LBRACE stmtLst RBRACE
 doWhileLoop ::= DO LBRACE stmtLst RBRACE WHILE assignExpr SEMICOLON
 ifStmt ::= IF assignExpr LBRACE stmtLst RBRACE elseStmt?
 elseStmt ::= ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
+switchStmt ::= SWITCH assignExpr LBRACE caseBranch* defaultBranch? RBRACE
+caseBranch ::= CASE constantLst COLON stmtLst
+defaultBranch ::= DEFAULT COLON stmtLst
 anonymousBlockStmt ::= LBRACE stmtLst RBRACE;
 
 // Statements, declarations, definitions and lists
-stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
+stmtLst ::= (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | switchStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
 typeLst ::= dataType (COMMA dataType)*
 typeAltsLst ::= dataType (BITWISE_OR dataType)*;
 paramLst ::= declStmt (COMMA declStmt)*
@@ -57,18 +61,20 @@ enumItemLst ::= enumItem (COMMA enumItem)*
 enumItem ::= TYPE_IDENTIFIER (ASSIGN INT_LIT)?
 field ::= dataType IDENTIFIER (ASSIGN assignExpr)?
 signature ::= specifierLst? (F LESS dataType GREATER | P) IDENTIFIER (LESS typeLst GREATER)? LPAREN typeLst? RPAREN SEMICOLON
-stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt) SEMICOLON
+stmt ::= (declStmt | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt) SEMICOLON
 declStmt ::= dataType IDENTIFIER (ASSIGN assignExpr)?
+exprStmt ::= assignExpr
 specifierLst ::= specifier+
 specifier ::= CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP | COMPOSE
 modAttr ::= MOD_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
 topLevelDefAttr ::= TOPLEVEL_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
 attrLst ::= attr (COMMA attr)*
 attr ::= IDENTIFIER (DOT IDENTIFIER)* (ASSIGN constant)?
-importStmt ::= IMPORT STRING_LIT (AS IDENTIFIER)? SEMICOLON
+constantLst ::= constant (COMMA constant)*
 returnStmt ::= RETURN assignExpr?
 breakStmt ::= BREAK INT_LIT?
 continueStmt ::= CONTINUE INT_LIT?
+fallthroughStmt ::= FALLTHROUGH
 assertStmt ::= ASSERT assignExpr SEMICOLON
 
 // Builtin functions

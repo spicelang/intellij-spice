@@ -29,6 +29,9 @@ public interface SpiceStmtLst extends PsiElement {
   List<SpiceStmt> getStmtList();
 
   @NotNull
+  List<SpiceSwitchStmt> getSwitchStmtList();
+
+  @NotNull
   List<SpiceUnsafeBlock> getUnsafeBlockList();
 
   @NotNull
