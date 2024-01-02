@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022-2024 ChilliBits. All rights reserved.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
