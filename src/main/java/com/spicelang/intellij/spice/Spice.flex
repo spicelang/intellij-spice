@@ -61,6 +61,9 @@ f                                                 { return SpiceTypes.F; }
 p                                                 { return SpiceTypes.P; }
 if                                                { return SpiceTypes.IF; }
 else                                              { return SpiceTypes.ELSE; }
+switch                                            { return SpiceTypes.SWITCH; }
+case                                              { return SpiceTypes.CASE; }
+default                                           { return SpiceTypes.DEFAULT; }
 assert                                            { return SpiceTypes.ASSERT; }
 for                                               { return SpiceTypes.FOR; }
 foreach                                           { return SpiceTypes.FOREACH; }
@@ -69,6 +72,7 @@ while                                             { return SpiceTypes.WHILE; }
 import                                            { return SpiceTypes.IMPORT; }
 break                                             { return SpiceTypes.BREAK; }
 continue                                          { return SpiceTypes.CONTINUE; }
+fallthrough                                       { return SpiceTypes.FALLTHROUGH; }
 return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }

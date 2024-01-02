@@ -71,6 +71,12 @@ public class SpiceStmtLstImpl extends ASTWrapperPsiElement implements SpiceStmtL
 
   @Override
   @NotNull
+  public List<SpiceSwitchStmt> getSwitchStmtList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceSwitchStmt.class);
+  }
+
+  @Override
+  @NotNull
   public List<SpiceUnsafeBlock> getUnsafeBlockList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceUnsafeBlock.class);
   }
