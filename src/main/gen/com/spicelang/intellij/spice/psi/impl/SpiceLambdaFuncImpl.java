@@ -34,6 +34,12 @@ public class SpiceLambdaFuncImpl extends ASTWrapperPsiElement implements SpiceLa
   }
 
   @Override
+  @NotNull
+  public SpiceLambdaAttr getLambdaAttr() {
+    return findNotNullChildByClass(SpiceLambdaAttr.class);
+  }
+
+  @Override
   @Nullable
   public SpiceParamLst getParamLst() {
     return findChildByClass(SpiceParamLst.class);

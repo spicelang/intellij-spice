@@ -10,6 +10,9 @@ public interface SpiceLambdaFunc extends PsiElement {
   @NotNull
   SpiceDataType getDataType();
 
+  @NotNull
+  SpiceLambdaAttr getLambdaAttr();
+
   @Nullable
   SpiceParamLst getParamLst();
 

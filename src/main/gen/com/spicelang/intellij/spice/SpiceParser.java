@@ -1733,6 +1733,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // LBRACKET LBRACKET attrLst RBRACKET RBRACKET
+  public static boolean lambdaAttr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaAttr")) return false;
+    if (!nextTokenIs(b, LBRACKET)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, LBRACKET, LBRACKET);
+    r = r && attrLst(b, l + 1);
+    r = r && consumeTokens(b, 0, RBRACKET, RBRACKET);
+    exit_section_(b, m, LAMBDA_ATTR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // LPAREN paramLst? RPAREN ARROW assignExpr
   public static boolean lambdaExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaExpr")) return false;
@@ -1755,7 +1769,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F LESS dataType GREATER LPAREN paramLst? RPAREN stmtLst
+  // F LESS dataType GREATER LPAREN paramLst? RPAREN lambdaAttr stmtLst
   public static boolean lambdaFunc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaFunc")) return false;
     if (!nextTokenIs(b, F)) return false;
@@ -1766,6 +1780,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && consumeTokens(b, 0, GREATER, LPAREN);
     r = r && lambdaFunc_5(b, l + 1);
     r = r && consumeToken(b, RPAREN);
+    r = r && lambdaAttr(b, l + 1);
     r = r && stmtLst(b, l + 1);
     exit_section_(b, m, LAMBDA_FUNC, r);
     return r;
@@ -1779,7 +1794,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // P LPAREN paramLst? RPAREN stmtLst
+  // P LPAREN paramLst? RPAREN lambdaAttr stmtLst
   public static boolean lambdaProc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaProc")) return false;
     if (!nextTokenIs(b, P)) return false;
@@ -1788,6 +1803,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 0, P, LPAREN);
     r = r && lambdaProc_2(b, l + 1);
     r = r && consumeToken(b, RPAREN);
+    r = r && lambdaAttr(b, l + 1);
     r = r && stmtLst(b, l + 1);
     exit_section_(b, m, LAMBDA_PROC, r);
     return r;
