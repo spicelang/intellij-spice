@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceLambdaProc extends PsiElement {
 
-  @NotNull
+  @Nullable
   SpiceLambdaAttr getLambdaAttr();
 
   @Nullable

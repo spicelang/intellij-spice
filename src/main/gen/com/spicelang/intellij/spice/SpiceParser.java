@@ -1769,7 +1769,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F LESS dataType GREATER LPAREN paramLst? RPAREN lambdaAttr stmtLst
+  // F LESS dataType GREATER LPAREN paramLst? RPAREN lambdaAttr? stmtLst
   public static boolean lambdaFunc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaFunc")) return false;
     if (!nextTokenIs(b, F)) return false;
@@ -1780,7 +1780,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && consumeTokens(b, 0, GREATER, LPAREN);
     r = r && lambdaFunc_5(b, l + 1);
     r = r && consumeToken(b, RPAREN);
-    r = r && lambdaAttr(b, l + 1);
+    r = r && lambdaFunc_7(b, l + 1);
     r = r && stmtLst(b, l + 1);
     exit_section_(b, m, LAMBDA_FUNC, r);
     return r;
@@ -1793,8 +1793,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  // lambdaAttr?
+  private static boolean lambdaFunc_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaFunc_7")) return false;
+    lambdaAttr(b, l + 1);
+    return true;
+  }
+
   /* ********************************************************** */
-  // P LPAREN paramLst? RPAREN lambdaAttr stmtLst
+  // P LPAREN paramLst? RPAREN lambdaAttr? stmtLst
   public static boolean lambdaProc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaProc")) return false;
     if (!nextTokenIs(b, P)) return false;
@@ -1803,7 +1810,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 0, P, LPAREN);
     r = r && lambdaProc_2(b, l + 1);
     r = r && consumeToken(b, RPAREN);
-    r = r && lambdaAttr(b, l + 1);
+    r = r && lambdaProc_4(b, l + 1);
     r = r && stmtLst(b, l + 1);
     exit_section_(b, m, LAMBDA_PROC, r);
     return r;
@@ -1813,6 +1820,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   private static boolean lambdaProc_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaProc_2")) return false;
     paramLst(b, l + 1);
+    return true;
+  }
+
+  // lambdaAttr?
+  private static boolean lambdaProc_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lambdaProc_4")) return false;
+    lambdaAttr(b, l + 1);
     return true;
   }
 
