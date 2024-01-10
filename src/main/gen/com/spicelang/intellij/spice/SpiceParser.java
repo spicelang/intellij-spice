@@ -136,15 +136,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LBRACE stmtLst RBRACE
+  // stmtLst
   public static boolean anonymousBlockStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "anonymousBlockStmt")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LBRACE);
-    r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
+    r = stmtLst(b, l + 1);
     exit_section_(b, m, ANONYMOUS_BLOCK_STMT, r);
     return r;
   }
@@ -862,15 +860,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DO LBRACE stmtLst RBRACE WHILE assignExpr SEMICOLON
+  // DO stmtLst WHILE assignExpr SEMICOLON
   public static boolean doWhileLoop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "doWhileLoop")) return false;
     if (!nextTokenIs(b, DO)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DO, LBRACE);
+    r = consumeToken(b, DO);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeTokens(b, 0, RBRACE, WHILE);
+    r = r && consumeToken(b, WHILE);
     r = r && assignExpr(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, m, DO_WHILE_LOOP, r);
@@ -890,7 +888,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ELSE ifStmt | ELSE LBRACE stmtLst RBRACE
+  // ELSE ifStmt | ELSE stmtLst
   public static boolean elseStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "elseStmt")) return false;
     if (!nextTokenIs(b, ELSE)) return false;
@@ -913,14 +911,13 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ELSE LBRACE stmtLst RBRACE
+  // ELSE stmtLst
   private static boolean elseStmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "elseStmt_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ELSE, LBRACE);
+    r = consumeToken(b, ELSE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -1202,7 +1199,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FOR (forHead | LPAREN forHead RPAREN) LBRACE stmtLst RBRACE
+  // FOR (forHead | LPAREN forHead RPAREN) stmtLst
   public static boolean forLoop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "forLoop")) return false;
     if (!nextTokenIs(b, FOR)) return false;
@@ -1210,9 +1207,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, FOR);
     r = r && forLoop_1(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, FOR_LOOP, r);
     return r;
   }
@@ -1273,7 +1268,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // FOREACH (foreachHead | LPAREN foreachHead RPAREN) LBRACE stmtLst RBRACE
+  // FOREACH (foreachHead | LPAREN foreachHead RPAREN) stmtLst
   public static boolean foreachLoop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "foreachLoop")) return false;
     if (!nextTokenIs(b, FOREACH)) return false;
@@ -1281,9 +1276,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, FOREACH);
     r = r && foreachLoop_1(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, FOREACH_LOOP, r);
     return r;
   }
@@ -1443,7 +1436,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // topLevelDefAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? specifierLst? F LESS dataType GREATER functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN stmtLst
   public static boolean functionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionDef")) return false;
     boolean r;
@@ -1457,9 +1450,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && functionDef_7(b, l + 1);
     r = r && consumeToken(b, LPAREN);
     r = r && functionDef_9(b, l + 1);
-    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && consumeToken(b, RPAREN);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1623,7 +1615,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IF assignExpr LBRACE stmtLst RBRACE elseStmt?
+  // IF assignExpr stmtLst elseStmt?
   public static boolean ifStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStmt")) return false;
     if (!nextTokenIs(b, IF)) return false;
@@ -1631,17 +1623,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IF);
     r = r && assignExpr(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
-    r = r && ifStmt_5(b, l + 1);
+    r = r && ifStmt_3(b, l + 1);
     exit_section_(b, m, IF_STMT, r);
     return r;
   }
 
   // elseStmt?
-  private static boolean ifStmt_5(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ifStmt_5")) return false;
+  private static boolean ifStmt_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ifStmt_3")) return false;
     elseStmt(b, l + 1);
     return true;
   }
@@ -1765,7 +1755,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F LESS dataType GREATER LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // F LESS dataType GREATER LPAREN paramLst? RPAREN stmtLst
   public static boolean lambdaFunc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaFunc")) return false;
     if (!nextTokenIs(b, F)) return false;
@@ -1775,9 +1765,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && dataType(b, l + 1);
     r = r && consumeTokens(b, 0, GREATER, LPAREN);
     r = r && lambdaFunc_5(b, l + 1);
-    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && consumeToken(b, RPAREN);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, LAMBDA_FUNC, r);
     return r;
   }
@@ -1790,7 +1779,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // P LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // P LPAREN paramLst? RPAREN stmtLst
   public static boolean lambdaProc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lambdaProc")) return false;
     if (!nextTokenIs(b, P)) return false;
@@ -1798,9 +1787,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, P, LPAREN);
     r = r && lambdaProc_2(b, l + 1);
-    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && consumeToken(b, RPAREN);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, LAMBDA_PROC, r);
     return r;
   }
@@ -1907,7 +1895,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // topLevelDefAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? F LESS TYPE_INT GREATER MAIN LPAREN paramLst? RPAREN stmtLst
   public static boolean mainFunctionDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mainFunctionDef")) return false;
     if (!nextTokenIs(b, "<main function def>", F, TOPLEVEL_ATTR_PREAMBLE)) return false;
@@ -1916,9 +1904,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = mainFunctionDef_0(b, l + 1);
     r = r && consumeTokens(b, 0, F, LESS, TYPE_INT, GREATER, MAIN, LPAREN);
     r = r && mainFunctionDef_7(b, l + 1);
-    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && consumeToken(b, RPAREN);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2212,7 +2199,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // topLevelDefAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN LBRACE stmtLst RBRACE
+  // topLevelDefAttr? specifierLst? P functionName (LESS typeLst GREATER)? LPAREN paramLst? RPAREN stmtLst
   public static boolean procedureDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "procedureDef")) return false;
     boolean r;
@@ -2224,9 +2211,8 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = r && procedureDef_4(b, l + 1);
     r = r && consumeToken(b, LPAREN);
     r = r && procedureDef_6(b, l + 1);
-    r = r && consumeTokens(b, 0, RPAREN, LBRACE);
+    r = r && consumeToken(b, RPAREN);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2575,22 +2561,33 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | switchStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
+  // LBRACE (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | switchStmt | assertStmt | unsafeBlock | anonymousBlockStmt)* RBRACE
   public static boolean stmtLst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmtLst")) return false;
-    Marker m = enter_section_(b, l, _NONE_, STMT_LST, "<stmt lst>");
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && stmtLst_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, STMT_LST, r);
+    return r;
+  }
+
+  // (stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | switchStmt | assertStmt | unsafeBlock | anonymousBlockStmt)*
+  private static boolean stmtLst_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmtLst_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!stmtLst_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "stmtLst", c)) break;
+      if (!stmtLst_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "stmtLst_1", c)) break;
     }
-    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
   // stmt | forLoop | foreachLoop | whileLoop | doWhileLoop | ifStmt | switchStmt | assertStmt | unsafeBlock | anonymousBlockStmt
-  private static boolean stmtLst_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmtLst_0")) return false;
+  private static boolean stmtLst_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmtLst_1_0")) return false;
     boolean r;
     r = stmt(b, l + 1);
     if (!r) r = forLoop(b, l + 1);
@@ -2907,15 +2904,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // UNSAFE LBRACE stmtLst RBRACE
+  // UNSAFE stmtLst
   public static boolean unsafeBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unsafeBlock")) return false;
     if (!nextTokenIs(b, UNSAFE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, UNSAFE, LBRACE);
+    r = consumeToken(b, UNSAFE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, UNSAFE_BLOCK, r);
     return r;
   }
@@ -2951,7 +2947,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // WHILE assignExpr LBRACE stmtLst RBRACE
+  // WHILE assignExpr stmtLst
   public static boolean whileLoop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "whileLoop")) return false;
     if (!nextTokenIs(b, WHILE)) return false;
@@ -2959,9 +2955,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, WHILE);
     r = r && assignExpr(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
     r = r && stmtLst(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, WHILE_LOOP, r);
     return r;
   }
