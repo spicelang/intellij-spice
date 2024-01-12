@@ -29,6 +29,12 @@ public class SpiceLambdaProcImpl extends ASTWrapperPsiElement implements SpiceLa
 
   @Override
   @Nullable
+  public SpiceLambdaAttr getLambdaAttr() {
+    return findChildByClass(SpiceLambdaAttr.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceParamLst getParamLst() {
     return findChildByClass(SpiceParamLst.class);
   }

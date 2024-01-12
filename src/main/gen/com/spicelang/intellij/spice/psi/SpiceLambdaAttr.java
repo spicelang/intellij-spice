@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SpiceLambdaProc extends PsiElement {
-
-  @Nullable
-  SpiceLambdaAttr getLambdaAttr();
-
-  @Nullable
-  SpiceParamLst getParamLst();
+public interface SpiceLambdaAttr extends PsiElement {
 
   @NotNull
-  SpiceStmtLst getStmtLst();
+  SpiceAttrLst getAttrLst();
 
 }

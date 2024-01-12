@@ -61,6 +61,7 @@ public interface SpiceTypes {
   IElementType IF_STMT = new SpiceElementType("IF_STMT");
   IElementType IMPORT_DEF = new SpiceElementType("IMPORT_DEF");
   IElementType INTERFACE_DEF = new SpiceElementType("INTERFACE_DEF");
+  IElementType LAMBDA_ATTR = new SpiceElementType("LAMBDA_ATTR");
   IElementType LAMBDA_EXPR = new SpiceElementType("LAMBDA_EXPR");
   IElementType LAMBDA_FUNC = new SpiceElementType("LAMBDA_FUNC");
   IElementType LAMBDA_PROC = new SpiceElementType("LAMBDA_PROC");
@@ -369,6 +370,9 @@ public interface SpiceTypes {
       }
       else if (type == INTERFACE_DEF) {
         return new SpiceInterfaceDefImpl(node);
+      }
+      else if (type == LAMBDA_ATTR) {
+        return new SpiceLambdaAttrImpl(node);
       }
       else if (type == LAMBDA_EXPR) {
         return new SpiceLambdaExprImpl(node);
