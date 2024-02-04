@@ -1668,7 +1668,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature+ RBRACE
+  // topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature* RBRACE
   public static boolean interfaceDef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "interfaceDef")) return false;
     boolean r;
@@ -1717,19 +1717,15 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // signature+
+  // signature*
   private static boolean interfaceDef_7(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "interfaceDef_7")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = signature(b, l + 1);
-    while (r) {
+    while (true) {
       int c = current_position_(b);
       if (!signature(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "interfaceDef_7", c)) break;
     }
-    exit_section_(b, m, null, r);
-    return r;
+    return true;
   }
 
   /* ********************************************************** */
