@@ -29,8 +29,8 @@ public class SpiceCaseBranchImpl extends ASTWrapperPsiElement implements SpiceCa
 
   @Override
   @NotNull
-  public SpiceConstantLst getConstantLst() {
-    return findNotNullChildByClass(SpiceConstantLst.class);
+  public List<SpiceCaseConstant> getCaseConstantList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceCaseConstant.class);
   }
 
   @Override

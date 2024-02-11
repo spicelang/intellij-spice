@@ -11,14 +11,14 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceConstantLstImpl extends ASTWrapperPsiElement implements SpiceConstantLst {
+public class SpiceCaseConstantImpl extends ASTWrapperPsiElement implements SpiceCaseConstant {
 
-  public SpiceConstantLstImpl(@NotNull ASTNode node) {
+  public SpiceCaseConstantImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitConstantLst(this);
+    visitor.visitCaseConstant(this);
   }
 
   @Override
@@ -28,9 +28,9 @@ public class SpiceConstantLstImpl extends ASTWrapperPsiElement implements SpiceC
   }
 
   @Override
-  @NotNull
-  public List<SpiceConstant> getConstantList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceConstant.class);
+  @Nullable
+  public SpiceConstant getConstant() {
+    return findChildByClass(SpiceConstant.class);
   }
 
 }

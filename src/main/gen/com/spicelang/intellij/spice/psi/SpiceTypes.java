@@ -28,9 +28,9 @@ public interface SpiceTypes {
   IElementType BREAK_STMT = new SpiceElementType("BREAK_STMT");
   IElementType BUILTIN_CALL = new SpiceElementType("BUILTIN_CALL");
   IElementType CASE_BRANCH = new SpiceElementType("CASE_BRANCH");
+  IElementType CASE_CONSTANT = new SpiceElementType("CASE_CONSTANT");
   IElementType CAST_EXPR = new SpiceElementType("CAST_EXPR");
   IElementType CONSTANT = new SpiceElementType("CONSTANT");
-  IElementType CONSTANT_LST = new SpiceElementType("CONSTANT_LST");
   IElementType CONTINUE_STMT = new SpiceElementType("CONTINUE_STMT");
   IElementType CUSTOM_DATA_TYPE = new SpiceElementType("CUSTOM_DATA_TYPE");
   IElementType DATA_TYPE = new SpiceElementType("DATA_TYPE");
@@ -272,14 +272,14 @@ public interface SpiceTypes {
       else if (type == CASE_BRANCH) {
         return new SpiceCaseBranchImpl(node);
       }
+      else if (type == CASE_CONSTANT) {
+        return new SpiceCaseConstantImpl(node);
+      }
       else if (type == CAST_EXPR) {
         return new SpiceCastExprImpl(node);
       }
       else if (type == CONSTANT) {
         return new SpiceConstantImpl(node);
-      }
-      else if (type == CONSTANT_LST) {
-        return new SpiceConstantLstImpl(node);
       }
       else if (type == CONTINUE_STMT) {
         return new SpiceContinueStmtImpl(node);
