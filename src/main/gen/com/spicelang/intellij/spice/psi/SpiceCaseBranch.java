@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface SpiceCaseBranch extends PsiElement {
 
   @NotNull
-  SpiceConstantLst getConstantLst();
+  List<SpiceCaseConstant> getCaseConstantList();
 
   @NotNull
   SpiceStmtLst getStmtLst();

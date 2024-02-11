@@ -87,15 +87,15 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCaseConstant(@NotNull SpiceCaseConstant o) {
+    visitPsiElement(o);
+  }
+
   public void visitCastExpr(@NotNull SpiceCastExpr o) {
     visitPsiElement(o);
   }
 
   public void visitConstant(@NotNull SpiceConstant o) {
-    visitPsiElement(o);
-  }
-
-  public void visitConstantLst(@NotNull SpiceConstantLst o) {
     visitPsiElement(o);
   }
 

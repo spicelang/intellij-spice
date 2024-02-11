@@ -579,17 +579,102 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CASE constantLst COLON stmtLst
+  // CASE caseConstant (COMMA caseConstant)* COLON stmtLst
   public static boolean caseBranch(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "caseBranch")) return false;
     if (!nextTokenIs(b, CASE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, CASE);
-    r = r && constantLst(b, l + 1);
+    r = r && caseConstant(b, l + 1);
+    r = r && caseBranch_2(b, l + 1);
     r = r && consumeToken(b, COLON);
     r = r && stmtLst(b, l + 1);
     exit_section_(b, m, CASE_BRANCH, r);
+    return r;
+  }
+
+  // (COMMA caseConstant)*
+  private static boolean caseBranch_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseBranch_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!caseBranch_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "caseBranch_2", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA caseConstant
+  private static boolean caseBranch_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseBranch_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && caseConstant(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // constant | (IDENTIFIER SCOPE_ACCESS)? TYPE_IDENTIFIER (SCOPE_ACCESS TYPE_IDENTIFIER)*
+  public static boolean caseConstant(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, CASE_CONSTANT, "<case constant>");
+    r = constant(b, l + 1);
+    if (!r) r = caseConstant_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (IDENTIFIER SCOPE_ACCESS)? TYPE_IDENTIFIER (SCOPE_ACCESS TYPE_IDENTIFIER)*
+  private static boolean caseConstant_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = caseConstant_1_0(b, l + 1);
+    r = r && consumeToken(b, TYPE_IDENTIFIER);
+    r = r && caseConstant_1_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (IDENTIFIER SCOPE_ACCESS)?
+  private static boolean caseConstant_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant_1_0")) return false;
+    caseConstant_1_0_0(b, l + 1);
+    return true;
+  }
+
+  // IDENTIFIER SCOPE_ACCESS
+  private static boolean caseConstant_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant_1_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IDENTIFIER, SCOPE_ACCESS);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (SCOPE_ACCESS TYPE_IDENTIFIER)*
+  private static boolean caseConstant_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant_1_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!caseConstant_1_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "caseConstant_1_2", c)) break;
+    }
+    return true;
+  }
+
+  // SCOPE_ACCESS TYPE_IDENTIFIER
+  private static boolean caseConstant_1_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "caseConstant_1_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, SCOPE_ACCESS, TYPE_IDENTIFIER);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -633,40 +718,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, TRUE);
     if (!r) r = consumeToken(b, FALSE);
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // constant (COMMA constant)*
-  public static boolean constantLst(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "constantLst")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, CONSTANT_LST, "<constant lst>");
-    r = constant(b, l + 1);
-    r = r && constantLst_1(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (COMMA constant)*
-  private static boolean constantLst_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "constantLst_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!constantLst_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "constantLst_1", c)) break;
-    }
-    return true;
-  }
-
-  // COMMA constant
-  private static boolean constantLst_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "constantLst_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    r = r && constant(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
