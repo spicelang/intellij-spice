@@ -217,20 +217,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // prefixUnaryExpr assignOp assignExpr | ternaryExpr
+  // ternaryExpr | prefixUnaryExpr assignOp assignExpr
   public static boolean assignExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ASSIGN_EXPR, "<assign expr>");
-    r = assignExpr_0(b, l + 1);
-    if (!r) r = ternaryExpr(b, l + 1);
+    r = ternaryExpr(b, l + 1);
+    if (!r) r = assignExpr_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // prefixUnaryExpr assignOp assignExpr
-  private static boolean assignExpr_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignExpr_0")) return false;
+  private static boolean assignExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignExpr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = prefixUnaryExpr(b, l + 1);
