@@ -20,9 +20,6 @@ public interface SpiceStmt extends PsiElement {
   SpiceDeclStmt getDeclStmt();
 
   @Nullable
-  SpiceExprStmt getExprStmt();
-
-  @Nullable
   SpiceFallthroughStmt getFallthroughStmt();
 
   @Nullable

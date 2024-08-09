@@ -61,9 +61,8 @@ enumItemLst ::= enumItem (COMMA enumItem)*
 enumItem ::= TYPE_IDENTIFIER (ASSIGN INT_LIT)?
 field ::= dataType IDENTIFIER (ASSIGN assignExpr)?
 signature ::= specifierLst? (F LESS dataType GREATER | P) IDENTIFIER (LESS typeLst GREATER)? LPAREN typeLst? RPAREN SEMICOLON
-stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt) SEMICOLON
+stmt ::= (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt) SEMICOLON
 declStmt ::= dataType IDENTIFIER (ASSIGN assignExpr)?
-exprStmt ::= assignExpr
 specifierLst ::= specifier+
 specifier ::= CONST | SIGNED | UNSIGNED | INLINE | PUBLIC | HEAP | COMPOSE
 modAttr ::= MOD_ATTR_PREAMBLE LBRACKET attrLst RBRACKET
@@ -87,7 +86,7 @@ lenCall ::= LEN LPAREN assignExpr RPAREN
 panicCall ::= PANIC LPAREN assignExpr RPAREN
 
 // Expression loop
-assignExpr ::= ternaryExpr | prefixUnaryExpr assignOp assignExpr
+assignExpr ::= prefixUnaryExpr assignOp assignExpr | ternaryExpr
 ternaryExpr ::= logicalOrExpr (QUESTION_MARK logicalOrExpr? COLON logicalOrExpr)?
 logicalOrExpr ::= logicalAndExpr (LOGICAL_OR logicalAndExpr)*
 logicalAndExpr ::= bitwiseOrExpr (LOGICAL_AND bitwiseOrExpr)*

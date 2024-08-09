@@ -43,7 +43,6 @@ public interface SpiceTypes {
   IElementType ENUM_ITEM = new SpiceElementType("ENUM_ITEM");
   IElementType ENUM_ITEM_LST = new SpiceElementType("ENUM_ITEM_LST");
   IElementType EQUALITY_EXPR = new SpiceElementType("EQUALITY_EXPR");
-  IElementType EXPR_STMT = new SpiceElementType("EXPR_STMT");
   IElementType EXT_DECL = new SpiceElementType("EXT_DECL");
   IElementType FALLTHROUGH_STMT = new SpiceElementType("FALLTHROUGH_STMT");
   IElementType FIELD = new SpiceElementType("FIELD");
@@ -316,9 +315,6 @@ public interface SpiceTypes {
       }
       else if (type == EQUALITY_EXPR) {
         return new SpiceEqualityExprImpl(node);
-      }
-      else if (type == EXPR_STMT) {
-        return new SpiceExprStmtImpl(node);
       }
       else if (type == EXT_DECL) {
         return new SpiceExtDeclImpl(node);

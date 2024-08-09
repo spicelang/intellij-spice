@@ -217,20 +217,20 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ternaryExpr | prefixUnaryExpr assignOp assignExpr
+  // prefixUnaryExpr assignOp assignExpr | ternaryExpr
   public static boolean assignExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ASSIGN_EXPR, "<assign expr>");
-    r = ternaryExpr(b, l + 1);
-    if (!r) r = assignExpr_1(b, l + 1);
+    r = assignExpr_0(b, l + 1);
+    if (!r) r = ternaryExpr(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // prefixUnaryExpr assignOp assignExpr
-  private static boolean assignExpr_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "assignExpr_1")) return false;
+  private static boolean assignExpr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "assignExpr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = prefixUnaryExpr(b, l + 1);
@@ -1095,17 +1095,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     boolean r;
     r = consumeToken(b, EQUAL);
     if (!r) r = consumeToken(b, NOT_EQUAL);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // assignExpr
-  public static boolean exprStmt(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "exprStmt")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, EXPR_STMT, "<expr stmt>");
-    r = assignExpr(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -2613,7 +2602,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt) SEMICOLON
+  // (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt) SEMICOLON
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
@@ -2624,7 +2613,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt
+  // declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt
   private static boolean stmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt_0")) return false;
     boolean r;
@@ -2634,7 +2623,6 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = breakStmt(b, l + 1);
     if (!r) r = continueStmt(b, l + 1);
     if (!r) r = fallthroughStmt(b, l + 1);
-    if (!r) r = exprStmt(b, l + 1);
     return r;
   }
 
