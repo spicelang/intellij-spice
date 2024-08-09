@@ -29,6 +29,12 @@ public class SpiceStmtImpl extends ASTWrapperPsiElement implements SpiceStmt {
 
   @Override
   @Nullable
+  public SpiceAssignExpr getAssignExpr() {
+    return findChildByClass(SpiceAssignExpr.class);
+  }
+
+  @Override
+  @Nullable
   public SpiceBreakStmt getBreakStmt() {
     return findChildByClass(SpiceBreakStmt.class);
   }

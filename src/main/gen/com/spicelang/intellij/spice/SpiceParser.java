@@ -2613,7 +2613,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (declStmt | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt) SEMICOLON
+  // (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt) SEMICOLON
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
@@ -2624,11 +2624,12 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // declStmt | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt
+  // declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt | exprStmt
   private static boolean stmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt_0")) return false;
     boolean r;
     r = declStmt(b, l + 1);
+    if (!r) r = assignExpr(b, l + 1);
     if (!r) r = returnStmt(b, l + 1);
     if (!r) r = breakStmt(b, l + 1);
     if (!r) r = continueStmt(b, l + 1);
