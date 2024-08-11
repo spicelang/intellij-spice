@@ -564,7 +564,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | alignOfCall | lenCall | panicCall
+  // printfCall | sizeOfCall | alignOfCall | lenCall | panicCall | sysCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
@@ -574,6 +574,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = alignOfCall(b, l + 1);
     if (!r) r = lenCall(b, l + 1);
     if (!r) r = panicCall(b, l + 1);
+    if (!r) r = sysCall(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2846,6 +2847,43 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "switchStmt_4")) return false;
     defaultBranch(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // SYSCALL LPAREN assignExpr (COMMA assignExpr)* RPAREN
+  public static boolean sysCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sysCall")) return false;
+    if (!nextTokenIs(b, SYSCALL)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, SYSCALL, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && sysCall_3(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, SYS_CALL, r);
+    return r;
+  }
+
+  // (COMMA assignExpr)*
+  private static boolean sysCall_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sysCall_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!sysCall_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "sysCall_3", c)) break;
+    }
+    return true;
+  }
+
+  // COMMA assignExpr
+  private static boolean sysCall_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sysCall_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && assignExpr(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

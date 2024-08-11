@@ -83,7 +83,6 @@ enum                                              { return SpiceTypes.ENUM; }
 operator                                          { return SpiceTypes.OPERATOR; }
 alias                                             { return SpiceTypes.ALIAS; }
 unsafe                                            { return SpiceTypes.UNSAFE; }
-//new                                               { return SpiceTypes.NEW; }
 nil                                               { return SpiceTypes.NIL; }
 main                                              { return SpiceTypes.MAIN; }
 printf                                            { return SpiceTypes.PRINTF; }
@@ -91,6 +90,7 @@ sizeof                                            { return SpiceTypes.SIZEOF; }
 alignof                                           { return SpiceTypes.ALIGNOF; }
 len                                               { return SpiceTypes.LEN; }
 panic                                             { return SpiceTypes.PANIC; }
+syscall                                           { return SpiceTypes.SYSCALL; }
 ext                                               { return SpiceTypes.EXT; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }

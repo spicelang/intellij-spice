@@ -57,4 +57,10 @@ public class SpiceBuiltinCallImpl extends ASTWrapperPsiElement implements SpiceB
     return findChildByClass(SpiceSizeOfCall.class);
   }
 
+  @Override
+  @Nullable
+  public SpiceSysCall getSysCall() {
+    return findChildByClass(SpiceSysCall.class);
+  }
+
 }
