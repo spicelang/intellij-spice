@@ -335,6 +335,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitSysCall(@NotNull SpiceSysCall o) {
+    visitPsiElement(o);
+  }
+
   public void visitTernaryExpr(@NotNull SpiceTernaryExpr o) {
     visitPsiElement(o);
   }

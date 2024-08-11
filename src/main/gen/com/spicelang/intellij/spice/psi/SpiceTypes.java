@@ -90,6 +90,7 @@ public interface SpiceTypes {
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
   IElementType STRUCT_INSTANTIATION = new SpiceElementType("STRUCT_INSTANTIATION");
   IElementType SWITCH_STMT = new SpiceElementType("SWITCH_STMT");
+  IElementType SYS_CALL = new SpiceElementType("SYS_CALL");
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType TOP_LEVEL_DEF_ATTR = new SpiceElementType("TOP_LEVEL_DEF_ATTR");
   IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
@@ -190,6 +191,7 @@ public interface SpiceTypes {
   IElementType STRING_LIT = new SpiceTokenType("STRING_LIT");
   IElementType STRUCT = new SpiceTokenType("STRUCT");
   IElementType SWITCH = new SpiceTokenType("SWITCH");
+  IElementType SYSCALL = new SpiceTokenType("SYSCALL");
   IElementType TOPLEVEL_ATTR_PREAMBLE = new SpiceTokenType("TOPLEVEL_ATTR_PREAMBLE");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
@@ -456,6 +458,9 @@ public interface SpiceTypes {
       }
       else if (type == SWITCH_STMT) {
         return new SpiceSwitchStmtImpl(node);
+      }
+      else if (type == SYS_CALL) {
+        return new SpiceSysCallImpl(node);
       }
       else if (type == TERNARY_EXPR) {
         return new SpiceTernaryExprImpl(node);
