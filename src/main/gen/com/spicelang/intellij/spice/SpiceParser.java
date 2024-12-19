@@ -1100,6 +1100,17 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // assignExpr
+  public static boolean exprStmt(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "exprStmt")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, EXPR_STMT, "<expr stmt>");
+    r = assignExpr(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
@@ -2603,7 +2614,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt) SEMICOLON
+  // (declStmt | exprStmt | returnStmt | breakStmt | continueStmt | fallthroughStmt) SEMICOLON
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
@@ -2614,12 +2625,12 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // declStmt | assignExpr | returnStmt | breakStmt | continueStmt | fallthroughStmt
+  // declStmt | exprStmt | returnStmt | breakStmt | continueStmt | fallthroughStmt
   private static boolean stmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt_0")) return false;
     boolean r;
     r = declStmt(b, l + 1);
-    if (!r) r = assignExpr(b, l + 1);
+    if (!r) r = exprStmt(b, l + 1);
     if (!r) r = returnStmt(b, l + 1);
     if (!r) r = breakStmt(b, l + 1);
     if (!r) r = continueStmt(b, l + 1);

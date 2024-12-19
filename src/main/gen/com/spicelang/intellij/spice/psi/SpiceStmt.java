@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SpiceStmt extends PsiElement {
 
   @Nullable
-  SpiceAssignExpr getAssignExpr();
-
-  @Nullable
   SpiceBreakStmt getBreakStmt();
 
   @Nullable
@@ -18,6 +15,9 @@ public interface SpiceStmt extends PsiElement {
 
   @Nullable
   SpiceDeclStmt getDeclStmt();
+
+  @Nullable
+  SpiceExprStmt getExprStmt();
 
   @Nullable
   SpiceFallthroughStmt getFallthroughStmt();
