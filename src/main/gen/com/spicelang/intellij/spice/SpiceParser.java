@@ -2061,7 +2061,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PLUS | MINUS | MUL | DIV | EQUAL | NOT_EQUAL | LESS LESS | GREATER GREATER | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | PLUS_PLUS | MINUS_MINUS
+  // PLUS | MINUS | MUL | DIV | EQUAL | NOT_EQUAL | LESS LESS | GREATER GREATER | PLUS_EQUAL | MINUS_EQUAL | MUL_EQUAL | DIV_EQUAL | PLUS_PLUS | MINUS_MINUS | LBRACKET RBRACKET
   public static boolean overloadableOp(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "overloadableOp")) return false;
     boolean r;
@@ -2080,6 +2080,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, DIV_EQUAL);
     if (!r) r = consumeToken(b, PLUS_PLUS);
     if (!r) r = consumeToken(b, MINUS_MINUS);
+    if (!r) r = parseTokens(b, 0, LBRACKET, RBRACKET);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
