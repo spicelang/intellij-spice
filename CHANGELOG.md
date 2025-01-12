@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.0.7]
+- Support IntelliJ 2024.3
+
+## [1.0.7]
+- Support IntelliJ 2024.1
+
 ## [1.0.5]
 - Add new logo
 - Introduce new keywords
