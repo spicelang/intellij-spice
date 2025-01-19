@@ -2398,7 +2398,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // additiveExpr ((LESS LESS | GREATER GREATER) additiveExpr)?
+  // additiveExpr ((LESS LESS | GREATER GREATER) additiveExpr)*
   public static boolean shiftExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr")) return false;
     boolean r;
@@ -2409,10 +2409,14 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ((LESS LESS | GREATER GREATER) additiveExpr)?
+  // ((LESS LESS | GREATER GREATER) additiveExpr)*
   private static boolean shiftExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "shiftExpr_1")) return false;
-    shiftExpr_1_0(b, l + 1);
+    while (true) {
+      int c = current_position_(b);
+      if (!shiftExpr_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "shiftExpr_1", c)) break;
+    }
     return true;
   }
 
