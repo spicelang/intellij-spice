@@ -100,37 +100,49 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ALIGNOF LPAREN (assignExpr | TYPE dataType) RPAREN
+  // ALIGNOF (LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN)
   public static boolean alignOfCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "alignOfCall")) return false;
     if (!nextTokenIs(b, ALIGNOF)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ALIGNOF, LPAREN);
-    r = r && alignOfCall_2(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
+    r = consumeToken(b, ALIGNOF);
+    r = r && alignOfCall_1(b, l + 1);
     exit_section_(b, m, ALIGN_OF_CALL, r);
     return r;
   }
 
-  // assignExpr | TYPE dataType
-  private static boolean alignOfCall_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alignOfCall_2")) return false;
+  // LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN
+  private static boolean alignOfCall_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = assignExpr(b, l + 1);
-    if (!r) r = alignOfCall_2_1(b, l + 1);
+    r = alignOfCall_1_0(b, l + 1);
+    if (!r) r = alignOfCall_1_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // TYPE dataType
-  private static boolean alignOfCall_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "alignOfCall_2_1")) return false;
+  // LPAREN assignExpr RPAREN
+  private static boolean alignOfCall_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, TYPE);
+    r = consumeToken(b, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LESS dataType GREATER LPAREN RPAREN
+  private static boolean alignOfCall_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "alignOfCall_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
     r = r && dataType(b, l + 1);
+    r = r && consumeTokens(b, 0, GREATER, LPAREN, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
