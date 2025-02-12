@@ -2516,37 +2516,49 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // SIZEOF LPAREN (assignExpr | TYPE dataType) RPAREN
+  // SIZEOF (LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN)
   public static boolean sizeOfCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sizeOfCall")) return false;
     if (!nextTokenIs(b, SIZEOF)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, SIZEOF, LPAREN);
-    r = r && sizeOfCall_2(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
+    r = consumeToken(b, SIZEOF);
+    r = r && sizeOfCall_1(b, l + 1);
     exit_section_(b, m, SIZE_OF_CALL, r);
     return r;
   }
 
-  // assignExpr | TYPE dataType
-  private static boolean sizeOfCall_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "sizeOfCall_2")) return false;
+  // LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN
+  private static boolean sizeOfCall_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sizeOfCall_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = assignExpr(b, l + 1);
-    if (!r) r = sizeOfCall_2_1(b, l + 1);
+    r = sizeOfCall_1_0(b, l + 1);
+    if (!r) r = sizeOfCall_1_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // TYPE dataType
-  private static boolean sizeOfCall_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "sizeOfCall_2_1")) return false;
+  // LPAREN assignExpr RPAREN
+  private static boolean sizeOfCall_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sizeOfCall_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, TYPE);
+    r = consumeToken(b, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LESS dataType GREATER LPAREN RPAREN
+  private static boolean sizeOfCall_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sizeOfCall_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
     r = r && dataType(b, l + 1);
+    r = r && consumeTokens(b, 0, GREATER, LPAREN, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
