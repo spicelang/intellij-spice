@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright (c) 2022-2024 ChilliBits. All rights reserved.
+# Copyright (c) 2022-2025 ChilliBits. All rights reserved.
 #
 
 ##############################################################################
