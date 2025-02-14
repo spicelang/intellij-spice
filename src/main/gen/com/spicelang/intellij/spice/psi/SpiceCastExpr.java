@@ -8,9 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface SpiceCastExpr extends PsiElement {
 
   @Nullable
+  SpiceAssignExpr getAssignExpr();
+
+  @Nullable
   SpiceDataType getDataType();
 
-  @NotNull
+  @Nullable
   SpicePrefixUnaryExpr getPrefixUnaryExpr();
 
 }
