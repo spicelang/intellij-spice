@@ -692,26 +692,27 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LPAREN dataType RPAREN prefixUnaryExpr | prefixUnaryExpr
+  // prefixUnaryExpr | CAST LESS dataType GREATER LPAREN assignExpr RPAREN
   public static boolean castExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "castExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CAST_EXPR, "<cast expr>");
-    r = castExpr_0(b, l + 1);
-    if (!r) r = prefixUnaryExpr(b, l + 1);
+    r = prefixUnaryExpr(b, l + 1);
+    if (!r) r = castExpr_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // LPAREN dataType RPAREN prefixUnaryExpr
-  private static boolean castExpr_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "castExpr_0")) return false;
+  // CAST LESS dataType GREATER LPAREN assignExpr RPAREN
+  private static boolean castExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "castExpr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LPAREN);
+    r = consumeTokens(b, 0, CAST, LESS);
     r = r && dataType(b, l + 1);
+    r = r && consumeTokens(b, 0, GREATER, LPAREN);
+    r = r && assignExpr(b, l + 1);
     r = r && consumeToken(b, RPAREN);
-    r = r && prefixUnaryExpr(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }

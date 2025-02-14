@@ -114,6 +114,7 @@ public interface SpiceTypes {
   IElementType BLOCK_COMMENT = new SpiceTokenType("BLOCK_COMMENT");
   IElementType BREAK = new SpiceTokenType("BREAK");
   IElementType CASE = new SpiceTokenType("CASE");
+  IElementType CAST = new SpiceTokenType("CAST");
   IElementType CHAR_LIT = new SpiceTokenType("CHAR_LIT");
   IElementType COLON = new SpiceTokenType("COLON");
   IElementType COMMA = new SpiceTokenType("COMMA");

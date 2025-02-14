@@ -91,6 +91,7 @@ alignof                                           { return SpiceTypes.ALIGNOF; }
 len                                               { return SpiceTypes.LEN; }
 panic                                             { return SpiceTypes.PANIC; }
 syscall                                           { return SpiceTypes.SYSCALL; }
+cast                                              { return SpiceTypes.CAST; }
 ext                                               { return SpiceTypes.EXT; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
