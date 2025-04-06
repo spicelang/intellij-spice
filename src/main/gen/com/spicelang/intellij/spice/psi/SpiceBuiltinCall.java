@@ -25,4 +25,7 @@ public interface SpiceBuiltinCall extends PsiElement {
   @Nullable
   SpiceSysCall getSysCall();
 
+  @Nullable
+  SpiceTypeIdCall getTypeIdCall();
+
 }

@@ -117,6 +117,7 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.PRINTF)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.SIZEOF)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.ALIGNOF)) return BUILTIN_KEY;
+        if (tokenType.equals(SpiceTypes.TYPEID)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.LEN)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.PANIC)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.SYSCALL)) return BUILTIN_KEY;

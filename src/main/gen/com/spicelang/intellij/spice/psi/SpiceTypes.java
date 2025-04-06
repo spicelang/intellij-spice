@@ -95,6 +95,7 @@ public interface SpiceTypes {
   IElementType TERNARY_EXPR = new SpiceElementType("TERNARY_EXPR");
   IElementType TOP_LEVEL_DEF_ATTR = new SpiceElementType("TOP_LEVEL_DEF_ATTR");
   IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
+  IElementType TYPE_ID_CALL = new SpiceElementType("TYPE_ID_CALL");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType UNSAFE_BLOCK = new SpiceElementType("UNSAFE_BLOCK");
   IElementType VALUE = new SpiceElementType("VALUE");
@@ -197,6 +198,7 @@ public interface SpiceTypes {
   IElementType TOPLEVEL_ATTR_PREAMBLE = new SpiceTokenType("TOPLEVEL_ATTR_PREAMBLE");
   IElementType TRUE = new SpiceTokenType("TRUE");
   IElementType TYPE = new SpiceTokenType("TYPE");
+  IElementType TYPEID = new SpiceTokenType("TYPEID");
   IElementType TYPE_BOOL = new SpiceTokenType("TYPE_BOOL");
   IElementType TYPE_BYTE = new SpiceTokenType("TYPE_BYTE");
   IElementType TYPE_CHAR = new SpiceTokenType("TYPE_CHAR");
@@ -475,6 +477,9 @@ public interface SpiceTypes {
       }
       else if (type == TYPE_ALTS_LST) {
         return new SpiceTypeAltsLstImpl(node);
+      }
+      else if (type == TYPE_ID_CALL) {
+        return new SpiceTypeIdCallImpl(node);
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);

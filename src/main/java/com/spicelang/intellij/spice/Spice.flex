@@ -88,6 +88,7 @@ main                                              { return SpiceTypes.MAIN; }
 printf                                            { return SpiceTypes.PRINTF; }
 sizeof                                            { return SpiceTypes.SIZEOF; }
 alignof                                           { return SpiceTypes.ALIGNOF; }
+typeid                                            { return SpiceTypes.TYPEID; }
 len                                               { return SpiceTypes.LEN; }
 panic                                             { return SpiceTypes.PANIC; }
 syscall                                           { return SpiceTypes.SYSCALL; }
