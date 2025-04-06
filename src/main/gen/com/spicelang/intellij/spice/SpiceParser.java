@@ -576,7 +576,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // printfCall | sizeOfCall | alignOfCall | lenCall | panicCall | sysCall
+  // printfCall | sizeOfCall | alignOfCall | typeIdCall | lenCall | panicCall | sysCall
   public static boolean builtinCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "builtinCall")) return false;
     boolean r;
@@ -584,6 +584,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = printfCall(b, l + 1);
     if (!r) r = sizeOfCall(b, l + 1);
     if (!r) r = alignOfCall(b, l + 1);
+    if (!r) r = typeIdCall(b, l + 1);
     if (!r) r = lenCall(b, l + 1);
     if (!r) r = panicCall(b, l + 1);
     if (!r) r = sysCall(b, l + 1);
@@ -3010,6 +3011,54 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, BITWISE_OR);
     r = r && dataType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TYPEID (LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN)
+  public static boolean typeIdCall(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeIdCall")) return false;
+    if (!nextTokenIs(b, TYPEID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TYPEID);
+    r = r && typeIdCall_1(b, l + 1);
+    exit_section_(b, m, TYPE_ID_CALL, r);
+    return r;
+  }
+
+  // LPAREN assignExpr RPAREN | LESS dataType GREATER LPAREN RPAREN
+  private static boolean typeIdCall_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeIdCall_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = typeIdCall_1_0(b, l + 1);
+    if (!r) r = typeIdCall_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LPAREN assignExpr RPAREN
+  private static boolean typeIdCall_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeIdCall_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && assignExpr(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // LESS dataType GREATER LPAREN RPAREN
+  private static boolean typeIdCall_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeIdCall_1_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
+    r = r && dataType(b, l + 1);
+    r = r && consumeTokens(b, 0, GREATER, LPAREN, RPAREN);
     exit_section_(b, m, null, r);
     return r;
   }
