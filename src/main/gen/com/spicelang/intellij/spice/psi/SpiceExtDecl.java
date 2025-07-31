@@ -14,6 +14,6 @@ public interface SpiceExtDecl extends PsiElement {
   SpiceTopLevelDefAttr getTopLevelDefAttr();
 
   @Nullable
-  SpiceTypeLst getTypeLst();
+  SpiceTypeLstWithEllipsis getTypeLstWithEllipsis();
 
 }

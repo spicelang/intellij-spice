@@ -1125,7 +1125,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN (typeLst ELLIPSIS?)? RPAREN SEMICOLON
+  // topLevelDefAttr? EXT (F LESS dataType GREATER | P) (IDENTIFIER | TYPE_IDENTIFIER) LPAREN typeLstWithEllipsis? RPAREN SEMICOLON
   public static boolean extDecl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl")) return false;
     if (!nextTokenIs(b, "<ext decl>", EXT, TOPLEVEL_ATTR_PREAMBLE)) return false;
@@ -1181,28 +1181,10 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (typeLst ELLIPSIS?)?
+  // typeLstWithEllipsis?
   private static boolean extDecl_5(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extDecl_5")) return false;
-    extDecl_5_0(b, l + 1);
-    return true;
-  }
-
-  // typeLst ELLIPSIS?
-  private static boolean extDecl_5_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "extDecl_5_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = typeLst(b, l + 1);
-    r = r && extDecl_5_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ELLIPSIS?
-  private static boolean extDecl_5_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "extDecl_5_0_1")) return false;
-    consumeToken(b, ELLIPSIS);
+    typeLstWithEllipsis(b, l + 1);
     return true;
   }
 
@@ -3093,6 +3075,35 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, COMMA);
     r = r && dataType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // typeLst (COMMA ELLIPSIS)?
+  public static boolean typeLstWithEllipsis(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeLstWithEllipsis")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, TYPE_LST_WITH_ELLIPSIS, "<type lst with ellipsis>");
+    r = typeLst(b, l + 1);
+    r = r && typeLstWithEllipsis_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (COMMA ELLIPSIS)?
+  private static boolean typeLstWithEllipsis_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeLstWithEllipsis_1")) return false;
+    typeLstWithEllipsis_1_0(b, l + 1);
+    return true;
+  }
+
+  // COMMA ELLIPSIS
+  private static boolean typeLstWithEllipsis_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeLstWithEllipsis_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, COMMA, ELLIPSIS);
     exit_section_(b, m, null, r);
     return r;
   }

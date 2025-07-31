@@ -97,6 +97,7 @@ public interface SpiceTypes {
   IElementType TYPE_ALTS_LST = new SpiceElementType("TYPE_ALTS_LST");
   IElementType TYPE_ID_CALL = new SpiceElementType("TYPE_ID_CALL");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
+  IElementType TYPE_LST_WITH_ELLIPSIS = new SpiceElementType("TYPE_LST_WITH_ELLIPSIS");
   IElementType UNSAFE_BLOCK = new SpiceElementType("UNSAFE_BLOCK");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -483,6 +484,9 @@ public interface SpiceTypes {
       }
       else if (type == TYPE_LST) {
         return new SpiceTypeLstImpl(node);
+      }
+      else if (type == TYPE_LST_WITH_ELLIPSIS) {
+        return new SpiceTypeLstWithEllipsisImpl(node);
       }
       else if (type == UNSAFE_BLOCK) {
         return new SpiceUnsafeBlockImpl(node);

@@ -363,6 +363,10 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTypeLstWithEllipsis(@NotNull SpiceTypeLstWithEllipsis o) {
+    visitPsiElement(o);
+  }
+
   public void visitUnsafeBlock(@NotNull SpiceUnsafeBlock o) {
     visitPsiElement(o);
   }
