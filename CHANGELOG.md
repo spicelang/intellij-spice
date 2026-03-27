@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.0.11]
+- Support IntelliJ 2026.1
+
+## [1.0.10]
+- Support IntelliJ 2025.3
+
 ## [1.0.9]
 - Support IntelliJ 2025.2
 
