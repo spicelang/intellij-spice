@@ -28,7 +28,7 @@ f<T> genericFunc<T>(T arg0, T arg1, int arg2 = 12) {
 }
 
 public f<Number> cos<Number>(Number input, bool precise = false) {
-    Number tp = (Number) (1.0 / (2.0 / cst::PI));
+    Number tp = cast<Number>(1.0 / (2.0 / cst::PI));
     input *= tp;
     input -= .25 + floor(input + .25);
     input *= 16.0 * (abs(input) - .5);
@@ -143,7 +143,7 @@ type File struct {
 }
 
 // Link external functions
-ext f<int> open(string, int...);
+ext f<int> open(string, int, ...);
 ext f<FilePtr*> fopen(string, string);
 ext f<int> fclose(FilePtr*);
 ext f<int> fgetc(FilePtr*);
@@ -202,7 +202,7 @@ f<int> File.readChar() {
  * @return Result code of the write operation: 0 = successful, -1 = failed
  */
 f<int> File.writeChar(char value) {
-    return fputc((int) value, this.filePtr);
+    return fputc(cast<int>(value), this.filePtr);
 }
 
 /**
@@ -223,7 +223,7 @@ f<long> File.getSize() {
     // Remember current cursor position
     long curPos = ftell(this.filePtr);
     // Move the cursor to the end of the file
-    fseek(this.filePtr, (long) 0, SEEK_END);
+    fseek(this.filePtr, 0ul, SEEK_END);
     // Get the cursor position
     long size = ftell(this.filePtr);
     // Move cursor back to the remembered position

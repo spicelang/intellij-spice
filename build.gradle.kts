@@ -5,13 +5,31 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 fun properties(key: String) = project.findProperty(key).toString()
+
+repositories {
+    mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+    intellijPlatform {
+        intellijIdea("2026.1")
+        bundledPlugin("com.intellij.java")
+        testFramework(TestFrameworkType.Platform)
+    }
+
+    testImplementation("junit:junit:4.13.2")
+}
 
 plugins {
     id("java")
     kotlin("jvm") version "2.1.21"
-    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.intellij.platform") version "2.13.1"
     id("org.jetbrains.changelog") version "2.5.0"
 }
 
@@ -27,27 +45,19 @@ repositories {
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-intellij {
+intellijPlatform {
     val platformType = properties("platformType")
-    val platformVersion = when (platformType) {
-        "IU", "IC" -> properties("ideaVersion")
-        "CL"       -> properties("clionVersion")
-        else       -> throw IllegalArgumentException("Unknown IDE type: $type, supported types: IU, IC, CL")
+
+    pluginConfiguration {
+        val platformVersion = when (platformType) {
+            "IU", "IC" -> properties("ideaVersion")
+            "CL"       -> properties("clionVersion")
+            else       -> throw IllegalArgumentException("Unknown IDE type: $platformType, supported types: IU, IC, CL")
+        }
+
+        name.set(properties("pluginName"))
+        version = platformVersion
     }
-
-    pluginName.set(properties("pluginName"))
-    version.set(platformVersion)
-    type.set(platformType)
-
-    val platformPlugins = when (platformType) {
-        "IU" -> properties("ideaPlugins")
-        "IC" -> properties("ideaCommunityPlugins")
-        "CL" -> properties("clionPlugins")
-        else -> throw IllegalArgumentException("Unknown IDE type: $type, supported types: IU, IC, CL")
-    }
-
-    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
-    plugins.set(platformPlugins.split(',').map(String::trim).filter(String::isNotEmpty))
 }
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
@@ -77,7 +87,7 @@ tasks {
     }
 
     patchPluginXml {
-        version.set(properties("pluginVersion"))
+        version = properties("pluginVersion")
         sinceBuild.set(properties("pluginSinceBuild"))
         untilBuild.set(properties("pluginUntilBuild"))
 
