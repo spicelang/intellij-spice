@@ -11,7 +11,7 @@ updates:
     reviewers:
       - spicelang/intellij-extension-team
     assignees:
-      - spicelang/intellij-extension-team
+      - marcauberer
 
   # Github Actions
   - package-ecosystem: github-actions
@@ -25,4 +25,4 @@ updates:
     reviewers:
       - spicelang/intellij-extension-team
     assignees:
-      - spicelang/intellij-extension-team
+      - marcauberer
