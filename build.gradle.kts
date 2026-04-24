@@ -28,7 +28,7 @@ dependencies {
 
 plugins {
     id("java")
-    kotlin("jvm") version "2.3.20"
+    kotlin("jvm") version "2.3.21"
     id("org.jetbrains.intellij.platform") version "2.13.1"
     id("org.jetbrains.changelog") version "2.5.0"
 }
