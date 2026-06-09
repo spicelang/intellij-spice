@@ -51,6 +51,9 @@
         <lang.commenter
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceCommenter"/>
+        <lang.psiStructureViewFactory
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceStructureViewFactory"/>
     </extensions>
 
     <!--<actions></actions>-->
