@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.0.12]
+- Add structure view outlining functions, types and their members
+- Add code folding for blocks, type bodies and comments
+- Add brace matching for `{}`, `()` and `[]`
+- Add automatic indentation after an opening brace
+- Add Go to Symbol and Go to Declaration support
+
 ## [1.0.11]
 - Support IntelliJ 2026.1
 
