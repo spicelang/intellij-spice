@@ -57,6 +57,14 @@
         <lang.foldingBuilder
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceFoldingBuilder"/>
+        <lang.braceMatcher
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceBraceMatcher"/>
+        <lang.formatter
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceFormattingModelBuilder"/>
+        <enterHandlerDelegate
+                implementation="com.spicelang.intellij.spice.SpiceEnterHandler"/>
     </extensions>
 
     <!--<actions></actions>-->
