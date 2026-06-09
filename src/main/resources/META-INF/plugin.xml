@@ -65,6 +65,10 @@
                 implementationClass="com.spicelang.intellij.spice.SpiceFormattingModelBuilder"/>
         <enterHandlerDelegate
                 implementation="com.spicelang.intellij.spice.SpiceEnterHandler"/>
+        <gotoSymbolContributor
+                implementation="com.spicelang.intellij.spice.SpiceChooseByNameContributor"/>
+        <gotoDeclarationHandler
+                implementation="com.spicelang.intellij.spice.SpiceGotoDeclarationHandler"/>
     </extensions>
 
     <!--<actions></actions>-->
