@@ -54,6 +54,9 @@
         <lang.psiStructureViewFactory
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceStructureViewFactory"/>
+        <lang.foldingBuilder
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.SpiceFoldingBuilder"/>
     </extensions>
 
     <!--<actions></actions>-->
