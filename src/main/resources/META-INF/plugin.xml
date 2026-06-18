@@ -69,6 +69,13 @@
                 implementation="com.spicelang.intellij.spice.SpiceChooseByNameContributor"/>
         <gotoDeclarationHandler
                 implementation="com.spicelang.intellij.spice.SpiceGotoDeclarationHandler"/>
+        <configurationType
+                implementation="com.spicelang.intellij.spice.run.SpiceRunConfigurationType"/>
+        <runConfigurationProducer
+                implementation="com.spicelang.intellij.spice.run.SpiceRunConfigurationProducer"/>
+        <runLineMarkerContributor
+                language="Spice"
+                implementationClass="com.spicelang.intellij.spice.run.SpiceRunLineMarkerContributor"/>
     </extensions>
 
     <!--<actions></actions>-->
