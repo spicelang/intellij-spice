@@ -11,20 +11,26 @@ import static com.spicelang.intellij.spice.psi.SpiceTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.spicelang.intellij.spice.psi.*;
 
-public class SpiceSpecifierImpl extends ASTWrapperPsiElement implements SpiceSpecifier {
+public class SpiceQualifierLstImpl extends ASTWrapperPsiElement implements SpiceQualifierLst {
 
-  public SpiceSpecifierImpl(@NotNull ASTNode node) {
+  public SpiceQualifierLstImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SpiceVisitor visitor) {
-    visitor.visitSpecifier(this);
+    visitor.visitQualifierLst(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SpiceVisitor) accept((SpiceVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<SpiceQualifier> getQualifierList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceQualifier.class);
   }
 
 }

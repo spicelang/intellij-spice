@@ -28,15 +28,15 @@ public class SpiceInterfaceDefImpl extends ASTWrapperPsiElement implements Spice
   }
 
   @Override
-  @NotNull
-  public List<SpiceSignature> getSignatureList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceSignature.class);
+  @Nullable
+  public SpiceQualifierLst getQualifierLst() {
+    return findChildByClass(SpiceQualifierLst.class);
   }
 
   @Override
-  @Nullable
-  public SpiceSpecifierLst getSpecifierLst() {
-    return findChildByClass(SpiceSpecifierLst.class);
+  @NotNull
+  public List<SpiceSignature> getSignatureList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SpiceSignature.class);
   }
 
   @Override

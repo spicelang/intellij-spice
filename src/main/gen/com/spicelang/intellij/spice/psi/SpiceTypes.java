@@ -49,6 +49,7 @@ public interface SpiceTypes {
   IElementType FIELD = new SpiceElementType("FIELD");
   IElementType FOREACH_HEAD = new SpiceElementType("FOREACH_HEAD");
   IElementType FOREACH_LOOP = new SpiceElementType("FOREACH_LOOP");
+  IElementType FORWARD_DECL = new SpiceElementType("FORWARD_DECL");
   IElementType FOR_HEAD = new SpiceElementType("FOR_HEAD");
   IElementType FOR_LOOP = new SpiceElementType("FOR_LOOP");
   IElementType FUNCTION_CALL = new SpiceElementType("FUNCTION_CALL");
@@ -79,13 +80,13 @@ public interface SpiceTypes {
   IElementType PREFIX_UNARY_EXPR = new SpiceElementType("PREFIX_UNARY_EXPR");
   IElementType PRINTF_CALL = new SpiceElementType("PRINTF_CALL");
   IElementType PROCEDURE_DEF = new SpiceElementType("PROCEDURE_DEF");
+  IElementType QUALIFIER = new SpiceElementType("QUALIFIER");
+  IElementType QUALIFIER_LST = new SpiceElementType("QUALIFIER_LST");
   IElementType RELATIONAL_EXPR = new SpiceElementType("RELATIONAL_EXPR");
   IElementType RETURN_STMT = new SpiceElementType("RETURN_STMT");
   IElementType SHIFT_EXPR = new SpiceElementType("SHIFT_EXPR");
   IElementType SIGNATURE = new SpiceElementType("SIGNATURE");
   IElementType SIZE_OF_CALL = new SpiceElementType("SIZE_OF_CALL");
-  IElementType SPECIFIER = new SpiceElementType("SPECIFIER");
-  IElementType SPECIFIER_LST = new SpiceElementType("SPECIFIER_LST");
   IElementType STMT = new SpiceElementType("STMT");
   IElementType STMT_LST = new SpiceElementType("STMT_LST");
   IElementType STRUCT_DEF = new SpiceElementType("STRUCT_DEF");
@@ -140,6 +141,7 @@ public interface SpiceTypes {
   IElementType FALSE = new SpiceTokenType("FALSE");
   IElementType FOR = new SpiceTokenType("FOR");
   IElementType FOREACH = new SpiceTokenType("FOREACH");
+  IElementType FORWARD = new SpiceTokenType("FORWARD");
   IElementType GREATER = new SpiceTokenType("GREATER");
   IElementType GREATER_EQUAL = new SpiceTokenType("GREATER_EQUAL");
   IElementType HEAP = new SpiceTokenType("HEAP");
@@ -341,6 +343,9 @@ public interface SpiceTypes {
       else if (type == FOREACH_LOOP) {
         return new SpiceForeachLoopImpl(node);
       }
+      else if (type == FORWARD_DECL) {
+        return new SpiceForwardDeclImpl(node);
+      }
       else if (type == FOR_HEAD) {
         return new SpiceForHeadImpl(node);
       }
@@ -431,6 +436,12 @@ public interface SpiceTypes {
       else if (type == PROCEDURE_DEF) {
         return new SpiceProcedureDefImpl(node);
       }
+      else if (type == QUALIFIER) {
+        return new SpiceQualifierImpl(node);
+      }
+      else if (type == QUALIFIER_LST) {
+        return new SpiceQualifierLstImpl(node);
+      }
       else if (type == RELATIONAL_EXPR) {
         return new SpiceRelationalExprImpl(node);
       }
@@ -445,12 +456,6 @@ public interface SpiceTypes {
       }
       else if (type == SIZE_OF_CALL) {
         return new SpiceSizeOfCallImpl(node);
-      }
-      else if (type == SPECIFIER) {
-        return new SpiceSpecifierImpl(node);
-      }
-      else if (type == SPECIFIER_LST) {
-        return new SpiceSpecifierLstImpl(node);
       }
       else if (type == STMT) {
         return new SpiceStmtImpl(node);

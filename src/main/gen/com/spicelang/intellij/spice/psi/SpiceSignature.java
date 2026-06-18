@@ -11,7 +11,7 @@ public interface SpiceSignature extends PsiElement {
   SpiceDataType getDataType();
 
   @Nullable
-  SpiceSpecifierLst getSpecifierLst();
+  SpiceQualifierLst getQualifierLst();
 
   @NotNull
   List<SpiceTypeLst> getTypeLstList();

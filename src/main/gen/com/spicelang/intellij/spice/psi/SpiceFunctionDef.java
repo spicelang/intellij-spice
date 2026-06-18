@@ -17,7 +17,7 @@ public interface SpiceFunctionDef extends PsiElement {
   SpiceParamLst getParamLst();
 
   @Nullable
-  SpiceSpecifierLst getSpecifierLst();
+  SpiceQualifierLst getQualifierLst();
 
   @NotNull
   SpiceStmtLst getStmtLst();
