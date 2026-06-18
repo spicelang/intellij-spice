@@ -92,6 +92,7 @@ panic                                             { return SpiceTypes.PANIC; }
 syscall                                           { return SpiceTypes.SYSCALL; }
 cast                                              { return SpiceTypes.CAST; }
 ext                                               { return SpiceTypes.EXT; }
+forward                                           { return SpiceTypes.FORWARD; }
 true                                              { return SpiceTypes.TRUE; }
 false                                             { return SpiceTypes.FALSE; }
 {IDENTIFIER}                                      { return SpiceTypes.IDENTIFIER; }

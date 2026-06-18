@@ -35,8 +35,8 @@ public class SpiceSignatureImpl extends ASTWrapperPsiElement implements SpiceSig
 
   @Override
   @Nullable
-  public SpiceSpecifierLst getSpecifierLst() {
-    return findChildByClass(SpiceSpecifierLst.class);
+  public SpiceQualifierLst getQualifierLst() {
+    return findChildByClass(SpiceQualifierLst.class);
   }
 
   @Override
