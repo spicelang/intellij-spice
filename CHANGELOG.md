@@ -1,6 +1,8 @@
 # IntelliJ Spice Changelog
 
 ## [Unreleased]
+- Add run configuration to compile and run a Spice program via the `spice` CLI
+- Allow setting environment variables in Spice run configurations
 
 ## [1.0.12]
 - Add structure view outlining functions, types and their members
