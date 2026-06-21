@@ -33,6 +33,6 @@ public class SpiceRunLineMarkerContributor extends RunLineMarkerContributor {
 
         AnAction[] actions = ExecutorAction.getActions(0);
         return new Info(AllIcons.RunConfigurations.TestState.Run, actions,
-                e -> "Run Spice program");
+                e -> "Run or debug Spice program");
     }
 }

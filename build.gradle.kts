@@ -18,8 +18,21 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        intellijIdea("2026.1")
-        bundledPlugin("com.intellij.java")
+        when (val platformType = properties("platformType")) {
+            "IU", "IC" -> {
+                create(platformType, properties("ideaVersion"))
+                bundledPlugin("com.intellij.java")
+                // Native debugger is not bundled in IDEA; pull it from the Marketplace so the
+                // GDB debugging feature compiles and is available when running there.
+                plugin("com.intellij.nativeDebug", properties("nativeDebugVersion"))
+            }
+            "CL" -> {
+                create(platformType, properties("clionVersion"))
+                // The native (GDB/LLDB) debugger is bundled with CLion.
+                bundledPlugin("com.intellij.nativeDebug")
+            }
+            else -> throw IllegalArgumentException("Unknown IDE type: $platformType, supported types: IU, IC, CL")
+        }
         testFramework(TestFrameworkType.Platform)
     }
 

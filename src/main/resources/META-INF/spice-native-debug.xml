@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (c) 2022-2026 ChilliBits. All rights reserved.
+  -->
+
+<!--
+  Optional module: only loaded when the "Native Debugging Support" plugin
+  (com.intellij.modules.nativeDebug) is present, e.g. in CLion. It contributes a
+  "Spice (Native)" run/debug configuration that builds a Spice executable with
+  debug info and drives it with GDB, just like a C/C++ program.
+-->
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <configurationType
+                implementation="com.spicelang.intellij.spice.debug.SpiceDebugRunConfigurationType"/>
+        <programRunner
+                implementation="com.spicelang.intellij.spice.debug.SpiceCidrRunner"/>
+        <runConfigurationProducer
+                implementation="com.spicelang.intellij.spice.debug.SpiceDebugRunConfigurationProducer"/>
+    </extensions>
+
+    <!-- Allow native (GDB) line breakpoints to be placed in Spice files. -->
+    <extensions defaultExtensionNs="cidr.debugger">
+        <lineBreakpointFileTypesProvider
+                implementation="com.spicelang.intellij.spice.debug.SpiceLineBreakpointFileTypesProvider"/>
+    </extensions>
+</idea-plugin>
