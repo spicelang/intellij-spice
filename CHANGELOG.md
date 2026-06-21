@@ -3,6 +3,8 @@
 ## [Unreleased]
 - Add run configuration to compile and run a Spice program via the `spice` CLI
 - Allow setting environment variables in Spice run configurations
+- Add a "Spice (Native)" run/debug configuration that builds with `spice build -g` and debugs the executable with GDB (requires the native debugger, e.g. in CLion)
+- Offer one-click debugging from the `main` gutter icon and the editor context menu
 
 ## [1.0.12]
 - Add structure view outlining functions, types and their members

@@ -23,6 +23,8 @@
     <change-notes>Initial release of the plugin.</change-notes>
 
     <depends>com.intellij.modules.platform</depends>
+    <!-- Native (GDB) debugging support, available in IDEs that bundle the native debugger (e.g. CLion). -->
+    <depends optional="true" config-file="spice-native-debug.xml">com.intellij.modules.nativeDebug</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType
