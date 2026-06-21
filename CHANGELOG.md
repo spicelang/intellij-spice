@@ -1,6 +1,8 @@
 # IntelliJ Spice Changelog
 
 ## [Unreleased]
+
+## [1.0.13]
 - Add run configuration to compile and run a Spice program via the `spice` CLI
 - Allow setting environment variables in Spice run configurations
 - Add a "Spice (Native)" run/debug configuration that builds with `spice build -g` and debugs the executable with GDB (requires the native debugger, e.g. in CLion)
