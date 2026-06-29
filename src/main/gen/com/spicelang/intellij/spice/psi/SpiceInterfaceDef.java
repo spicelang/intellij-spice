@@ -7,11 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public interface SpiceInterfaceDef extends PsiElement {
 
-  @Nullable
-  SpiceQualifierLst getQualifierLst();
-
   @NotNull
   List<SpiceSignature> getSignatureList();
+
+  @Nullable
+  SpiceSpecifierLst getSpecifierLst();
 
   @Nullable
   SpiceTopLevelDefAttr getTopLevelDefAttr();

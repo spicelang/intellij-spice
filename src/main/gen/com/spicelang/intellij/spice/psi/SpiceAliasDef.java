@@ -11,6 +11,6 @@ public interface SpiceAliasDef extends PsiElement {
   SpiceDataType getDataType();
 
   @Nullable
-  SpiceQualifierLst getQualifierLst();
+  SpiceSpecifierLst getSpecifierLst();
 
 }

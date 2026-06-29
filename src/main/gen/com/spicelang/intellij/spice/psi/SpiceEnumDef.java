@@ -11,6 +11,6 @@ public interface SpiceEnumDef extends PsiElement {
   SpiceEnumItemLst getEnumItemLst();
 
   @Nullable
-  SpiceQualifierLst getQualifierLst();
+  SpiceSpecifierLst getSpecifierLst();
 
 }

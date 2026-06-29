@@ -35,8 +35,8 @@ public class SpiceEnumDefImpl extends ASTWrapperPsiElement implements SpiceEnumD
 
   @Override
   @Nullable
-  public SpiceQualifierLst getQualifierLst() {
-    return findChildByClass(SpiceQualifierLst.class);
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
 }

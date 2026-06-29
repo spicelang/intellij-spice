@@ -179,10 +179,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitForwardDecl(@NotNull SpiceForwardDecl o) {
-    visitPsiElement(o);
-  }
-
   public void visitFunctionCall(@NotNull SpiceFunctionCall o) {
     visitPsiElement(o);
   }
@@ -295,14 +291,6 @@ public class SpiceVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitQualifier(@NotNull SpiceQualifier o) {
-    visitPsiElement(o);
-  }
-
-  public void visitQualifierLst(@NotNull SpiceQualifierLst o) {
-    visitPsiElement(o);
-  }
-
   public void visitRelationalExpr(@NotNull SpiceRelationalExpr o) {
     visitPsiElement(o);
   }
@@ -320,6 +308,14 @@ public class SpiceVisitor extends PsiElementVisitor {
   }
 
   public void visitSizeOfCall(@NotNull SpiceSizeOfCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSpecifier(@NotNull SpiceSpecifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSpecifierLst(@NotNull SpiceSpecifierLst o) {
     visitPsiElement(o);
   }
 

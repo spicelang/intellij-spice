@@ -11,7 +11,7 @@ public interface SpiceStructDef extends PsiElement {
   List<SpiceField> getFieldList();
 
   @Nullable
-  SpiceQualifierLst getQualifierLst();
+  SpiceSpecifierLst getSpecifierLst();
 
   @Nullable
   SpiceTopLevelDefAttr getTopLevelDefAttr();
