@@ -35,8 +35,8 @@ public class SpiceAliasDefImpl extends ASTWrapperPsiElement implements SpiceAlia
 
   @Override
   @Nullable
-  public SpiceQualifierLst getQualifierLst() {
-    return findChildByClass(SpiceQualifierLst.class);
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
 }

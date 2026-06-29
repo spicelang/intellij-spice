@@ -123,7 +123,6 @@ public class SpiceSyntaxHighlighter extends SyntaxHighlighterBase {
         if (tokenType.equals(SpiceTypes.SYSCALL)) return BUILTIN_KEY;
         if (tokenType.equals(SpiceTypes.CAST)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.EXT)) return KEYWORD_KEY;
-        if (tokenType.equals(SpiceTypes.FORWARD)) return KEYWORD_KEY;
         if (tokenType.equals(SpiceTypes.TRUE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.FALSE)) return CONSTANT_KEY;
         if (tokenType.equals(SpiceTypes.IDENTIFIER)) return IDENTIFIER_KEY;

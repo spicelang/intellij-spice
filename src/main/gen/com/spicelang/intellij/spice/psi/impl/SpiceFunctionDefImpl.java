@@ -47,8 +47,8 @@ public class SpiceFunctionDefImpl extends ASTWrapperPsiElement implements SpiceF
 
   @Override
   @Nullable
-  public SpiceQualifierLst getQualifierLst() {
-    return findChildByClass(SpiceQualifierLst.class);
+  public SpiceSpecifierLst getSpecifierLst() {
+    return findChildByClass(SpiceSpecifierLst.class);
   }
 
   @Override
