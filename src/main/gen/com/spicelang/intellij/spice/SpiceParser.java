@@ -2131,7 +2131,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
+  // atomicExpr (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr | NOT)*
   public static boolean postfixUnaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr")) return false;
     boolean r;
@@ -2142,7 +2142,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr)*
+  // (LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr | NOT)*
   private static boolean postfixUnaryExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1")) return false;
     while (true) {
@@ -2153,7 +2153,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr
+  // LBRACKET assignExpr RBRACKET | DOT postfixUnaryExpr | PLUS_PLUS | MINUS_MINUS | SCOPE_ACCESS postfixUnaryExpr | NOT
   private static boolean postfixUnaryExpr_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "postfixUnaryExpr_1_0")) return false;
     boolean r;
@@ -2163,6 +2163,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, PLUS_PLUS);
     if (!r) r = consumeToken(b, MINUS_MINUS);
     if (!r) r = postfixUnaryExpr_1_0_4(b, l + 1);
+    if (!r) r = consumeToken(b, NOT);
     exit_section_(b, m, null, r);
     return r;
   }
