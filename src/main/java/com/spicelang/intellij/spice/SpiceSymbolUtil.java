@@ -30,7 +30,7 @@ import java.util.List;
  */
 public final class SpiceSymbolUtil {
 
-    public enum Kind {FUNCTION, PROCEDURE, STRUCT, INTERFACE, ENUM, ENUM_ITEM, FIELD, SIGNATURE, GLOBAL_VAR, ALIAS, GENERIC_TYPE}
+    public enum Kind {FUNCTION, PROCEDURE, STRUCT, INTERFACE, UNION, ENUM, ENUM_ITEM, FIELD, SIGNATURE, GLOBAL_VAR, ALIAS, GENERIC_TYPE}
 
     /** A named declaration: its simple name, the identifier leaf to navigate to, and what kind it is. */
     public static final class Symbol {
@@ -88,6 +88,9 @@ public final class SpiceSymbolUtil {
         for (SpiceInterfaceDef def : PsiTreeUtil.findChildrenOfType(file, SpiceInterfaceDef.class)) {
             addToken(out, def, SpiceTypes.TYPE_IDENTIFIER, Kind.INTERFACE);
         }
+        for (SpiceUnionDef def : PsiTreeUtil.findChildrenOfType(file, SpiceUnionDef.class)) {
+            addToken(out, def, SpiceTypes.TYPE_IDENTIFIER, Kind.UNION);
+        }
         for (SpiceEnumDef def : PsiTreeUtil.findChildrenOfType(file, SpiceEnumDef.class)) {
             addToken(out, def, SpiceTypes.TYPE_IDENTIFIER, Kind.ENUM);
         }
@@ -124,6 +127,7 @@ public final class SpiceSymbolUtil {
             case SIGNATURE -> AllIcons.Nodes.AbstractMethod;
             case STRUCT, ALIAS, GENERIC_TYPE -> AllIcons.Nodes.Class;
             case INTERFACE -> AllIcons.Nodes.Interface;
+            case UNION -> AllIcons.Nodes.Type;
             case ENUM -> AllIcons.Nodes.Enum;
             case ENUM_ITEM -> AllIcons.Nodes.Constant;
             case FIELD -> AllIcons.Nodes.Field;

@@ -37,7 +37,7 @@ public class SpiceFoldingBuilder extends FoldingBuilderEx implements DumbAware {
         if (type == SpiceTypes.STMT_LST) {
             // Function / loop / conditional bodies and anonymous blocks: the element already spans { ... }.
             addDescriptor(node, node.getTextRange(), document, descriptors);
-        } else if (type == SpiceTypes.STRUCT_DEF || type == SpiceTypes.INTERFACE_DEF || type == SpiceTypes.ENUM_DEF) {
+        } else if (type == SpiceTypes.STRUCT_DEF || type == SpiceTypes.INTERFACE_DEF || type == SpiceTypes.UNION_DEF || type == SpiceTypes.ENUM_DEF) {
             // Fold only the brace block, keeping the "type Foo struct" header visible.
             TextRange range = braceRange(node);
             if (range != null) addDescriptor(node, range, document, descriptors);

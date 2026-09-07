@@ -19,7 +19,7 @@
 }
 
 // Top level definitions and declarations
-spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom)*
+spiceFile ::= (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | unionDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom)*
 docCom ::= DOC_COMMENT
 lineCom ::= LINE_COMMENT
 blockCom ::= BLOCK_COMMENT
@@ -29,6 +29,7 @@ procedureDef ::= topLevelDefAttr? specifierLst? P functionName (LESS typeLst GRE
 functionName ::= (TYPE_IDENTIFIER DOT)? IDENTIFIER | OPERATOR overloadableOp
 structDef ::= topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? STRUCT (COLON typeLst)? LBRACE field* RBRACE
 interfaceDef ::= topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? INTERFACE LBRACE signature* RBRACE
+unionDef ::= topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? UNION LBRACE field* RBRACE
 enumDef ::= specifierLst? TYPE TYPE_IDENTIFIER ENUM LBRACE enumItemLst RBRACE
 genericTypeDef ::= TYPE TYPE_IDENTIFIER typeAltsLst SEMICOLON
 aliasDef ::= specifierLst? TYPE TYPE_IDENTIFIER ALIAS dataType SEMICOLON

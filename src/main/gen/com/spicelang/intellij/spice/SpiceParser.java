@@ -2599,7 +2599,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom)*
+  // (mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | unionDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom)*
   static boolean spiceFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile")) return false;
     while (true) {
@@ -2610,7 +2610,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom
+  // mainFunctionDef | functionDef | procedureDef | structDef | interfaceDef | unionDef | enumDef | genericTypeDef | aliasDef | globalVarDef | importDef | extDecl | modAttr | docCom | lineCom | blockCom
   private static boolean spiceFile_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "spiceFile_0")) return false;
     boolean r;
@@ -2619,6 +2619,7 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     if (!r) r = procedureDef(b, l + 1);
     if (!r) r = structDef(b, l + 1);
     if (!r) r = interfaceDef(b, l + 1);
+    if (!r) r = unionDef(b, l + 1);
     if (!r) r = enumDef(b, l + 1);
     if (!r) r = genericTypeDef(b, l + 1);
     if (!r) r = aliasDef(b, l + 1);
@@ -3112,6 +3113,67 @@ public class SpiceParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 0, COMMA, ELLIPSIS);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // topLevelDefAttr? specifierLst? TYPE TYPE_IDENTIFIER (LESS typeLst GREATER)? UNION LBRACE field* RBRACE
+  public static boolean unionDef(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, UNION_DEF, "<union def>");
+    r = unionDef_0(b, l + 1);
+    r = r && unionDef_1(b, l + 1);
+    r = r && consumeTokens(b, 0, TYPE, TYPE_IDENTIFIER);
+    r = r && unionDef_4(b, l + 1);
+    r = r && consumeTokens(b, 0, UNION, LBRACE);
+    r = r && unionDef_7(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // topLevelDefAttr?
+  private static boolean unionDef_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef_0")) return false;
+    topLevelDefAttr(b, l + 1);
+    return true;
+  }
+
+  // specifierLst?
+  private static boolean unionDef_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef_1")) return false;
+    specifierLst(b, l + 1);
+    return true;
+  }
+
+  // (LESS typeLst GREATER)?
+  private static boolean unionDef_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef_4")) return false;
+    unionDef_4_0(b, l + 1);
+    return true;
+  }
+
+  // LESS typeLst GREATER
+  private static boolean unionDef_4_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef_4_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
+    r = r && typeLst(b, l + 1);
+    r = r && consumeToken(b, GREATER);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // field*
+  private static boolean unionDef_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unionDef_7")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!field(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "unionDef_7", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

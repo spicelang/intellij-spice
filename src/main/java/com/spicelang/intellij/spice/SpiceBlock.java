@@ -75,6 +75,7 @@ public class SpiceBlock extends AbstractBlock {
         return type == SpiceTypes.STMT_LST
                 || type == SpiceTypes.STRUCT_DEF
                 || type == SpiceTypes.INTERFACE_DEF
+                || type == SpiceTypes.UNION_DEF
                 || type == SpiceTypes.ENUM_DEF;
     }
 }
