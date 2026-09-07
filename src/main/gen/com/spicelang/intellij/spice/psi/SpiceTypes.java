@@ -98,6 +98,7 @@ public interface SpiceTypes {
   IElementType TYPE_ID_CALL = new SpiceElementType("TYPE_ID_CALL");
   IElementType TYPE_LST = new SpiceElementType("TYPE_LST");
   IElementType TYPE_LST_WITH_ELLIPSIS = new SpiceElementType("TYPE_LST_WITH_ELLIPSIS");
+  IElementType UNION_DEF = new SpiceElementType("UNION_DEF");
   IElementType UNSAFE_BLOCK = new SpiceElementType("UNSAFE_BLOCK");
   IElementType VALUE = new SpiceElementType("VALUE");
   IElementType WHILE_LOOP = new SpiceElementType("WHILE_LOOP");
@@ -210,6 +211,7 @@ public interface SpiceTypes {
   IElementType TYPE_LONG = new SpiceTokenType("TYPE_LONG");
   IElementType TYPE_SHORT = new SpiceTokenType("TYPE_SHORT");
   IElementType TYPE_STRING = new SpiceTokenType("TYPE_STRING");
+  IElementType UNION = new SpiceTokenType("UNION");
   IElementType UNSAFE = new SpiceTokenType("UNSAFE");
   IElementType UNSIGNED = new SpiceTokenType("UNSIGNED");
   IElementType WHILE = new SpiceTokenType("WHILE");
@@ -487,6 +489,9 @@ public interface SpiceTypes {
       }
       else if (type == TYPE_LST_WITH_ELLIPSIS) {
         return new SpiceTypeLstWithEllipsisImpl(node);
+      }
+      else if (type == UNION_DEF) {
+        return new SpiceUnionDefImpl(node);
       }
       else if (type == UNSAFE_BLOCK) {
         return new SpiceUnsafeBlockImpl(node);

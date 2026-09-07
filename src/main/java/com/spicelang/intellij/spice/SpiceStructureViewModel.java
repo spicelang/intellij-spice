@@ -14,6 +14,7 @@ import com.spicelang.intellij.spice.psi.SpiceEnumDef;
 import com.spicelang.intellij.spice.psi.SpiceFile;
 import com.spicelang.intellij.spice.psi.SpiceInterfaceDef;
 import com.spicelang.intellij.spice.psi.SpiceStructDef;
+import com.spicelang.intellij.spice.psi.SpiceUnionDef;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,6 +42,7 @@ public class SpiceStructureViewModel extends StructureViewModelBase implements S
     return !(value instanceof SpiceFile
         || value instanceof SpiceStructDef
         || value instanceof SpiceInterfaceDef
+        || value instanceof SpiceUnionDef
         || value instanceof SpiceEnumDef);
   }
 }

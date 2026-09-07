@@ -74,6 +74,8 @@ public class SpiceStructureViewElement implements StructureViewTreeElement, Sort
       children.addAll(((SpiceStructDef) element).getFieldList());
     } else if (element instanceof SpiceInterfaceDef) {
       children.addAll(((SpiceInterfaceDef) element).getSignatureList());
+    } else if (element instanceof SpiceUnionDef) {
+      children.addAll(((SpiceUnionDef) element).getFieldList());
     } else if (element instanceof SpiceEnumDef) {
       children.addAll(((SpiceEnumDef) element).getEnumItemLst().getEnumItemList());
     }
@@ -93,6 +95,7 @@ public class SpiceStructureViewElement implements StructureViewTreeElement, Sort
         || element instanceof SpiceProcedureDef
         || element instanceof SpiceStructDef
         || element instanceof SpiceInterfaceDef
+        || element instanceof SpiceUnionDef
         || element instanceof SpiceEnumDef
         || element instanceof SpiceGenericTypeDef
         || element instanceof SpiceAliasDef
@@ -125,6 +128,7 @@ public class SpiceStructureViewElement implements StructureViewTreeElement, Sort
     if (element instanceof SpiceSignature) return AllIcons.Nodes.AbstractMethod;
     if (element instanceof SpiceStructDef) return AllIcons.Nodes.Class;
     if (element instanceof SpiceInterfaceDef) return AllIcons.Nodes.Interface;
+    if (element instanceof SpiceUnionDef) return AllIcons.Nodes.Type;
     if (element instanceof SpiceEnumDef) return AllIcons.Nodes.Enum;
     if (element instanceof SpiceEnumItem) return AllIcons.Nodes.Constant;
     if (element instanceof SpiceField) return AllIcons.Nodes.Field;

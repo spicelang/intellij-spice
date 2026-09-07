@@ -76,6 +76,7 @@ return                                            { return SpiceTypes.RETURN; }
 as                                                { return SpiceTypes.AS; }
 struct                                            { return SpiceTypes.STRUCT; }
 interface                                         { return SpiceTypes.INTERFACE; }
+union                                             { return SpiceTypes.UNION; }
 type                                              { return SpiceTypes.TYPE; }
 enum                                              { return SpiceTypes.ENUM; }
 operator                                          { return SpiceTypes.OPERATOR; }
