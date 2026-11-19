@@ -61,6 +61,10 @@ repositories {
 intellijPlatform {
     val platformType = properties("platformType")
 
+    // Skip the searchable options index. Switching it off here, instead of on the task, also skips the tasks, that pack the
+    // index into the jar. They would fail on the missing index, as soon as plugin.xml declares a settings page.
+    buildSearchableOptions = false
+
     pluginConfiguration {
         val platformVersion = when (platformType) {
             "IU", "IC" -> properties("ideaVersion")
@@ -110,10 +114,6 @@ tasks {
                 getOrNull(properties("pluginVersion")) ?: getLatest()
             }, Changelog.OutputType.HTML)
         })
-    }
-
-    buildSearchableOptions {
-        enabled = false
     }
 }
 

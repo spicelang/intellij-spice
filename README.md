@@ -19,6 +19,12 @@ This IntelliJ Spice extension provides language support for the [Spice programmi
 - Syntax highlighting with customization
 - Syntax error detection
 - Basic semantic error detection
+- Code formatting with the formatter of the Spice compiler (`spice format`)
+
+## Formatting
+"Code | Reformat Code" formats Spice files with `spice format`, the formatter of the Spice compiler. It needs a Spice compiler, that
+provides the `format` subcommand. By default, the plugin runs `spice` from the `PATH`. You can configure another compiler or turn
+off `spice format` under "Settings | Languages & Frameworks | Spice". Without it, the plugin only adjusts the indentation.
 
 ## Contribute to the project
 If you want to contribute to this project, please ensure you comply with the [contribution guidelines](https://github.com/spicelang/intellij-spice/blob/main/CONTRIBUTING.md).
