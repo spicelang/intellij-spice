@@ -58,20 +58,32 @@ public class SpiceFormattingService extends AsyncDocumentFormattingService {
             commandLine.setWorkDirectory(virtualFile.getParent().getPath());
         }
 
-        OSProcessHandler handler;
-        try {
-            handler = new OSProcessHandler(commandLine);
-        } catch (ExecutionException e) {
-            request.onError(TITLE, "Could not run the Spice compiler '" + compiler + "': " + e.getMessage()
-                    + ". Install Spice or configure the compiler under Settings | Languages & Frameworks | Spice.");
-            return null;
-        }
         String sourceCode = request.getDocumentText();
 
         return new FormattingTask() {
+            // Set by run() on a background thread, read by cancel() on another thread
+            private volatile OSProcessHandler handler;
+            private volatile boolean cancelled;
+
             @Override
             public void run() {
-                handler.addProcessListener(new CapturingProcessAdapter() {
+                // Start the compiler here and not in createFormattingTask(), which runs on the UI thread
+                OSProcessHandler processHandler;
+                try {
+                    processHandler = new OSProcessHandler(commandLine);
+                } catch (ExecutionException e) {
+                    request.onError(TITLE, "Could not run the Spice compiler '" + compiler + "': " + e.getMessage()
+                            + ". Install Spice or configure the compiler under Settings | Languages & Frameworks | Spice.");
+                    return;
+                }
+                handler = processHandler;
+                // cancel() destroys the process, if it sees the handler. Otherwise, the cancellation is seen here
+                if (cancelled) {
+                    processHandler.destroyProcess();
+                    return;
+                }
+
+                processHandler.addProcessListener(new CapturingProcessAdapter() {
                     @Override
                     public void processTerminated(@NotNull ProcessEvent event) {
                         if (event.getExitCode() == 0) {
@@ -85,12 +97,12 @@ public class SpiceFormattingService extends AsyncDocumentFormattingService {
                         }
                     }
                 });
-                handler.startNotify();
+                processHandler.startNotify();
 
                 // Pass the source code via stdin and close it, so that the formatter starts
-                OutputStream stdin = handler.getProcessInput();
+                OutputStream stdin = processHandler.getProcessInput();
                 if (stdin == null) {
-                    handler.destroyProcess();
+                    processHandler.destroyProcess();
                     return;
                 }
                 try (stdin) {
@@ -102,7 +114,11 @@ public class SpiceFormattingService extends AsyncDocumentFormattingService {
 
             @Override
             public boolean cancel() {
-                handler.destroyProcess();
+                cancelled = true;
+                OSProcessHandler processHandler = handler;
+                if (processHandler != null) {
+                    processHandler.destroyProcess();
+                }
                 return true;
             }
 
