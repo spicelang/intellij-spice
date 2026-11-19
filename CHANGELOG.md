@@ -1,6 +1,8 @@
 # IntelliJ Spice Changelog
 
 ## [Unreleased]
+- Reformat Spice files with the formatter of the Spice compiler (`spice format`)
+- Add the settings page "Settings | Languages & Frameworks | Spice" to configure the Spice compiler and the formatter
 
 ## [1.0.13]
 - Add run configuration to compile and run a Spice program via the `spice` CLI

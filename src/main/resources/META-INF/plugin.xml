@@ -65,6 +65,16 @@
         <lang.formatter
                 language="Spice"
                 implementationClass="com.spicelang.intellij.spice.SpiceFormattingModelBuilder"/>
+        <formattingService
+                implementation="com.spicelang.intellij.spice.formatter.SpiceFormattingService"/>
+        <notificationGroup
+                id="Spice Formatter"
+                displayType="BALLOON"/>
+        <applicationConfigurable
+                parentId="language"
+                instance="com.spicelang.intellij.spice.settings.SpiceSettingsConfigurable"
+                id="com.spicelang.intellij.spice.settings"
+                displayName="Spice"/>
         <enterHandlerDelegate
                 implementation="com.spicelang.intellij.spice.SpiceEnterHandler"/>
         <gotoSymbolContributor
